@@ -1,0 +1,253 @@
+G_M37683_IG01:
+        A9BA7BFD          stp     fp, lr, [sp,#-96]!
+        6D01A7E8          stp     d8, d9, [sp,#24]
+        A902D3F3          stp     x19, x20, [sp,#40]
+        A903DBF5          stp     x21, x22, [sp,#56]
+        A904E3F7          stp     x23, x24, [sp,#72]
+        F9002FF9          str     x25, [sp,#88]
+        910003FD          mov     fp, sp
+        AA0003F3          mov     x19, x0
+        2A0103F4          mov     w20, w1
+        2A0203F5          mov     w21, w2
+						;; bbWeight=1    PerfScore 8.00
+G_M37683_IG02:
+        D2860C00          movz    x0, #0x3060
+        F2A20000          movk    x0, #0x1000 LSL #16
+        F2C035A0          movk    x0, #429 LSL #32
+        F9400016          ldr     x22, [x0]
+        AA1603F7          mov     x23, x22
+        710002BF          cmp     w21, #0
+        5400020A          bge     G_M37683_IG04
+						;; bbWeight=1    PerfScore 6.50
+G_M37683_IG03:
+        D288BE00          movz    x0, #0x45f0
+        F2B09FE0          movk    x0, #0x84ff LSL #16
+        F2CFFFA0          movk    x0, #0x7ffd LSL #32
+        5280E541          mov     w1, #0x72a
+        97FF945D          bl      CORINFO_HELP_GETSHARED_NONGCSTATIC_BASE
+        D284D300          movz    x0, #0x2698
+        F2A20000          movk    x0, #0x1000 LSL #16
+        F2C035A0          movk    x0, #429 LSL #32
+        C8DFFC00          ldar    x0, [x0]
+        AA1703E1          mov     x1, x23
+        AA1603E2          mov     x2, x22
+        F9400003          ldr     x3, [x0]
+        F9402463          ldr     x3, [x3,#72]
+        F9401063          ldr     x3, [x3,#32]
+        D63F0060          blr     x3
+						;; bbWeight=0.25 PerfScore 4.63
+G_M37683_IG04:
+        D2800016          mov     x22, #0
+        93407EB7          sxtw    x23, x21
+        AA1703F8          mov     x24, x23
+        AA1303E0          mov     x0, x19
+        370003A0          tbnz    w0, #0, G_M37683_IG07
+						;; bbWeight=1    PerfScore 3.00
+G_M37683_IG05:
+        710042BF          cmp     w21, #16
+        5400036B          blt     G_M37683_IG07
+        AA1303E0          mov     x0, x19
+        4B0003E0          neg     w0, w0
+        531F7C01          lsr     w1, w0, #31
+        0B000020          add     w0, w1, w0
+        13017C00          asr     w0, w0, #1
+        2A0003E0          mov     w0, w0
+        92400818          and     x24, x0, #7
+        F100131F          cmp     x24, #4
+        5400028B          blt     G_M37683_IG08
+						;; bbWeight=0.50 PerfScore 3.75
+G_M37683_IG06:
+        D37FFAC0          lsl     x0, x22, #1
+        8B130000          add     x0, x0, x19
+        53003E95          uxth    w21, w20
+        79400001          ldrh    w1, [x0]
+        6B0102BF          cmp     w21, w1
+        54001060          beq     G_M37683_IG26
+        79400401          ldrh    w1, [x0,#2]
+        6B0102BF          cmp     w21, w1
+        54000FC0          beq     G_M37683_IG25
+        79400801          ldrh    w1, [x0,#4]
+        6B0102BF          cmp     w21, w1
+        54000F20          beq     G_M37683_IG24
+        79400C00          ldrh    w0, [x0,#6]
+        6B0002BF          cmp     w21, w0
+        54000E80          beq     G_M37683_IG23
+        910012D6          add     x22, x22, #4
+        D1001318          sub     x24, x24, #4
+						;; bbWeight=2    PerfScore 42.00
+G_M37683_IG07:
+        F100131F          cmp     x24, #4
+        54FFFDCA          bge     G_M37683_IG06
+						;; bbWeight=16    PerfScore 24.00
+G_M37683_IG08:
+        F100031F          cmp     x24, #0
+        5400014D          ble     G_M37683_IG10
+        53003E95          uxth    w21, w20
+						;; bbWeight=4    PerfScore 8.00
+G_M37683_IG09:
+        D37FFAC0          lsl     x0, x22, #1
+        78606A60          ldrh    w0, [x19, x0]
+        6B15001F          cmp     w0, w21
+        54000DE0          beq     G_M37683_IG26
+        910006D6          add     x22, x22, #1
+        D1000718          sub     x24, x24, #1
+        F100031F          cmp     x24, #0
+        54FFFF2C          bgt     G_M37683_IG09
+						;; bbWeight=16    PerfScore 128.00
+G_M37683_IG10:
+        EB1702DF          cmp     x22, x23
+        54000B6A          bge     G_M37683_IG21
+        D2860C00          movz    x0, #0x3060
+        F2A20000          movk    x0, #0x1000 LSL #16
+        F2C035A0          movk    x0, #429 LSL #32
+        F9400018          ldr     x24, [x0]
+        AA1803F5          mov     x21, x24
+        CB1602F9          sub     x25, x23, x22
+        F100233F          cmp     x25, #8
+        5400020A          bge     G_M37683_IG12
+						;; bbWeight=4    PerfScore 34.00
+G_M37683_IG11:
+        D288BE00          movz    x0, #0x45f0
+        F2B09FE0          movk    x0, #0x84ff LSL #16
+        F2CFFFA0          movk    x0, #0x7ffd LSL #32
+        5280E541          mov     w1, #0x72a
+        97FF9416          bl      CORINFO_HELP_GETSHARED_NONGCSTATIC_BASE
+        D284D300          movz    x0, #0x2698
+        F2A20000          movk    x0, #0x1000 LSL #16
+        F2C035A0          movk    x0, #429 LSL #32
+        C8DFFC00          ldar    x0, [x0]
+        AA1503E1          mov     x1, x21
+        AA1803E2          mov     x2, x24
+        F9400003          ldr     x3, [x0]
+        F9402463          ldr     x3, [x3,#72]
+        F9401063          ldr     x3, [x3,#32]
+        D63F0060          blr     x3
+						;; bbWeight=1    PerfScore 18.50
+G_M37683_IG12:
+        927DF338          and     x24, x25, #-8
+        F100031F          cmp     x24, #0
+        5400056D          ble     G_M37683_IG17
+						;; bbWeight=4    PerfScore 8.00
+G_M37683_IG13:
+        53003E95          uxth    w21, w20
+        320083E0          mov     w0, #0x10001
+        1B007EA0          mul     w0, w21, w0
+        4E040C10          dup     v16.4s, w0
+        4EB01E08          mov     v8.16b, v16.16b
+						;; bbWeight=2    PerfScore 8.00
+G_M37683_IG14:
+        D2860C00          movz    x0, #0x3060
+        F2A20000          movk    x0, #0x1000 LSL #16
+        F2C035A0          movk    x0, #429 LSL #32
+        F9400015          ldr     x21, [x0]
+        AA1503F9          mov     x25, x21
+        F100231F          cmp     x24, #8
+        5400024A          bge     G_M37683_IG16
+						;; bbWeight=16    PerfScore 104.00
+G_M37683_IG15:
+        D288BE00          movz    x0, #0x45f0
+        F2B09FE0          movk    x0, #0x84ff LSL #16
+        F2CFFFA0          movk    x0, #0x7ffd LSL #32
+        5280E541          mov     w1, #0x72a
+        6E084509          mov     v9.d[0], v8.d[1]
+        97FF93F7          bl      CORINFO_HELP_GETSHARED_NONGCSTATIC_BASE
+        D284D300          movz    x0, #0x2698
+        F2A20000          movk    x0, #0x1000 LSL #16
+        F2C035A0          movk    x0, #429 LSL #32
+        C8DFFC00          ldar    x0, [x0]
+        AA1903E1          mov     x1, x25
+        AA1503E2          mov     x2, x21
+        F9400003          ldr     x3, [x0]
+        F9402463          ldr     x3, [x3,#72]
+        F9401063          ldr     x3, [x3,#32]
+        D63F0060          blr     x3
+        6E180528          mov     v8.d[1], v9.d[0]
+						;; bbWeight=4    PerfScore 82.00
+G_M37683_IG16:
+        D37FFAC0          lsl     x0, x22, #1
+        3CE06A70          ldr     q16, [x19, x0]
+        6E708D10          cmeq    v16.8h, v8.8h, v16.8h
+        4E040FF1          dup     v17.4s, wzr
+        6E708E32          cmeq    v18.8h, v17.8h, v16.8h
+        6E31AA52          uminv   b18, v18.16b
+        0E013E40          mov     w0, v18.b[0]
+        12000000          and     w0, w0, #1
+        34000120          cbz     w0, G_M37683_IG18
+        910022D6          add     x22, x22, #8
+        D1002318          sub     x24, x24, #8
+        F100031F          cmp     x24, #0
+        54FFFB8C          bgt     G_M37683_IG14
+						;; bbWeight=16    PerfScore 256.00
+G_M37683_IG17:
+        EB1702DF          cmp     x22, x23
+        540002AA          bge     G_M37683_IG21
+        CB1602F8          sub     x24, x23, x22
+        17FFFFAA          b       G_M37683_IG07
+						;; bbWeight=4    PerfScore 12.00
+G_M37683_IG18:
+        52800000          mov     w0, #0
+        4E083E01          umov    x1, v16.d[0]
+        B50000A1          cbnz    x1, G_M37683_IG20
+						;; bbWeight=2    PerfScore 5.00
+G_M37683_IG19:
+        52800020          mov     w0, #1
+        4E183E01          umov    x1, v16.d[1]
+        B5000041          cbnz    x1, G_M37683_IG20
+        52800040          mov     w0, #2
+						;; bbWeight=0.25 PerfScore 0.75
+G_M37683_IG20:
+        D1000422          sub     x2, x1, #1
+        CA020021          eor     x1, x1, x2
+        D2800082          movz    x2, #4
+        F2A00042          movk    x2, #2 LSL #16
+        F2C00022          movk    x2, #1 LSL #32
+        9B027C21          mul     x1, x1, x2
+        D371FC21          lsr     x1, x1, #49
+        531E7400          lsl     w0, w0, #2
+        0B010000          add     w0, w0, w1
+        0B160016          add     w22, w0, w22
+        1400000F          b       G_M37683_IG26
+						;; bbWeight=0.50 PerfScore 3.50
+G_M37683_IG21:
+        12800000          movn    w0, #0
+						;; bbWeight=0.50 PerfScore 0.25
+G_M37683_IG22:
+        F9402FF9          ldr     x25, [sp,#88]
+        A944E3F7          ldp     x23, x24, [sp,#72]
+        A943DBF5          ldp     x21, x22, [sp,#56]
+        A942D3F3          ldp     x19, x20, [sp,#40]
+        6D41A7E8          ldp     d8, d9, [sp,#24]
+        A8C67BFD          ldp     fp, lr, [sp],#96
+        D65F03C0          ret     lr
+						;; bbWeight=0.50 PerfScore 4.00
+G_M37683_IG23:
+        11000ED6          add     w22, w22, #3
+        14000005          b       G_M37683_IG26
+						;; bbWeight=0.50 PerfScore 0.75
+G_M37683_IG24:
+        11000AD6          add     w22, w22, #2
+        14000003          b       G_M37683_IG26
+						;; bbWeight=0.50 PerfScore 0.75
+G_M37683_IG25:
+        110006D6          add     w22, w22, #1
+        14000001          b       G_M37683_IG26
+						;; bbWeight=0.50 PerfScore 0.75
+G_M37683_IG26:
+        2A1603E0          mov     w0, w22
+						;; bbWeight=0.50 PerfScore 0.25
+G_M37683_IG27:
+        F9402FF9          ldr     x25, [sp,#88]
+        A944E3F7          ldp     x23, x24, [sp,#72]
+        A943DBF5          ldp     x21, x22, [sp,#56]
+        A942D3F3          ldp     x19, x20, [sp,#40]
+        6D41A7E8          ldp     d8, d9, [sp,#24]
+        A8C67BFD          ldp     fp, lr, [sp],#96
+        D65F03C0          ret     lr
+						;; bbWeight=0.50 PerfScore 4.00
+G_M37683_IG28:
+        97FF93B6          bl      CORINFO_HELP_OVERFLOW
+						;; bbWeight=0    PerfScore 0.00
+G_M37683_IG29:
+        97FF93B9          bl      CORINFO_HELP_THROWDIVZERO
+        D43E0000          bkpt    
+						;; bbWeight=0    PerfScore 0.00
