@@ -155,7 +155,8 @@ namespace Graphviz {
                 else  {return "9";}
             }
 
-            if (val <= 1) {return "1";}
+            if (val <= 1 || score < 0.2) {return "1";}
+            // else if (val == 1) {return "1";}
             else {
                 if (score >= 0.2 && score < 0.4) {return "2";}
                 else if (score >= 0.4 && score < 0.6) {return "3";}
@@ -169,16 +170,11 @@ namespace Graphviz {
             if (explore.Contains(v)) {
                 // found a cycle
                 List<Vertex> cycle = new List<Vertex>();
-                // Console.WriteLine("\nCycle Detected");
-                // Console.WriteLine(v.getLabel());
                 cycle.Add(v);
                 while (!explore.Peek().Equals(v)) {
                     Vertex v_c = explore.Pop();
-                    // Console.Write(" {0}", v_c.getLabel());
                     cycle.Add(v_c);
                 }
-                
-                // Console.WriteLine("\n{0}\n",explore.Peek().getLabel());
                 
                 for (int i=cycle.Count -1; i > 0; i--) {
                     explore.Push(cycle[i]);
@@ -206,7 +202,6 @@ namespace Graphviz {
 
             visited.Push(v);
             return false;
-
         }
 
         private HashSet<List<Vertex>> detectCycle() {
@@ -223,27 +218,53 @@ namespace Graphviz {
             return cycles;
         }
 
-        public void print (String file_name) {
+        public void print (String file_name, Boolean show_stats) {
             using(StreamWriter writetext = new StreamWriter(file_name)) {
 
                 writetext.WriteLine("digraph FlowGraph {");
-                writetext.WriteLine("\tnode [shape = \"Box\" fontname=\"Courier New\" rankdir = LR esep=1 colorscheme=ylorrd9];");
+                writetext.WriteLine("\tnode [shape = \"Box\" fontname=\"Courier New\" rankdir = LR esep=1 colorscheme=purples9];");
                 writetext.WriteLine("\tlabel= \"{0}\n{1}\nOptimized Code: {2}\n Total Bytes of Code {3}\n\"", method_name, system, optimized, total_bytes);
                 foreach (var pair in adjVertices) {
                     Vertex v = pair.Key;
 
-                    writetext.WriteLine("\t{0} [label =<", v.getLabel());
-                    writetext.WriteLine("\t\t<table border=\"0\" cellborder=\"0\" cellspacing=\"1\">");
-                    writetext.WriteLine("\t\t<tr><td ROWSPAN=\"{0}\" bgcolor=\"{1}\" > </td></tr>", v.getContentCode().Count + 2, choose_color(v.getScore(), maxScore, true));
-                    writetext.WriteLine("\t\t<tr><td align=\"center\" ><b><font POINT-SIZE=\"17\">{0}</font></b></td></tr>", v.getLabel());
+                    int count = v.getContentCode().Count + 30;
+                    if(show_stats) {count = v.getContentCode().Count + 34;}
 
-                    foreach(var code in v.getContentCode()) {
-                        if (code.Contains(" IG")) {
-                            writetext.WriteLine("\t\t<tr><td align=\"left\" color=\"blue\"><b>{0}</b></td></tr>", code);
+                    writetext.WriteLine("\t{0} [label =<", v.getLabel());
+                    writetext.WriteLine("\t\t<table border=\"0\" cellborder=\"0\" cellspacing=\"1\" style=\"rounded\">");
+                    writetext.WriteLine("\t\t<tr><td ROWSPAN=\"{0}\" bgcolor=\"/ylorrd9/{1}\" > </td></tr>", count, choose_color(v.getScore(), maxScore, true));
+                    writetext.WriteLine("\t\t<tr><td align=\"center\" ><b><font POINT-SIZE=\"17\">{0}</font></b></td></tr>", v.getLabel());
+                    if (show_stats) {
+                        writetext.WriteLine("\t\t<tr><td align=\"center\"><font color=\"/blue/\" > Weight: {0} Perfscore: {1}</font></td></tr>", v.getWeight(), v.getScore());
+                        writetext.WriteLine("\t\t<tr><td align=\"center\" >  </td></tr>");
+                    }
+
+                    foreach(String code in v.getContentCode()) {
+                        List<String> code_arr = new List<string>();
+
+                        if (code.Length > 50) {
+                            int n = 50;
+                            for (int i =0; i < code.Length; i=i+50) {
+                                if (code.Length - i <= 50) { n = code.Length - i;}
+                                code_arr.Add(code.Substring(i,n ));
+                            }
                         } else {
-                            writetext.WriteLine("\t\t<tr><td align=\"left\">{0}</td></tr>", code);
+                            code_arr.Add(code);
+                        }
+
+                        if (code.Contains(" IG") && !code.Contains("]")) {
+                            writetext.WriteLine("\t\t<tr><td align=\"left\" color=\"blue\"><b>{0}</b></td></tr>", code_arr[0]);
+                            for (int i=1; i < code_arr.Count; i++) {
+                                writetext.WriteLine("\t\t<tr><td align=\"left\" color=\"blue\"><b>        {0}</b></td></tr>", code_arr[i]);
+                            }
+                        } else {
+                            writetext.WriteLine("\t\t<tr><td align=\"left\">{0}</td></tr>", code_arr[0]);
+                            for (int i=1; i < code_arr.Count; i++) {
+                                writetext.WriteLine("\t\t<tr><td align=\"left\">          {0}</td></tr>", code_arr[i]);
+                            }
                         }
                     }
+
                     writetext.WriteLine("\t\t</table>> style=\"solid\" style=filled, fillcolor={0}];", choose_color(v.getWeight(), maxWeight, false));
                 }
 
@@ -302,7 +323,16 @@ namespace Graphviz {
 
             // String name = "dot -Tps filename.dot -o " + hashcode +".png";
             // // Process pros = new Process();
-            // Process.Start(name);    
+            // Process.Start(name); 
+
+            // ProcessStartInfo ProcessInfo;
+            // Process Process;
+
+            // ProcessInfo = new ProcessStartInfo("cmd.exe", "/K " + Command);
+            // ProcessInfo.CreateNoWindow = true;
+            // ProcessInfo.UseShellExecute = true;
+
+            // Process = Process.Start(ProcessInfo);   
         }
     }
 }

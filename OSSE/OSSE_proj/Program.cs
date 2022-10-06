@@ -128,7 +128,9 @@ class Program {
             } 
 
             // unconditional jump or ret so dont connect
-            if (first_word.CompareTo("ret") == 0 || first_word.CompareTo("b") == 0 ||  first_word.CompareTo("jmp") == 0) {
+            if (first_word.CompareTo("ret") == 0 || first_word.CompareTo("b") == 0 
+                || first_word.CompareTo("jmp") == 0 || (line.Contains("HELP_THROW")) 
+                || line.Contains("Throw") || line.Contains("HELP_OVERFLOW")) {
                 connectToNextNode = false;
             }
 
@@ -146,14 +148,14 @@ class Program {
         return graph_list;
     }
 
-    static public void printGraphs(List<Graph> graph_list, String output_folder_path) {
+    static public void printGraphs(List<Graph> graph_list, String output_folder_path, Boolean stats) {
         foreach (Graph g in graph_list) {
-            g.print(output_folder_path + "\\" + "\\" + g.getHashcode() + ".dot");
+            g.print(output_folder_path + "\\" + "\\" + g.getHashcode() + ".dot", stats);
         }
     }
 
     static public void Main(String[] args) {
-        if (args.Length != 3) {
+        if (args.Length != 4) {
             throw new ArgumentException ("ERROR: Missing arguments");
         }
 
@@ -180,7 +182,17 @@ class Program {
             }
         }
 
+        // check hash code parameter is boolean
+        Boolean stats = false;
+        if (args.Length > 1) {
+            try {
+                stats = Convert.ToBoolean(args[3]);
+            } catch (FormatException) {
+                Console.WriteLine ("ERROR: Incorrect format for boolean");
+            }
+        }
+
         String[] lines = File.ReadAllLines(args[0]); 
-        printGraphs(createGraphs(lines, keep_hash_code), output_folder_path);
+        printGraphs(createGraphs(lines, keep_hash_code), output_folder_path, stats);
     }
 }
