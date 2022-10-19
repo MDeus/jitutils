@@ -1,5 +1,6 @@
+using System;
 using System.Diagnostics;
-using System.ComponentModel;
+// using System.ComponentModel;
 
 namespace Graphviz {
 
@@ -59,7 +60,6 @@ namespace Graphviz {
         private String system = "";
         private Boolean optimized = false;
         private String method_name = "";
-
 
         public Graph () {
             this.adjVertices = new Dictionary<Vertex, List<Vertex>>();
@@ -158,7 +158,7 @@ namespace Graphviz {
             if (val <= 1 || score < 0.2) {return "1";}
             // else if (val == 1) {return "1";}
             else {
-                if (score >= 0.2 && score < 0.4) {return "2";}
+                if (val <= 1.5 || (score >= 0.2 && score < 0.4)) {return "2";}
                 else if (score >= 0.4 && score < 0.6) {return "3";}
                 else if (score >= 0.6 && score < 0.8) {return "4";}
                 else  {return "5";}
@@ -201,7 +201,7 @@ namespace Graphviz {
             }
 
             visited.Push(v);
-            return false;
+            return false; // no cycle found
         }
 
         private HashSet<List<Vertex>> detectCycle() {
@@ -218,44 +218,43 @@ namespace Graphviz {
             return cycles;
         }
 
-        public void print (String file_name, Boolean show_stats) {
-            using(StreamWriter writetext = new StreamWriter(file_name)) {
+        public void print (String folder_path, Boolean show_stats, Process process) {
+            // creating graphviz file
+            String file_path = folder_path + "\\" + getHashcode();
+            using(StreamWriter writetext = new StreamWriter(file_path + ".dot")) {
 
                 writetext.WriteLine("digraph FlowGraph {");
-                writetext.WriteLine("\tnode [shape = \"Box\" fontname=\"Courier New\" rankdir = LR esep=1 colorscheme=purples9];");
+                writetext.WriteLine("\tnode [shape = \"Box\" fontname=\"Courier New\" rankdir = LR esep=1 colorscheme=ylorrd9];");
                 writetext.WriteLine("\tlabel= \"{0}\n{1}\nOptimized Code: {2}\n Total Bytes of Code {3}\n\"", method_name, system, optimized, total_bytes);
                 foreach (var pair in adjVertices) {
                     Vertex v = pair.Key;
 
-                    int count = v.getContentCode().Count + 30;
-                    if(show_stats) {count = v.getContentCode().Count + 34;}
-
                     writetext.WriteLine("\t{0} [label =<", v.getLabel());
-                    writetext.WriteLine("\t\t<table border=\"0\" cellborder=\"0\" cellspacing=\"1\" style=\"rounded\">");
-                    writetext.WriteLine("\t\t<tr><td ROWSPAN=\"{0}\" bgcolor=\"/ylorrd9/{1}\" > </td></tr>", count, choose_color(v.getScore(), maxScore, true));
+                    writetext.WriteLine("\t\t<table border=\"0\" cellspacing=\"10\" bgcolor=\"/purples9/{0}\">", choose_color(v.getWeight(), maxWeight, false));
                     writetext.WriteLine("\t\t<tr><td align=\"center\" ><b><font POINT-SIZE=\"17\">{0}</font></b></td></tr>", v.getLabel());
                     if (show_stats) {
-                        writetext.WriteLine("\t\t<tr><td align=\"center\"><font color=\"/blue/\" > Weight: {0} Perfscore: {1}</font></td></tr>", v.getWeight(), v.getScore());
+                        writetext.WriteLine("\t\t<tr><td align=\"center\"><font  > Weight: {0} Perfscore: {1}</font></td></tr>", v.getWeight(), v.getScore());
                         writetext.WriteLine("\t\t<tr><td align=\"center\" >  </td></tr>");
                     }
 
+                    // get assembly code in group
                     foreach(String code in v.getContentCode()) {
                         List<String> code_arr = new List<string>();
-
+                        // text wrapping
                         if (code.Length > 50) {
                             int n = 50;
                             for (int i =0; i < code.Length; i=i+50) {
                                 if (code.Length - i <= 50) { n = code.Length - i;}
-                                code_arr.Add(code.Substring(i,n ));
+                                code_arr.Add(code.Substring(i,n ).Replace("<", "&lt;").Replace(">", "&gt;"));
                             }
                         } else {
-                            code_arr.Add(code);
+                            code_arr.Add(code.Replace("<", "&lt;").Replace(">", "&gt;"));
                         }
 
                         if (code.Contains(" IG") && !code.Contains("]")) {
-                            writetext.WriteLine("\t\t<tr><td align=\"left\" color=\"blue\"><b>{0}</b></td></tr>", code_arr[0]);
+                            writetext.WriteLine("\t\t<tr><td align=\"left\" ><b>{0}</b></td></tr>", code_arr[0]);
                             for (int i=1; i < code_arr.Count; i++) {
-                                writetext.WriteLine("\t\t<tr><td align=\"left\" color=\"blue\"><b>        {0}</b></td></tr>", code_arr[i]);
+                                writetext.WriteLine("\t\t<tr><td align=\"left\" ><b>        {0}</b></td></tr>", code_arr[i]);
                             }
                         } else {
                             writetext.WriteLine("\t\t<tr><td align=\"left\">{0}</td></tr>", code_arr[0]);
@@ -265,11 +264,12 @@ namespace Graphviz {
                         }
                     }
 
-                    writetext.WriteLine("\t\t</table>> style=\"solid\" style=filled, fillcolor={0}];", choose_color(v.getWeight(), maxWeight, false));
+                    writetext.WriteLine("\t\t</table>> style=\"solid\" style=filled, fillcolor={0}];", choose_color(v.getScore(), maxScore, true));
                 }
 
                 writetext.WriteLine("\n");
 
+                // getting cycles
                 HashSet<List<Vertex>> cycles = detectCycle();
                 List<String> v_cycles = new List<String>();
 
@@ -285,11 +285,12 @@ namespace Graphviz {
                     }
                 }
 
-
+                // connecting edges
                 foreach (var pair in adjVertices) {
                     Vertex v = pair.Key;
 
                     foreach (var vi in pair.Value) {
+                        // remove reapeated edge
                         if (!v_cycles.Contains(v.getLabel() + " -> " + vi.getLabel())) {
                             if (vi.Equals(v)) {
                                 writetext.WriteLine("\t{0} -> {1} [color=red, dir=back];", v.getLabel(), vi.getLabel());
@@ -305,6 +306,7 @@ namespace Graphviz {
                     }
                 }
                 
+                // creating invisible connections to keep tables in order
                 List<Vertex> vertices = getVertices();
                 int t_vertices = vertices.Count;
                 
@@ -318,21 +320,11 @@ namespace Graphviz {
                 writetext.WriteLine( "}");   
 
                 Console.WriteLine("Hash: {0}",hashcode);
-
             }
 
-            // String name = "dot -Tps filename.dot -o " + hashcode +".png";
-            // // Process pros = new Process();
-            // Process.Start(name); 
+            process.StandardInput.WriteLine(@"dot -Tsvg " + "\"" + file_path + ".dot\"" + " -o \"" + file_path +".svg\"");
+            process.StandardInput.Flush();
 
-            // ProcessStartInfo ProcessInfo;
-            // Process Process;
-
-            // ProcessInfo = new ProcessStartInfo("cmd.exe", "/K " + Command);
-            // ProcessInfo.CreateNoWindow = true;
-            // ProcessInfo.UseShellExecute = true;
-
-            // Process = Process.Start(ProcessInfo);   
         }
     }
 }

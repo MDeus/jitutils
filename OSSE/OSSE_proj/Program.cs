@@ -1,5 +1,5 @@
 ﻿using Graphviz;
-using System;
+using System.Diagnostics;
 
 class Program {
 
@@ -49,7 +49,7 @@ class Program {
             if (temp_weight > temp_graph.getMaxWeight()) {temp_graph.setMaxWeight(temp_weight);}
             if (temp_score  > temp_graph.getMaxScore()) {temp_graph.setMaxScore(temp_score);}
         }
-        else if (line.Contains("; ==")) { // if end of method add graph to list
+        else if ((line.Contains("; ==") || line.Contains("Assembly listing for method")) && in_group == true) { // if end of method add graph to list
 
             temp_graph.AddVertex(new Vertex(current_node, temp_weight, temp_score, temp_cont));
             graph_list.Add(addEdges(temp_graph, edges));
@@ -149,9 +149,22 @@ class Program {
     }
 
     static public void printGraphs(List<Graph> graph_list, String output_folder_path, Boolean stats) {
+        Process process = new Process();
+        process.StartInfo.FileName = "cmd.exe";
+        process.StartInfo.RedirectStandardInput = true;
+        process.StartInfo.RedirectStandardOutput = true;
+        // process.StartInfo.CreateNoWindow = true;
+        process.StartInfo.UseShellExecute = false;
+        process.Start();
         foreach (Graph g in graph_list) {
-            g.print(output_folder_path + "\\" + "\\" + g.getHashcode() + ".dot", stats);
+            g.print(output_folder_path, stats, process);
         }
+        // Console.WriteLine("rm \""+ output_folder_path + "\\*.dot\"");
+        process.StandardInput.WriteLine(@"del "+ output_folder_path + "\\*.dot" );
+        process.StandardInput.Flush();
+
+        process.StandardInput.Close();
+        process.WaitForExit();
     }
 
     static public void Main(String[] args) {
