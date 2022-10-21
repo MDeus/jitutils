@@ -150,21 +150,20 @@ class Program {
 
     static public void printGraphs(List<Graph> graph_list, String output_folder_path, Boolean stats) {
         Process process = new Process();
+        // specify dot.exe path
         process.StartInfo.FileName = "cmd.exe";
         process.StartInfo.RedirectStandardInput = true;
         process.StartInfo.RedirectStandardOutput = true;
-        // process.StartInfo.CreateNoWindow = true;
         process.StartInfo.UseShellExecute = false;
         process.Start();
         foreach (Graph g in graph_list) {
-            g.print(output_folder_path, stats, process);
+            g.createSVG(output_folder_path, stats, process);
         }
-        // Console.WriteLine("rm \""+ output_folder_path + "\\*.dot\"");
-        process.StandardInput.WriteLine(@"del "+ output_folder_path + "\\*.dot" );
-        process.StandardInput.Flush();
 
         process.StandardInput.Close();
         process.WaitForExit();
+
+        // File.Delete(output_folder_path + "\\*.dot" );
     }
 
     static public void Main(String[] args) {

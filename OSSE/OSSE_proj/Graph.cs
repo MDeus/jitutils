@@ -218,7 +218,7 @@ namespace Graphviz {
             return cycles;
         }
 
-        public void print (String folder_path, Boolean show_stats, Process process) {
+        public void createSVG (String folder_path, Boolean show_stats, Process process) {
             // creating graphviz file
             String file_path = folder_path + "\\" + getHashcode();
             using(StreamWriter writetext = new StreamWriter(file_path + ".dot")) {
