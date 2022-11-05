@@ -1,0 +1,643 @@
+; Assembly listing for method ConcatNIterator`1:LazyToArray():ref:this
+; Emitting BLENDED_CODE for X64 CPU with AVX - Windows
+; Tier-1 compilation
+; optimized code
+; optimized using profile data
+; rsp based frame
+; partially interruptible
+; with Dynamic PGO: edge weights are valid, and fgCalledCount is 248
+; 10 inlinees with PGO data; 9 single block inlinees; 0 inlinees without PGO data
+; Final local variable assignments
+;
+;  V00 this         [V00,T01] (  9, 14.12)     ref  ->  rsi         this class-hnd single-def
+;  V01 loc0         [V01    ] (  5,  7   )  struct (72) [rsp+38H]   do-not-enreg[XS] must-init addr-exposed ld-addr-op
+;* V02 loc1         [V02    ] (  0,  0   )  struct (16) zero-ref    ld-addr-op
+;  V03 loc2         [V03,T28] (  4,  4.06)     ref  ->  r13         class-hnd single-def
+;* V04 loc3         [V04    ] (  0,  0   )  struct (16) zero-ref    ld-addr-op
+;  V05 loc4         [V05,T00] (  9, 19.11)     int  ->  r14        
+;  V06 loc5         [V06,T08] (  3, 11   )     ref  ->   r8         class-hnd
+;  V07 loc6         [V07,T07] ( 13, 11.36)     int  ->  r14        
+;* V08 loc7         [V08    ] (  0,  0   )  struct ( 8) zero-ref    ld-addr-op
+;* V09 loc8         [V09    ] (  0,  0   )     ref  ->  zero-ref    class-hnd
+;  V10 OutArgs      [V10    ] (  1,  1   )  lclBlk (40) [rsp+00H]   "OutgoingArgSpace"
+;* V11 tmp1         [V11    ] (  0,  0   )     int  ->  zero-ref    "impAppendStmt"
+;  V12 tmp2         [V12,T15] (  4,  8   )     ref  ->   r8         class-hnd "Inline return value spill temp"
+;  V13 tmp3         [V13,T09] (  4, 10.71)     ref  ->  registers   class-hnd "Inline stloc first use temp"
+;  V14 tmp4         [V14,T06] (  5, 12.02)     ref  ->  r15         class-hnd "Inline stloc first use temp"
+;  V15 tmp5         [V15,T13] (  2,  8.08)     ref  ->  rax         class-hnd "dup spill"
+;  V16 tmp6         [V16,T30] (  3,  4.04)     ref  ->   r8         "guarded devirt return temp"
+;  V17 tmp7         [V17,T05] (  5, 12.12)     ref  ->  rcx         "guarded devirt this temp"
+;  V18 tmp8         [V18,T31] (  3,  3.73)     ref  ->  rcx         class-hnd exact "guarded devirt this exact temp"
+;  V19 tmp9         [V19,T29] (  4,  4.04)     ref  ->   r8         class-hnd "Inline stloc first use temp"
+;  V20 tmp10        [V20,T12] (  2,  8.26)     int  ->  rdx         "impAppendStmt"
+;  V21 tmp11        [V21,T27] (  3,  4.13)     int  ->  rax         "Inline return value spill temp"
+;* V22 tmp12        [V22    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "dup spill"
+;  V23 tmp13        [V23,T21] (  3,  4.85)     ref  ->  rcx        
+;  V24 tmp14        [V24,T36] (  4,  2   )     int  ->  rax         "Inline stloc first use temp"
+;  V25 tmp15        [V25,T37] (  4,  2   )     int  ->  r12        
+;  V26 tmp16        [V26,T32] (  7,  3.68)     int  ->  r12         "Inline stloc first use temp"
+;  V27 tmp17        [V27,T22] (  3,  4.65)     int  ->  r15         "Inlining Arg"
+;  V28 tmp18        [V28,T38] (  3,  2   )     ref  ->  r15         class-hnd exact "Inline stloc first use temp"
+;  V29 tmp19        [V29,T39] (  3,  2   )     int  ->  rax         "Inline return value spill temp"
+;* V30 tmp20        [V30    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "dup spill"
+;  V31 tmp21        [V31,T33] (  3,  2.35)     ref  ->  rdx        
+;  V32 tmp22        [V32,T42] (  3,  0   )     int  ->  r12         "Inline return value spill temp"
+;  V33 tmp23        [V33,T43] (  3,  0   )     int  ->  rax         "Inlining Arg"
+;  V34 tmp24        [V34,T40] (  3,  2   )     int  ->  r15         "Inline return value spill temp"
+;  V35 tmp25        [V35,T11] (  4,  8.26)     int  ->  rbp         "Inline stloc first use temp"
+;* V36 tmp26        [V36    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "spill side effects before STFLD"
+;  V37 tmp27        [V37,T24] (  8,  4.13)     ref  ->  rdx         class-hnd "Inline return value spill temp"
+;  V38 tmp28        [V38,T02] ( 12, 14.50)     int  ->  [rsp+34H]   "Inlining Arg"
+;  V39 tmp29        [V39,T19] (  8,  5.53)     ref  ->  registers   class-hnd "Inline stloc first use temp"
+;  V40 tmp30        [V40,T18] ( 10,  6.20)     ref  ->  [rsp+28H]   class-hnd "Inline stloc first use temp"
+;  V41 tmp31        [V41,T23] (  4,  4.17)     ref  ->   r8         class-hnd "dup spill"
+;  V42 tmp32        [V42,T35] (  6,  2.09)     ref  ->  rdx         "guarded devirt return temp"
+;  V43 tmp33        [V43,T17] ( 10,  6.26)     ref  ->  rcx         "guarded devirt this temp"
+;  V44 tmp34        [V44,T41] (  6,  1.92)     ref  ->  rcx         class-hnd exact "guarded devirt this exact temp"
+;  V45 tmp35        [V45,T34] (  8,  2.09)     ref  ->  rdx         class-hnd "Inline stloc first use temp"
+;  V46 tmp36        [V46,T03] ( 12, 13.28)     ref  ->  rbx         V02._array(offs=0x00) P-INDEP "field V02._array (fldOffset=0x0)"
+;  V47 tmp37        [V47,T10] (  7,  9.19)     int  ->  registers   V02._count(offs=0x08) P-INDEP "field V02._count (fldOffset=0x8)"
+;  V48 tmp38        [V48,T20] (  6,  5.09)     ref  ->  rbp         single-def V04._array(offs=0x00) P-INDEP "field V04._array (fldOffset=0x0)"
+;  V49 tmp39        [V49,T16] (  7,  7.06)     int  ->  r15         V04._count(offs=0x08) P-INDEP "field V04._count (fldOffset=0x8)"
+;  V50 tmp40        [V50,T25] (  4,  4.13)     int  ->  [rsp+30H]   V08.<Count>k__BackingField(offs=0x00) P-INDEP "field V08.<Count>k__BackingField (fldOffset=0x0)"
+;  V51 tmp41        [V51,T26] (  4,  4.13)     int  ->  r12         V08.<Index>k__BackingField(offs=0x04) P-INDEP "field V08.<Index>k__BackingField (fldOffset=0x4)"
+;  V52 tmp42        [V52,T04] (  6, 12.39)   byref  ->  r12         "BlockOp address local"
+;  V53 cse0         [V53,T14] (  6,  8.06)    long  ->  rdi         "CSE - moderate"
+;
+; Lcl frame size = 136
+
+G_M7059_IG01:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref, nogc <-- Prolog IG
+       push     r15
+       push     r14
+       push     r13
+       push     r12
+       push     rdi
+       push     rsi
+       push     rbp
+       push     rbx
+       sub      rsp, 136
+       xor      eax, eax
+       mov      qword ptr [rsp+38H], rax
+       vxorps   xmm4, xmm4
+       vmovdqa  xmmword ptr [rsp+40H], xmm4
+       vmovdqa  xmmword ptr [rsp+50H], xmm4
+       vmovdqa  xmmword ptr [rsp+60H], xmm4
+       vmovdqa  xmmword ptr [rsp+70H], xmm4
+       mov      qword ptr [rsp+80H], rcx
+       mov      rsi, rcx
+       ; gcrRegs +[rsi]
+						;; size=65 bbWeight=1    PerfScore 19.08
+G_M7059_IG02:        ; gcrefRegs=00000040 {rsi}, byrefRegs=00000000 {}, byref
+       mov      rdi, qword ptr [rsi]
+       mov      rdx, rdi
+       lea      rcx, [rsp+38H]
+       mov      rax, 0xD1FFAB1E      ; code for SparseArrayBuilder`1:.ctor
+       call     [rax]SparseArrayBuilder`1:.ctor():this
+       ; gcr arg pop 0
+       xor      rbx, rbx
+       ; gcrRegs +[rbx]
+       xor      ebp, ebp
+       xor      r14d, r14d
+						;; size=30 bbWeight=1    PerfScore 6.75
+G_M7059_IG03:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       cmp      r14d, dword ptr [rsi+30H]
+       jg       G_M7059_IG20
+						;; size=10 bbWeight=4    PerfScore 16.00
+G_M7059_IG04:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       mov      r15, rsi
+       ; gcrRegs +[r15]
+						;; size=3 bbWeight=3.33 PerfScore 0.83
+G_M7059_IG05:        ; gcrefRegs=00008048 {rbx rsi r15}, byrefRegs=00000000 {}, byref, isz
+       cmp      r14d, dword ptr [r15+30H]
+       je       SHORT G_M7059_IG11
+						;; size=6 bbWeight=3.33 PerfScore 13.33
+G_M7059_IG06:        ; gcrefRegs=00008048 {rbx rsi r15}, byrefRegs=00000000 {}, byref, isz
+       mov      rcx, r15
+       ; gcrRegs +[rcx]
+       mov      rax, 0xD1FFAB1E      ; code for ConcatNIterator`1:get_PreviousN
+       call     [rax]ConcatNIterator`1:get_PreviousN():ConcatNIterator`1:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       test     rax, rax
+       jne      SHORT G_M7059_IG10
+						;; size=20 bbWeight=2.02 PerfScore 9.60
+G_M7059_IG07:        ; gcrefRegs=00008048 {rbx rsi r15}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rax]
+       mov      rcx, gword ptr [r15+20H]
+       ; gcrRegs +[rcx]
+       mov      rdx, 0xD1FFAB1E      ; Concat2Iterator`1
+       cmp      qword ptr [rcx], rdx
+       jne      G_M7059_IG65
+						;; size=23 bbWeight=2.02 PerfScore 12.63
+G_M7059_IG08:        ; gcrefRegs=0000004A {rcx rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r15]
+       test     r14d, r14d
+       jne      SHORT G_M7059_IG12
+						;; size=5 bbWeight=2.02 PerfScore 2.53
+G_M7059_IG09:        ; gcrefRegs=0000004A {rcx rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       mov      r8, gword ptr [rcx+20H]
+       ; gcrRegs +[r8]
+       jmp      SHORT G_M7059_IG15
+						;; size=6 bbWeight=1.33 PerfScore 5.33
+G_M7059_IG10:        ; gcrefRegs=00000049 {rax rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx r8] +[rax]
+       mov      r15, rax
+       ; gcrRegs +[r15]
+       jmp      SHORT G_M7059_IG05
+						;; size=5 bbWeight=1.01 PerfScore 2.27
+G_M7059_IG11:        ; gcrefRegs=00008048 {rbx rsi r15}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rax]
+       mov      r8, gword ptr [r15+28H]
+       ; gcrRegs +[r8]
+       jmp      SHORT G_M7059_IG15
+						;; size=6 bbWeight=1.31 PerfScore 5.25
+G_M7059_IG12:        ; gcrefRegs=0000004A {rcx rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r8 r15] +[rcx]
+       cmp      r14d, 1
+       jne      SHORT G_M7059_IG14
+						;; size=6 bbWeight=0.69 PerfScore 0.86
+G_M7059_IG13:        ; gcrefRegs=0000004A {rcx rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       mov      r8, gword ptr [rcx+28H]
+       ; gcrRegs +[r8]
+       jmp      SHORT G_M7059_IG15
+						;; size=6 bbWeight=0.37 PerfScore 1.49
+G_M7059_IG14:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rcx r8]
+       xor      r8, r8
+       ; gcrRegs +[r8]
+						;; size=3 bbWeight=0.31 PerfScore 0.08
+G_M7059_IG15:        ; gcrefRegs=00000148 {rbx rsi r8}, byrefRegs=00000000 {}, byref, isz
+       test     r8, r8
+       je       SHORT G_M7059_IG24
+						;; size=5 bbWeight=4    PerfScore 5.00
+G_M7059_IG16:        ; gcrefRegs=00000148 {rbx rsi r8}, byrefRegs=00000000 {}, byref, isz
+       mov      rdx, rdi
+       lea      rcx, [rsp+38H]
+       mov      rax, 0xD1FFAB1E      ; code for SparseArrayBuilder`1:ReserveOrAdd
+       call     [rax]SparseArrayBuilder`1:ReserveOrAdd(IEnumerable`1):bool:this
+       ; gcrRegs -[r8]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M7059_IG18
+						;; size=24 bbWeight=3    PerfScore 15.75
+G_M7059_IG17:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       inc      r14d
+       jmp      G_M7059_IG03
+						;; size=8 bbWeight=3    PerfScore 6.75
+G_M7059_IG18:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       mov      edx, ebp
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       test     rcx, rcx
+       jne      SHORT G_M7059_IG21
+						;; size=10 bbWeight=2.06 PerfScore 3.61
+G_M7059_IG19:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx]
+       xor      eax, eax
+       jmp      SHORT G_M7059_IG22
+						;; size=4 bbWeight=1.35 PerfScore 3.03
+G_M7059_IG20:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       xor      r8, r8
+       ; gcrRegs +[r8]
+       jmp      SHORT G_M7059_IG15
+						;; size=5 bbWeight=0.67 PerfScore 1.50
+G_M7059_IG21:        ; gcrefRegs=0000004A {rcx rbx rsi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[r8] +[rcx]
+       mov      eax, dword ptr [rcx+08H]
+						;; size=3 bbWeight=0.72 PerfScore 1.43
+G_M7059_IG22:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx]
+       cmp      edx, eax
+       je       SHORT G_M7059_IG26
+						;; size=4 bbWeight=2.06 PerfScore 2.58
+G_M7059_IG23:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       lea      edx, [rbp+01H]
+       mov      r13d, edx
+       cmp      ebp, dword ptr [rbx+08H]
+       jae      G_M7059_IG73
+       mov      edx, ebp
+       mov      dword ptr [rbx+4*rdx+10H], r14d
+       mov      ebp, r13d
+       jmp      SHORT G_M7059_IG17
+						;; size=27 bbWeight=2.06 PerfScore 17.03
+G_M7059_IG24:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       mov      rdx, rdi
+       lea      rcx, [rsp+38H]
+       mov      rax, 0xD1FFAB1E      ; code for SparseArrayBuilder`1:ToArray
+       call     [rax]SparseArrayBuilder`1:ToArray():ref:this
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      r13, rax
+       ; gcrRegs +[r13]
+       mov      rbp, gword ptr [rsp+70H]
+       ; gcrRegs +[rbp]
+       mov      r15d, dword ptr [rsp+78H]
+       xor      r14d, r14d
+       test     r15d, r15d
+       jle      G_M7059_IG63
+						;; size=45 bbWeight=1    PerfScore 7.75
+G_M7059_IG25:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rax]
+       jmp      SHORT G_M7059_IG34
+						;; size=2 bbWeight=0.50 PerfScore 1.00
+G_M7059_IG26:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rbp r13]
+       lea      r15d, [rbp+01H]
+       mov      rdx, rbx
+       ; gcrRegs +[rdx]
+       test     rdx, rdx
+       jne      SHORT G_M7059_IG28
+						;; size=12 bbWeight=1    PerfScore 2.00
+G_M7059_IG27:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx]
+       xor      eax, eax
+       jmp      SHORT G_M7059_IG29
+						;; size=4 bbWeight=0.65 PerfScore 1.47
+G_M7059_IG28:        ; gcrefRegs=0000004C {rdx rbx rsi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs +[rdx]
+       mov      eax, dword ptr [rdx+08H]
+						;; size=3 bbWeight=0.35 PerfScore 0.69
+G_M7059_IG29:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rdx]
+       test     eax, eax
+       jne      G_M7059_IG66
+       mov      r12d, 4
+       cmp      r12d, 0xD1FFAB1E
+       ja       G_M7059_IG67
+						;; size=27 bbWeight=1    PerfScore 2.75
+G_M7059_IG30:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       cmp      r12d, r15d
+       jl       SHORT G_M7059_IG36
+						;; size=5 bbWeight=1    PerfScore 1.25
+G_M7059_IG31:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       mov      r15d, r12d
+						;; size=3 bbWeight=0.68 PerfScore 0.17
+G_M7059_IG32:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       movsxd   rdx, r15d
+       mov      rcx, 0xD1FFAB1E
+       call     CORINFO_HELP_NEWARR_1_VC
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      r15, rax
+       ; gcrRegs +[r15]
+       test     ebp, ebp
+       jg       G_M7059_IG70
+						;; size=29 bbWeight=1    PerfScore 3.00
+G_M7059_IG33:        ; gcrefRegs=00008040 {rsi r15}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rax rbx]
+       mov      rbx, r15
+       ; gcrRegs +[rbx]
+       jmp      G_M7059_IG23
+						;; size=8 bbWeight=1    PerfScore 2.25
+G_M7059_IG34:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[r15] +[rbp r13]
+       test     rbp, rbp
+       je       G_M7059_IG51
+						;; size=9 bbWeight=1    PerfScore 1.25
+G_M7059_IG35:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref, isz
+       jmp      SHORT G_M7059_IG37
+						;; size=2 bbWeight=0.50 PerfScore 1.00
+G_M7059_IG36:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rbp r13]
+       jmp      SHORT G_M7059_IG32
+						;; size=2 bbWeight=0.32 PerfScore 0.65
+G_M7059_IG37:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       ; gcrRegs +[rbp r13]
+       test     rbx, rbx
+       je       G_M7059_IG51
+       test     r15d, r15d
+       jl       G_M7059_IG51
+       cmp      dword ptr [rbp+08H], r15d
+       jl       G_M7059_IG51
+       cmp      dword ptr [rbx+08H], r15d
+       jl       G_M7059_IG51
+						;; size=38 bbWeight=1    PerfScore 10.50
+G_M7059_IG38:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       mov      ecx, r14d
+       lea      r12, bword ptr [rbp+8*rcx+10H]
+       ; byrRegs +[r12]
+       mov      eax, dword ptr [r12]
+       mov      dword ptr [rsp+30H], eax
+       mov      r12d, dword ptr [r12+04H]
+       ; byrRegs -[r12]
+       mov      ecx, r14d
+       mov      edx, dword ptr [rbx+4*rcx+10H]
+       cmp      edx, dword ptr [rsi+30H]
+       jg       G_M7059_IG49
+						;; size=37 bbWeight=2.04 PerfScore 27.59
+G_M7059_IG39:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       mov      r9, rsi
+       ; gcrRegs +[r9]
+						;; size=3 bbWeight=1.70 PerfScore 0.43
+G_M7059_IG40:        ; gcrefRegs=00002268 {rbx rbp rsi r9 r13}, byrefRegs=00000000 {}, byref, isz
+       mov      r8, r9
+       ; gcrRegs +[r8]
+       mov      dword ptr [rsp+34H], edx
+       cmp      edx, dword ptr [r8+30H]
+       je       SHORT G_M7059_IG43
+						;; size=13 bbWeight=1.70 PerfScore 8.94
+G_M7059_IG41:        ; gcrefRegs=00002168 {rbx rbp rsi r8 r13}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r9]
+       mov      gword ptr [rsp+28H], r8
+       ; GC ptr vars +{V40}
+       mov      rcx, r8
+       ; gcrRegs +[rcx]
+       mov      r9, 0xD1FFAB1E      ; code for ConcatNIterator`1:get_PreviousN
+       call     [r9]ConcatNIterator`1:get_PreviousN():ConcatNIterator`1:this
+       ; gcrRegs -[rcx r8] +[rax]
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      r9, r8
+       ; gcrRegs +[r9]
+       test     r9, r9
+       mov      edx, dword ptr [rsp+34H]
+       jne      SHORT G_M7059_IG40
+       mov      rcx, gword ptr [rsp+28H]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+20H]
+       mov      r8, 0xD1FFAB1E      ; Concat2Iterator`1
+       ; gcrRegs -[r8]
+       cmp      qword ptr [rcx], r8
+       jne      G_M7059_IG71
+       test     edx, edx
+       jne      SHORT G_M7059_IG44
+						;; size=68 bbWeight=1.03 PerfScore 16.26
+G_M7059_IG42:        ; gcVars=0000000000000000 {}, gcrefRegs=0000206A {rcx rbx rbp rsi r13}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs -[rax r9]
+       ; GC ptr vars -{V40}
+       mov      rdx, gword ptr [rcx+20H]
+       ; gcrRegs +[rdx]
+       jmp      SHORT G_M7059_IG47
+						;; size=6 bbWeight=0.68 PerfScore 2.72
+G_M7059_IG43:        ; gcrefRegs=00002168 {rbx rbp rsi r8 r13}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx rdx] +[r8]
+       mov      rdx, gword ptr [r8+28H]
+       ; gcrRegs +[rdx]
+       jmp      SHORT G_M7059_IG47
+						;; size=6 bbWeight=0.67 PerfScore 2.68
+G_M7059_IG44:        ; gcrefRegs=0000206A {rcx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx r8] +[rcx]
+       cmp      edx, 1
+       jne      SHORT G_M7059_IG46
+						;; size=5 bbWeight=0.35 PerfScore 0.44
+G_M7059_IG45:        ; gcrefRegs=0000206A {rcx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref, isz
+       mov      rdx, gword ptr [rcx+28H]
+       ; gcrRegs +[rdx]
+       jmp      SHORT G_M7059_IG47
+						;; size=6 bbWeight=0.19 PerfScore 0.76
+G_M7059_IG46:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rcx rdx]
+       xor      rdx, rdx
+       ; gcrRegs +[rdx]
+						;; size=2 bbWeight=0.16 PerfScore 0.04
+G_M7059_IG47:        ; gcrefRegs=0000206C {rdx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       mov      eax, dword ptr [rsp+30H]
+       mov      dword ptr [rsp+20H], eax
+       mov      rcx, rdi
+       mov      r8, r13
+       ; gcrRegs +[r8]
+       mov      r9d, r12d
+       mov      rax, 0xD1FFAB1E      ; code for EnumerableHelpers:Copy
+       call     [rax]EnumerableHelpers:Copy(IEnumerable`1,ref,int,int)
+       ; gcrRegs -[rdx r8]
+       ; gcr arg pop 0
+       inc      r14d
+       cmp      r14d, r15d
+       jl       G_M7059_IG38
+						;; size=41 bbWeight=2.04 PerfScore 15.33
+G_M7059_IG48:        ; gcrefRegs=00002040 {rsi r13}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rbx rbp]
+       jmp      G_M7059_IG63
+						;; size=5 bbWeight=1    PerfScore 2.00
+G_M7059_IG49:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs +[rbx rbp]
+       xor      rdx, rdx
+       ; gcrRegs +[rdx]
+       jmp      SHORT G_M7059_IG47
+						;; size=4 bbWeight=0.34 PerfScore 0.77
+G_M7059_IG50:        ; gcrefRegs=0000206C {rdx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       jmp      G_M7059_IG62
+						;; size=5 bbWeight=0.01 PerfScore 0.02
+G_M7059_IG51:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx]
+       cmp      r14d, dword ptr [rbp+08H]
+       jae      G_M7059_IG73
+       mov      ecx, r14d
+       lea      r12, bword ptr [rbp+8*rcx+10H]
+       ; byrRegs +[r12]
+       mov      eax, dword ptr [r12]
+       mov      dword ptr [rsp+30H], eax
+       mov      r12d, dword ptr [r12+04H]
+       ; byrRegs -[r12]
+       cmp      r14d, dword ptr [rbx+08H]
+       jae      G_M7059_IG73
+       mov      ecx, r14d
+       mov      edx, dword ptr [rbx+4*rcx+10H]
+       cmp      edx, dword ptr [rsi+30H]
+       jg       SHORT G_M7059_IG61
+						;; size=53 bbWeight=0.02 PerfScore 0.44
+G_M7059_IG52:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       mov      r8, rsi
+       ; gcrRegs +[r8]
+						;; size=3 bbWeight=0.02 PerfScore 0.00
+G_M7059_IG53:        ; gcrefRegs=00002168 {rbx rbp rsi r8 r13}, byrefRegs=00000000 {}, byref, isz
+       mov      r9, r8
+       ; gcrRegs +[r9]
+       mov      dword ptr [rsp+34H], edx
+       cmp      edx, dword ptr [r9+30H]
+       je       SHORT G_M7059_IG58
+						;; size=13 bbWeight=0.02 PerfScore 0.09
+G_M7059_IG54:        ; gcrefRegs=00002268 {rbx rbp rsi r9 r13}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r8]
+       mov      gword ptr [rsp+28H], r9
+       ; GC ptr vars +{V40}
+       mov      rcx, r9
+       ; gcrRegs +[rcx]
+       mov      r8, 0xD1FFAB1E      ; code for ConcatNIterator`1:get_PreviousN
+       call     [r8]ConcatNIterator`1:get_PreviousN():ConcatNIterator`1:this
+       ; gcrRegs -[rcx r9] +[rax]
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      r9, r8
+       ; gcrRegs +[r9]
+       test     r9, r9
+       mov      r8, r9
+       mov      edx, dword ptr [rsp+34H]
+       jne      SHORT G_M7059_IG53
+       mov      r10, gword ptr [rsp+28H]
+       ; gcrRegs +[r10]
+       mov      rcx, gword ptr [r10+20H]
+       ; gcrRegs +[rcx]
+       mov      r10, 0xD1FFAB1E      ; Concat2Iterator`1
+       ; gcrRegs -[r10]
+       cmp      qword ptr [rcx], r10
+       jne      G_M7059_IG72
+       test     edx, edx
+       jne      SHORT G_M7059_IG56
+						;; size=71 bbWeight=0.01 PerfScore 0.17
+G_M7059_IG55:        ; gcVars=0000000000000000 {}, gcrefRegs=0000206A {rcx rbx rbp rsi r13}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs -[rax r8-r9]
+       ; GC ptr vars -{V40}
+       mov      rdx, gword ptr [rcx+20H]
+       ; gcrRegs +[rdx]
+       jmp      SHORT G_M7059_IG60
+						;; size=6 bbWeight=0.01 PerfScore 0.03
+G_M7059_IG56:        ; gcrefRegs=0000206A {rcx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx]
+       cmp      edx, 1
+       jne      SHORT G_M7059_IG59
+						;; size=5 bbWeight=0.00 PerfScore 0.00
+G_M7059_IG57:        ; gcrefRegs=0000206A {rcx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref, isz
+       mov      rdx, gword ptr [rcx+28H]
+       ; gcrRegs +[rdx]
+       jmp      SHORT G_M7059_IG60
+						;; size=6 bbWeight=0.00 PerfScore 0.01
+G_M7059_IG58:        ; gcrefRegs=00002268 {rbx rbp rsi r9 r13}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx rdx] +[r9]
+       mov      rdx, gword ptr [r9+28H]
+       ; gcrRegs +[rdx]
+       jmp      SHORT G_M7059_IG62
+						;; size=6 bbWeight=0.01 PerfScore 0.03
+G_M7059_IG59:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rdx r9]
+       xor      rdx, rdx
+       ; gcrRegs +[rdx]
+						;; size=2 bbWeight=0.00 PerfScore 0.00
+G_M7059_IG60:        ; gcrefRegs=0000206C {rdx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       jmp      G_M7059_IG50
+						;; size=5 bbWeight=0.01 PerfScore 0.02
+G_M7059_IG61:        ; gcrefRegs=00002068 {rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rdx]
+       xor      rdx, rdx
+       ; gcrRegs +[rdx]
+						;; size=2 bbWeight=0.00 PerfScore 0.00
+G_M7059_IG62:        ; gcrefRegs=0000206C {rdx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       mov      eax, dword ptr [rsp+30H]
+       mov      dword ptr [rsp+20H], eax
+       mov      rcx, rdi
+       mov      r8, r13
+       ; gcrRegs +[r8]
+       mov      r9d, r12d
+       mov      rax, 0xD1FFAB1E      ; code for EnumerableHelpers:Copy
+       call     [rax]EnumerableHelpers:Copy(IEnumerable`1,ref,int,int)
+       ; gcrRegs -[rdx r8]
+       ; gcr arg pop 0
+       inc      r14d
+       cmp      r14d, r15d
+       jl       G_M7059_IG51
+						;; size=41 bbWeight=0.02 PerfScore 0.15
+G_M7059_IG63:        ; gcrefRegs=00002040 {rsi r13}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rbx rbp]
+       mov      rax, r13
+       ; gcrRegs +[rax]
+						;; size=3 bbWeight=1    PerfScore 0.25
+G_M7059_IG64:        ; , epilog, nogc, extend
+       add      rsp, 136
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r13
+       pop      r14
+       pop      r15
+       ret      
+						;; size=20 bbWeight=1    PerfScore 5.25
+G_M7059_IG65:        ; gcVars=0000000000000000 {}, gcrefRegs=0000004A {rcx rbx rsi}, byrefRegs=00000000 {}, gcvars, byref
+       ; gcrRegs -[rax r13] +[rcx rbx]
+       mov      edx, r14d
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+50H]
+       call     [rax+08H]hackishModuleName:hackishMethodName(int):IEnumerable`1:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       jmp      G_M7059_IG15
+						;; size=21 bbWeight=0    PerfScore 0.00
+G_M7059_IG66:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rax r8]
+       lea      r12d, [rax+rax]
+       cmp      r12d, 0xD1FFAB1E
+       jbe      G_M7059_IG30
+						;; size=17 bbWeight=0    PerfScore 0.00
+G_M7059_IG67:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref, isz
+       inc      eax
+       cmp      eax, 0xD1FFAB1E
+       jge      SHORT G_M7059_IG68
+       mov      r12d, 0xD1FFAB1E
+       jmp      SHORT G_M7059_IG69
+						;; size=17 bbWeight=0    PerfScore 0.00
+G_M7059_IG68:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       mov      r12d, eax
+						;; size=3 bbWeight=0    PerfScore 0.00
+G_M7059_IG69:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000000 {}, byref
+       jmp      G_M7059_IG30
+						;; size=5 bbWeight=0    PerfScore 0.00
+G_M7059_IG70:        ; gcrefRegs=00008048 {rbx rsi r15}, byrefRegs=00000000 {}, byref
+       ; gcrRegs +[r15]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       mov      rdx, r15
+       ; gcrRegs +[rdx]
+       mov      r8d, ebp
+       mov      rax, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [rax]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx rbx]
+       ; gcr arg pop 0
+       jmp      G_M7059_IG33
+						;; size=26 bbWeight=0    PerfScore 0.00
+G_M7059_IG71:        ; gcrefRegs=0000206A {rcx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[r15] +[rcx rbx rbp r13]
+       mov      r8, qword ptr [rcx]
+       mov      r8, qword ptr [r8+50H]
+       call     [r8+08H]hackishModuleName:hackishMethodName(int):IEnumerable`1:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       jmp      G_M7059_IG47
+						;; size=19 bbWeight=0    PerfScore 0.00
+G_M7059_IG72:        ; gcrefRegs=0000206A {rcx rbx rbp rsi r13}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rax rdx] +[rcx]
+       mov      r8, qword ptr [rcx]
+       mov      r8, qword ptr [r8+50H]
+       call     [r8+08H]hackishModuleName:hackishMethodName(int):IEnumerable`1:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       jmp      G_M7059_IG50
+						;; size=19 bbWeight=0    PerfScore 0.00
+G_M7059_IG73:        ; gcrefRegs=00000040 {rsi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rax rdx rbx rbp r13]
+       call     CORINFO_HELP_RNGCHKFAIL
+       ; gcr arg pop 0
+       int3     
+						;; size=6 bbWeight=0    PerfScore 0.00
+
+; Total bytes of code 1043, prolog size 62, PerfScore 377.70, instruction count 282, allocated bytes for code 1048 (MethodHash=75d0e46c) for method ConcatNIterator`1:LazyToArray():ref:this
+; ============================================================
+
+Unwind Info:
+  >> Start offset   : 0x000000 (not in unwind data)
+  >>   End offset   : 0xd1ffab1e (not in unwind data)
+  Version           : 1
+  Flags             : 0x00
+  SizeOfProlog      : 0x13
+  CountOfUnwindCodes: 10
+  FrameRegister     : none (0)
+  FrameOffset       : N/A (no FrameRegister) (Value=0)
+  UnwindCodes       :
+    CodeOffset: 0x13 UnwindOp: UWOP_ALLOC_LARGE (1)     OpInfo: 0 - Scaled small  
+      Size: 17 * 8 = 136 = 0x00088
+    CodeOffset: 0x0C UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbx (3)
+    CodeOffset: 0x0B UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbp (5)
+    CodeOffset: 0x0A UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rsi (6)
+    CodeOffset: 0x09 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rdi (7)
+    CodeOffset: 0x08 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r12 (12)
+    CodeOffset: 0x06 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r13 (13)
+    CodeOffset: 0x04 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r14 (14)
+    CodeOffset: 0x02 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r15 (15)

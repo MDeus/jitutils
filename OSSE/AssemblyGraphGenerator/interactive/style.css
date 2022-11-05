@@ -1,0 +1,22 @@
+.node {
+  cursor:move;
+}
+
+/* .node:hover {
+  fill: azure;
+  stroke: lightsteelblue;
+  stroke-width: 1;
+
+
+} */
+
+.dragged {
+  fill-opacity: 0.5;
+  stroke-width: 0.5px;
+  stroke: black;
+  stroke-dasharray: 1 1;
+}
+
+.edge{
+  cursor:pointer
+}

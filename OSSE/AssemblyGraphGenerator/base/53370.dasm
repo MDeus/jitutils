@@ -1,0 +1,1440 @@
+; Assembly listing for method <>c__DisplayClass5_0:<GetContentItemAspectAsync>b__0(ContentItemMetadata):Task:this
+; Emitting BLENDED_CODE for X64 CPU with AVX - Windows
+; optimized code
+; rsp based frame
+; fully interruptible
+; No matching PGO data
+; 0 inlinees with PGO data; 46 single block inlinees; 15 inlinees without PGO data
+; Final local variable assignments
+;
+;  V00 this         [V00,T18] (  7,  4.50)     ref  ->  rdi         this class-hnd single-def
+;  V01 arg1         [V01,T12] ( 12,  9.50)     ref  ->  rsi         class-hnd single-def
+;  V02 OutArgs      [V02    ] (  1,  1   )  lclBlk (32) [rsp+00H]   "OutgoingArgSpace"
+;  V03 tmp1         [V03,T15] (  7,  7   )     ref  ->  rbx         class-hnd exact single-def "NewObj constructor temp"
+;  V04 tmp2         [V04,T16] (  7,  7   )     ref  ->  rbx         class-hnd exact single-def "NewObj constructor temp"
+;  V05 tmp3         [V05,T17] (  7,  7   )     ref  ->  rbx         class-hnd exact single-def "NewObj constructor temp"
+;  V06 tmp4         [V06,T06] ( 17, 17   )     ref  ->  rbx         class-hnd exact single-def "NewObj constructor temp"
+;  V07 tmp5         [V07,T00] ( 21, 21   )     ref  ->  rbx         class-hnd exact single-def "NewObj constructor temp"
+;* V08 tmp6         [V08    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;  V09 tmp7         [V09,T60] (  2,  2   )     ref  ->  rdx         class-hnd single-def "impAppendStmt"
+;  V10 tmp8         [V10,T37] (  3,  3   )     int  ->  rcx         "impAppendStmt"
+;  V11 tmp9         [V11,T89] (  3,  0   )     ref  ->  rsi         class-hnd exact single-def "NewObj constructor temp"
+;  V12 tmp10        [V12,T38] (  3,  3   )     int  ->  rdx         "Inlining Arg"
+;  V13 tmp11        [V13,T67] (  3,  1.50)    bool  ->  rdx         "Inline return value spill temp"
+;  V14 tmp12        [V14,T29] (  4,  5   )     ref  ->  rdx         class-hnd "Inline stloc first use temp"
+;  V15 tmp13        [V15,T19] (  7,  6.50)     int  ->  rcx         single-def "Inline stloc first use temp"
+;  V16 tmp14        [V16,T07] ( 10, 16.54)     int  ->   r8         "Inline stloc first use temp"
+;  V17 tmp15        [V17,T04] (  8, 19   )     ref  ->   r9         "spilling varStr"
+;* V18 tmp16        [V18,T24] (  0,  0   )     int  ->  zero-ref    "spilling unroll qmark"
+;* V19 tmp17        [V19    ] (  0,  0   )   byref  ->  zero-ref    "Inlining Arg"
+;* V20 tmp18        [V20    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;  V21 tmp19        [V21,T61] (  2,  2   )     ref  ->  rdx         class-hnd single-def "impAppendStmt"
+;  V22 tmp20        [V22,T39] (  3,  3   )     int  ->  rcx         "impAppendStmt"
+;  V23 tmp21        [V23,T90] (  3,  0   )     ref  ->  rsi         class-hnd exact single-def "NewObj constructor temp"
+;  V24 tmp22        [V24,T40] (  3,  3   )     int  ->  rdx         "Inlining Arg"
+;  V25 tmp23        [V25,T68] (  3,  1.50)    bool  ->  rdx         "Inline return value spill temp"
+;  V26 tmp24        [V26,T30] (  4,  5   )     ref  ->  rdx         class-hnd "Inline stloc first use temp"
+;  V27 tmp25        [V27,T20] (  7,  6.50)     int  ->  rcx         single-def "Inline stloc first use temp"
+;  V28 tmp26        [V28,T08] ( 10, 16.54)     int  ->   r8         "Inline stloc first use temp"
+;  V29 tmp27        [V29,T01] ( 10, 26   )     ref  ->   r9         "spilling varStr"
+;  V30 tmp28        [V30,T13] (  4,  8   )     int  ->  r10         "spilling unroll qmark"
+;* V31 tmp29        [V31    ] (  0,  0   )   byref  ->  zero-ref    "Inlining Arg"
+;* V32 tmp30        [V32    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;  V33 tmp31        [V33,T62] (  2,  2   )     ref  ->  rdx         class-hnd single-def "impAppendStmt"
+;  V34 tmp32        [V34,T41] (  3,  3   )     int  ->  rcx         "impAppendStmt"
+;  V35 tmp33        [V35,T91] (  3,  0   )     ref  ->  rsi         class-hnd exact single-def "NewObj constructor temp"
+;  V36 tmp34        [V36,T42] (  3,  3   )     int  ->  rdx         "Inlining Arg"
+;  V37 tmp35        [V37,T69] (  3,  1.50)    bool  ->  rcx         "Inline return value spill temp"
+;  V38 tmp36        [V38,T31] (  4,  5   )     ref  ->  rcx         class-hnd "Inline stloc first use temp"
+;  V39 tmp37        [V39,T21] (  7,  6.50)     int  ->  rax         single-def "Inline stloc first use temp"
+;  V40 tmp38        [V40,T09] ( 10, 16.54)     int  ->   r9         "Inline stloc first use temp"
+;  V41 tmp39        [V41,T02] ( 10, 20   )     ref  ->  r10         "spilling varStr"
+;* V42 tmp40        [V42,T25] (  0,  0   )     int  ->  zero-ref    "spilling unroll qmark"
+;* V43 tmp41        [V43    ] (  0,  0   )   byref  ->  zero-ref    "Inlining Arg"
+;* V44 tmp42        [V44    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V45 tmp43        [V45    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V46 tmp44        [V46    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;  V47 tmp45        [V47,T63] (  2,  2   )     ref  ->  rdx         class-hnd single-def "impAppendStmt"
+;  V48 tmp46        [V48,T43] (  3,  3   )     int  ->  rcx         "impAppendStmt"
+;  V49 tmp47        [V49,T92] (  3,  0   )     ref  ->  rsi         class-hnd exact single-def "NewObj constructor temp"
+;  V50 tmp48        [V50,T44] (  3,  3   )     int  ->  rdx         "Inlining Arg"
+;  V51 tmp49        [V51,T70] (  3,  1.50)    bool  ->  rdx         "Inline return value spill temp"
+;  V52 tmp50        [V52,T27] (  5,  5.50)     ref  ->  rdx         class-hnd "Inline stloc first use temp"
+;  V53 tmp51        [V53,T22] (  7,  6.50)     int  ->  rcx         single-def "Inline stloc first use temp"
+;  V54 tmp52        [V54,T10] ( 10, 16.54)     int  ->   r8         "Inline stloc first use temp"
+;  V55 tmp53        [V55,T05] (  8, 19   )     ref  ->   r9         "spilling varStr"
+;* V56 tmp54        [V56,T26] (  0,  0   )     int  ->  zero-ref    "spilling unroll qmark"
+;* V57 tmp55        [V57    ] (  0,  0   )   byref  ->  zero-ref    "Inlining Arg"
+;* V58 tmp56        [V58    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;  V59 tmp57        [V59,T64] (  2,  2   )     ref  ->  rdx         class-hnd single-def "impAppendStmt"
+;  V60 tmp58        [V60,T45] (  3,  3   )     int  ->  rcx         "impAppendStmt"
+;  V61 tmp59        [V61,T93] (  3,  0   )     ref  ->  rsi         class-hnd exact single-def "NewObj constructor temp"
+;  V62 tmp60        [V62,T46] (  3,  3   )     int  ->  rdx         "Inlining Arg"
+;  V63 tmp61        [V63,T71] (  3,  1.50)    bool  ->  rcx         "Inline return value spill temp"
+;  V64 tmp62        [V64,T28] (  5,  5.50)     ref  ->  rcx         class-hnd "Inline stloc first use temp"
+;  V65 tmp63        [V65,T23] (  7,  6.50)     int  ->  rax         single-def "Inline stloc first use temp"
+;  V66 tmp64        [V66,T11] ( 10, 16.54)     int  ->   r9         "Inline stloc first use temp"
+;  V67 tmp65        [V67,T03] ( 10, 26   )     ref  ->  r10         "spilling varStr"
+;  V68 tmp66        [V68,T14] (  4,  8   )     int  ->  r11         "spilling unroll qmark"
+;* V69 tmp67        [V69    ] (  0,  0   )   byref  ->  zero-ref    "Inlining Arg"
+;* V70 tmp68        [V70    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V71 tmp69        [V71    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V72 tmp70        [V72    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V73 tmp71        [V73    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V74 tmp72        [V74    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V75 tmp73        [V75    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V76 tmp74        [V76    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V77 tmp75        [V77    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;  V78 tmp76        [V78,T75] (  2,  1   )     ref  ->   r8         single-def V08.key(offs=0x00) P-INDEP "field V08.key (fldOffset=0x0)"
+;  V79 tmp77        [V79,T76] (  2,  1   )     ref  ->  r15         single-def V08.value(offs=0x08) P-INDEP "field V08.value (fldOffset=0x8)"
+;  V80 tmp78        [V80,T77] (  2,  1   )     ref  ->   r8         single-def V20.key(offs=0x00) P-INDEP "field V20.key (fldOffset=0x0)"
+;  V81 tmp79        [V81,T78] (  2,  1   )     ref  ->  r15         single-def V20.value(offs=0x08) P-INDEP "field V20.value (fldOffset=0x8)"
+;  V82 tmp80        [V82,T79] (  2,  1   )     ref  ->  rax         single-def V32.key(offs=0x00) P-INDEP "field V32.key (fldOffset=0x0)"
+;  V83 tmp81        [V83,T80] (  2,  1   )     ref  ->  r14         single-def V32.value(offs=0x08) P-INDEP "field V32.value (fldOffset=0x8)"
+;  V84 tmp82        [V84,T81] (  2,  1   )     ref  ->   r8         single-def V46.key(offs=0x00) P-INDEP "field V46.key (fldOffset=0x0)"
+;  V85 tmp83        [V85,T82] (  2,  1   )     ref  ->  r15         single-def V46.value(offs=0x08) P-INDEP "field V46.value (fldOffset=0x8)"
+;  V86 tmp84        [V86,T83] (  2,  1   )     ref  ->  rax         single-def V58.key(offs=0x00) P-INDEP "field V58.key (fldOffset=0x0)"
+;  V87 tmp85        [V87,T84] (  2,  1   )     ref  ->  r14         single-def V58.value(offs=0x08) P-INDEP "field V58.value (fldOffset=0x8)"
+;  V88 tmp86        [V88,T94] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V89 tmp87        [V89,T95] (  2,  0   )     ref  ->  rdx         single-def "argument with side effect"
+;  V90 tmp88        [V90,T96] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V91 tmp89        [V91,T97] (  2,  0   )     ref  ->   r8         single-def "argument with side effect"
+;  V92 tmp90        [V92,T32] (  3,  3   )   byref  ->  r12         single-def "BlockOp address local"
+;  V93 tmp91        [V93,T98] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V94 tmp92        [V94,T99] (  2,  0   )     ref  ->  rdx         single-def "argument with side effect"
+;  V95 tmp93        [V95,T100] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V96 tmp94        [V96,T101] (  2,  0   )     ref  ->   r8         single-def "argument with side effect"
+;  V97 tmp95        [V97,T33] (  3,  3   )   byref  ->  r12         single-def "BlockOp address local"
+;  V98 tmp96        [V98,T102] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V99 tmp97        [V99,T103] (  2,  0   )     ref  ->  rdx         single-def "argument with side effect"
+;  V100 tmp98       [V100,T104] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V101 tmp99       [V101,T105] (  2,  0   )     ref  ->   r8         single-def "argument with side effect"
+;  V102 tmp100      [V102,T34] (  3,  3   )   byref  ->  r15         single-def "BlockOp address local"
+;  V103 tmp101      [V103,T106] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V104 tmp102      [V104,T107] (  2,  0   )     ref  ->  rdx         single-def "argument with side effect"
+;  V105 tmp103      [V105,T108] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V106 tmp104      [V106,T109] (  2,  0   )     ref  ->   r8         single-def "argument with side effect"
+;  V107 tmp105      [V107,T35] (  3,  3   )   byref  ->  r12         single-def "BlockOp address local"
+;  V108 tmp106      [V108,T110] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V109 tmp107      [V109,T111] (  2,  0   )     ref  ->  rdx         single-def "argument with side effect"
+;  V110 tmp108      [V110,T112] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V111 tmp109      [V111,T113] (  2,  0   )     ref  ->   r8         single-def "argument with side effect"
+;  V112 tmp110      [V112,T36] (  3,  3   )   byref  ->  r15         single-def "BlockOp address local"
+;  V113 cse0        [V113,T72] (  3,  1.50)     int  ->  r14         "CSE - conservative"
+;  V114 cse1        [V114,T73] (  3,  1.50)     int  ->  r14         "CSE - conservative"
+;  V115 cse2        [V115,T74] (  3,  1.50)     int  ->  r14         "CSE - conservative"
+;  V116 cse3        [V116,T52] (  4,  2   )     ref  ->  rbp         "CSE - conservative"
+;  V117 cse4        [V117,T55] (  4,  2   )     int  ->  r14         "CSE - conservative"
+;  V118 cse5        [V118,T53] (  4,  2   )     ref  ->  rbp         "CSE - conservative"
+;  V119 cse6        [V119,T56] (  4,  2   )     int  ->  r14         "CSE - conservative"
+;  V120 cse7        [V120,T57] (  4,  2   )     int  ->  rbp         "CSE - conservative"
+;  V121 cse8        [V121,T54] (  4,  2   )     ref  ->  rbp         "CSE - conservative"
+;  V122 cse9        [V122,T58] (  4,  2   )     int  ->  r14         "CSE - conservative"
+;  V123 cse10       [V123,T59] (  4,  2   )     int  ->  rbp         "CSE - conservative"
+;  V124 cse11       [V124,T65] (  3,  1.50)     ref  ->  rdx         "CSE - conservative"
+;  V125 cse12       [V125,T66] (  3,  1.50)     ref  ->  rdx         "CSE - conservative"
+;  V126 cse13       [V126,T47] (  5,  2.04)     int  ->  rax         "CSE - conservative"
+;  V127 cse14       [V127,T48] (  5,  2.04)     int  ->  rax         "CSE - conservative"
+;  V128 cse15       [V128,T49] (  5,  2.04)     int  ->   r8         "CSE - conservative"
+;  V129 cse16       [V129,T50] (  5,  2.04)     int  ->  rax         "CSE - conservative"
+;  V130 cse17       [V130,T51] (  5,  2.04)     int  ->   r8         "CSE - conservative"
+;  V131 rat0        [V131,T85] (  3, 11.88)  simd16  ->  mm0         "ReplaceWithLclVar is creating a new local variable"
+;  V132 rat1        [V132,T87] (  3,  0.12)  simd16  ->  mm0         "ReplaceWithLclVar is creating a new local variable"
+;  V133 rat2        [V133,T86] (  3, 11.88)  simd16  ->  mm0         "ReplaceWithLclVar is creating a new local variable"
+;  V134 rat3        [V134,T88] (  3,  0.12)  simd16  ->  mm0         "ReplaceWithLclVar is creating a new local variable"
+;
+; Lcl frame size = 32
+
+G_M22232_IG01:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref, nogc <-- Prolog IG
+       push     r15
+       push     r14
+       push     r12
+       push     rdi
+       push     rsi
+       push     rbp
+       push     rbx
+       sub      rsp, 32
+       vzeroupper 
+       mov      rdi, rcx
+       ; gcrRegs +[rdi]
+       mov      rsi, rdx
+       ; gcrRegs +[rsi]
+						;; size=23 bbWeight=1    PerfScore 8.75
+G_M22232_IG02:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       cmp      gword ptr [rsi+20H], 0
+       jne      G_M22232_IG46
+						;; size=11 bbWeight=1    PerfScore 4.00
+G_M22232_IG03:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rcx, 0xD1FFAB1E      ; RouteValueDictionary
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rbx, rax
+       ; gcrRegs +[rbx]
+       mov      rdx, 0xD1FFAB1E      ; const ptr
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       lea      rcx, bword ptr [rbx+08H]
+       ; byrRegs +[rcx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rax rdx]
+       ; byrRegs -[rcx]
+       mov      edx, dword ptr [rbx+18H]
+       inc      edx
+       cmp      gword ptr [rbx+10H], 0
+       jne      SHORT G_M22232_IG04
+       mov      rcx, gword ptr [rbx+08H]
+       ; gcrRegs +[rcx]
+       cmp      dword ptr [rcx+08H], edx
+       jge      SHORT G_M22232_IG05
+						;; size=61 bbWeight=0.50 PerfScore 8.75
+G_M22232_IG04:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rcx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+						;; size=9 bbWeight=0.50 PerfScore 1.62
+G_M22232_IG05:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rbp, gword ptr [rbx+08H]
+       ; gcrRegs +[rbp]
+       mov      rdx, rbp
+       ; gcrRegs +[rdx]
+       mov      r14d, dword ptr [rbx+18H]
+       mov      ecx, r14d
+       mov      eax, dword ptr [rdx+08H]
+       cmp      eax, ecx
+       jb       G_M22232_IG15
+       xor      r8d, r8d
+       test     ecx, ecx
+       jle      G_M22232_IG15
+       test     ecx, ecx
+       jl       SHORT G_M22232_IG11
+       cmp      eax, ecx
+       jl       SHORT G_M22232_IG11
+       align    [0 bytes for IG06]
+						;; size=44 bbWeight=0.50 PerfScore 5.88
+G_M22232_IG06:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      r9d, r8d
+       shl      r9, 4
+       mov      r9, gword ptr [rdx+r9+10H]
+       ; gcrRegs +[r9]
+       test     r9, r9
+       je       SHORT G_M22232_IG09
+						;; size=17 bbWeight=3.96 PerfScore 15.84
+G_M22232_IG07:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r9+08H], 4
+       jne      SHORT G_M22232_IG09
+						;; size=7 bbWeight=0.99 PerfScore 3.96
+G_M22232_IG08:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       mov      r10, 0xD1FFAB1E
+       or       r10, qword ptr [r9+0CH]
+       mov      r9, 0xD1FFAB1E
+       ; gcrRegs -[r9]
+       cmp      r10, r9
+       je       SHORT G_M22232_IG16
+						;; size=29 bbWeight=0.49 PerfScore 2.35
+G_M22232_IG09:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, loop=IG06, byref, isz
+       inc      r8d
+       cmp      r8d, ecx
+       jl       SHORT G_M22232_IG06
+						;; size=8 bbWeight=3.96 PerfScore 5.94
+G_M22232_IG10:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx]
+       jmp      SHORT G_M22232_IG15
+       align    [0 bytes for IG20]
+						;; size=2 bbWeight=0.50 PerfScore 1.00
+G_M22232_IG11:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs +[rdx]
+       cmp      r8d, eax
+       jae      G_M22232_IG89
+       mov      r9d, r8d
+       shl      r9, 4
+       mov      r9, gword ptr [rdx+r9+10H]
+       ; gcrRegs +[r9]
+       test     r9, r9
+       je       SHORT G_M22232_IG14
+						;; size=26 bbWeight=0.04 PerfScore 0.21
+G_M22232_IG12:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r9+08H], 4
+       jne      SHORT G_M22232_IG14
+						;; size=7 bbWeight=0.01 PerfScore 0.04
+G_M22232_IG13:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       mov      r10, 0xD1FFAB1E
+       or       r10, qword ptr [r9+0CH]
+       mov      r9, 0xD1FFAB1E
+       ; gcrRegs -[r9]
+       cmp      r10, r9
+       je       SHORT G_M22232_IG16
+						;; size=29 bbWeight=0.01 PerfScore 0.02
+G_M22232_IG14:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       inc      r8d
+       cmp      r8d, ecx
+       jl       SHORT G_M22232_IG11
+						;; size=8 bbWeight=0.04 PerfScore 0.06
+G_M22232_IG15:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx]
+       xor      edx, edx
+       jmp      SHORT G_M22232_IG17
+						;; size=4 bbWeight=0.50 PerfScore 1.12
+G_M22232_IG16:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      edx, 1
+						;; size=5 bbWeight=0.50 PerfScore 0.12
+G_M22232_IG17:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       test     edx, edx
+       jne      G_M22232_IG84
+       mov      rdx, rbp
+       ; gcrRegs +[rdx]
+       mov      ecx, r14d
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      r9, 0xD1FFAB1E      ; string handle
+       mov      r15, gword ptr [r9]
+       ; gcrRegs +[r15]
+       cmp      ecx, eax
+       jae      G_M22232_IG89
+       mov      ecx, ecx
+       shl      rcx, 4
+       lea      r12, bword ptr [rdx+rcx+10H]
+       ; byrRegs +[r12]
+       mov      rcx, r12
+       ; byrRegs +[rcx]
+       mov      rdx, r8
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx r8]
+       ; byrRegs -[rcx]
+       lea      rcx, bword ptr [r12+08H]
+       ; byrRegs +[rcx]
+       mov      rdx, r15
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx r15]
+       ; byrRegs -[rcx r12]
+       inc      r14d
+       mov      dword ptr [rbx+18H], r14d
+       lea      edx, [r14+01H]
+       cmp      gword ptr [rbx+10H], 0
+       jne      SHORT G_M22232_IG18
+       cmp      dword ptr [rbp+08H], edx
+       jge      SHORT G_M22232_IG19
+						;; size=106 bbWeight=0.50 PerfScore 11.12
+G_M22232_IG18:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rbp]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+						;; size=9 bbWeight=0.50 PerfScore 1.62
+G_M22232_IG19:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      rbp, gword ptr [rbx+08H]
+       ; gcrRegs +[rbp]
+       mov      rdx, rbp
+       ; gcrRegs +[rdx]
+       mov      r14d, dword ptr [rbx+18H]
+       mov      ecx, r14d
+       mov      eax, dword ptr [rdx+08H]
+       cmp      eax, ecx
+       jb       G_M22232_IG29
+       xor      r8d, r8d
+       test     ecx, ecx
+       jle      G_M22232_IG29
+       test     ecx, ecx
+       jl       SHORT G_M22232_IG25
+       cmp      eax, ecx
+       jl       SHORT G_M22232_IG25
+						;; size=44 bbWeight=0.50 PerfScore 5.88
+G_M22232_IG20:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      r9d, r8d
+       shl      r9, 4
+       mov      r9, gword ptr [rdx+r9+10H]
+       ; gcrRegs +[r9]
+       test     r9, r9
+       je       SHORT G_M22232_IG23
+						;; size=17 bbWeight=3.96 PerfScore 15.84
+G_M22232_IG21:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r9+08H], 10
+       jne      SHORT G_M22232_IG23
+						;; size=7 bbWeight=0.99 PerfScore 3.96
+G_M22232_IG22:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref
+       vmovupd  xmm0, xmmword ptr [r9+0CH]
+       vpor     xmm0, xmm0, xmmword ptr [reloc @RWD00]
+       vpxor    xmm0, xmm0, xmmword ptr [reloc @RWD16]
+       vmovupd  xmm1, xmmword ptr [r9+10H]
+       vpor     xmm1, xmm1, xmmword ptr [reloc @RWD00]
+       vpxor    xmm1, xmm1, xmmword ptr [reloc @RWD32]
+       vpor     xmm0, xmm0, xmm1
+       vptest   xmm0, xmm0
+       sete     r10b
+       movzx    r10, r10b
+       test     r10d, r10d
+       jne      G_M22232_IG30
+						;; size=70 bbWeight=1.98 PerfScore 43.23
+G_M22232_IG23:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, loop=IG20, byref, isz
+       ; gcrRegs -[r9]
+       inc      r8d
+       cmp      r8d, ecx
+       jl       SHORT G_M22232_IG20
+						;; size=8 bbWeight=3.96 PerfScore 5.94
+G_M22232_IG24:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx]
+       jmp      SHORT G_M22232_IG29
+       align    [0 bytes for IG34]
+						;; size=2 bbWeight=0.50 PerfScore 1.00
+G_M22232_IG25:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs +[rdx]
+       cmp      r8d, eax
+       jae      G_M22232_IG89
+       mov      r9d, r8d
+       shl      r9, 4
+       mov      r9, gword ptr [rdx+r9+10H]
+       ; gcrRegs +[r9]
+       test     r9, r9
+       je       SHORT G_M22232_IG28
+						;; size=26 bbWeight=0.04 PerfScore 0.21
+G_M22232_IG26:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r9+08H], 10
+       jne      SHORT G_M22232_IG28
+						;; size=7 bbWeight=0.01 PerfScore 0.04
+G_M22232_IG27:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       vmovupd  xmm0, xmmword ptr [r9+0CH]
+       vpor     xmm0, xmm0, xmmword ptr [reloc @RWD00]
+       vpxor    xmm0, xmm0, xmmword ptr [reloc @RWD16]
+       vmovupd  xmm1, xmmword ptr [r9+10H]
+       vpor     xmm1, xmm1, xmmword ptr [reloc @RWD00]
+       vpxor    xmm1, xmm1, xmmword ptr [reloc @RWD32]
+       vpor     xmm0, xmm0, xmm1
+       vptest   xmm0, xmm0
+       sete     r10b
+       movzx    r10, r10b
+       test     r10d, r10d
+       jne      SHORT G_M22232_IG30
+						;; size=66 bbWeight=0.02 PerfScore 0.44
+G_M22232_IG28:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r9]
+       inc      r8d
+       cmp      r8d, ecx
+       jl       SHORT G_M22232_IG25
+						;; size=8 bbWeight=0.04 PerfScore 0.06
+G_M22232_IG29:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx]
+       xor      edx, edx
+       jmp      SHORT G_M22232_IG31
+						;; size=4 bbWeight=0.50 PerfScore 1.12
+G_M22232_IG30:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      edx, 1
+						;; size=5 bbWeight=0.50 PerfScore 0.12
+G_M22232_IG31:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       test     edx, edx
+       jne      G_M22232_IG85
+       mov      rdx, rbp
+       ; gcrRegs +[rdx]
+       mov      ecx, r14d
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      r9, 0xD1FFAB1E      ; string handle
+       mov      r15, gword ptr [r9]
+       ; gcrRegs +[r15]
+       cmp      ecx, eax
+       jae      G_M22232_IG89
+       mov      ecx, ecx
+       shl      rcx, 4
+       lea      r12, bword ptr [rdx+rcx+10H]
+       ; byrRegs +[r12]
+       mov      rcx, r12
+       ; byrRegs +[rcx]
+       mov      rdx, r8
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx r8]
+       ; byrRegs -[rcx]
+       lea      rcx, bword ptr [r12+08H]
+       ; byrRegs +[rcx]
+       mov      rdx, r15
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx r15]
+       ; byrRegs -[rcx r12]
+       inc      r14d
+       mov      dword ptr [rbx+18H], r14d
+       lea      edx, [r14+01H]
+       cmp      gword ptr [rbx+10H], 0
+       jne      SHORT G_M22232_IG32
+       cmp      dword ptr [rbp+08H], edx
+       jge      SHORT G_M22232_IG33
+						;; size=106 bbWeight=0.50 PerfScore 11.12
+G_M22232_IG32:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rbp]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+						;; size=9 bbWeight=0.50 PerfScore 1.62
+G_M22232_IG33:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rdx, gword ptr [rbx+08H]
+       ; gcrRegs +[rdx]
+       mov      rcx, rdx
+       ; gcrRegs +[rcx]
+       mov      ebp, dword ptr [rbx+18H]
+       mov      eax, ebp
+       mov      r8d, dword ptr [rcx+08H]
+       cmp      r8d, eax
+       jb       G_M22232_IG43
+       xor      r9d, r9d
+       test     eax, eax
+       jle      G_M22232_IG43
+       test     eax, eax
+       jl       SHORT G_M22232_IG39
+       cmp      r8d, eax
+       jl       SHORT G_M22232_IG39
+						;; size=45 bbWeight=0.50 PerfScore 5.88
+G_M22232_IG34:        ; gcrefRegs=000000CE {rcx rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      r10d, r9d
+       shl      r10, 4
+       mov      r10, gword ptr [rcx+r10+10H]
+       ; gcrRegs +[r10]
+       test     r10, r10
+       je       SHORT G_M22232_IG37
+						;; size=17 bbWeight=3.96 PerfScore 15.84
+G_M22232_IG35:        ; gcrefRegs=000004CE {rcx rdx rbx rsi rdi r10}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r10+08H], 6
+       jne      SHORT G_M22232_IG37
+						;; size=7 bbWeight=0.99 PerfScore 3.96
+G_M22232_IG36:        ; gcrefRegs=000004CE {rcx rdx rbx rsi rdi r10}, byrefRegs=00000000 {}, byref
+       mov      r11, 0xD1FFAB1E
+       or       r11, qword ptr [r10+0CH]
+       mov      r14, 0xD1FFAB1E
+       xor      r11, r14
+       mov      r14, 0xD1FFAB1E
+       or       r14, qword ptr [r10+10H]
+       mov      r10, 0xD1FFAB1E
+       ; gcrRegs -[r10]
+       xor      r10, r14
+       or       r10, r11
+       je       SHORT G_M22232_IG44
+						;; size=59 bbWeight=0.49 PerfScore 4.33
+G_M22232_IG37:        ; gcrefRegs=000000CE {rcx rdx rbx rsi rdi}, byrefRegs=00000000 {}, loop=IG34, byref, isz
+       inc      r9d
+       cmp      r9d, eax
+       jl       SHORT G_M22232_IG34
+						;; size=8 bbWeight=3.96 PerfScore 5.94
+G_M22232_IG38:        ; gcrefRegs=000000CC {rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx]
+       jmp      SHORT G_M22232_IG43
+       align    [0 bytes for IG50]
+						;; size=2 bbWeight=0.50 PerfScore 1.00
+G_M22232_IG39:        ; gcrefRegs=000000CE {rcx rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs +[rcx]
+       cmp      r9d, r8d
+       jae      G_M22232_IG89
+       mov      r10d, r9d
+       shl      r10, 4
+       mov      r10, gword ptr [rcx+r10+10H]
+       ; gcrRegs +[r10]
+       test     r10, r10
+       je       SHORT G_M22232_IG42
+						;; size=26 bbWeight=0.04 PerfScore 0.21
+G_M22232_IG40:        ; gcrefRegs=000004CE {rcx rdx rbx rsi rdi r10}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r10+08H], 6
+       jne      SHORT G_M22232_IG42
+						;; size=7 bbWeight=0.01 PerfScore 0.04
+G_M22232_IG41:        ; gcrefRegs=000004CE {rcx rdx rbx rsi rdi r10}, byrefRegs=00000000 {}, byref, isz
+       mov      r11, 0xD1FFAB1E
+       or       r11, qword ptr [r10+0CH]
+       mov      r14, 0xD1FFAB1E
+       xor      r11, r14
+       mov      r14, 0xD1FFAB1E
+       or       r14, qword ptr [r10+10H]
+       mov      r10, 0xD1FFAB1E
+       ; gcrRegs -[r10]
+       xor      r10, r14
+       or       r10, r11
+       je       SHORT G_M22232_IG44
+						;; size=59 bbWeight=0.01 PerfScore 0.04
+G_M22232_IG42:        ; gcrefRegs=000000CE {rcx rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       inc      r9d
+       cmp      r9d, eax
+       jl       SHORT G_M22232_IG39
+						;; size=8 bbWeight=0.04 PerfScore 0.06
+G_M22232_IG43:        ; gcrefRegs=000000CC {rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx]
+       xor      ecx, ecx
+       jmp      SHORT G_M22232_IG45
+						;; size=4 bbWeight=0.50 PerfScore 1.12
+G_M22232_IG44:        ; gcrefRegs=000000CC {rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      ecx, 1
+						;; size=5 bbWeight=0.50 PerfScore 0.12
+G_M22232_IG45:        ; gcrefRegs=000000CC {rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       test     ecx, ecx
+       jne      G_M22232_IG86
+       mov      ecx, ebp
+       mov      rax, 0xD1FFAB1E      ; string handle
+       mov      rax, gword ptr [rax]
+       ; gcrRegs +[rax]
+       mov      r9, 0xD1FFAB1E      ; string handle
+       mov      r14, gword ptr [r9]
+       ; gcrRegs +[r14]
+       cmp      ecx, r8d
+       jae      G_M22232_IG89
+       mov      ecx, ecx
+       shl      rcx, 4
+       lea      r15, bword ptr [rdx+rcx+10H]
+       ; byrRegs +[r15]
+       mov      rcx, r15
+       ; byrRegs +[rcx]
+       mov      rdx, rax
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rax rdx]
+       ; byrRegs -[rcx]
+       lea      rcx, bword ptr [r15+08H]
+       ; byrRegs +[rcx]
+       mov      rdx, r14
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx r14]
+       ; byrRegs -[rcx r15]
+       inc      ebp
+       mov      dword ptr [rbx+18H], ebp
+       mov      r8, gword ptr [rdi+08H]
+       ; gcrRegs +[r8]
+       mov      r8, gword ptr [r8+08H]
+       mov      r8, gword ptr [r8+30H]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       lea      rcx, bword ptr [rsi+20H]
+       ; byrRegs +[rcx]
+       mov      rdx, rbx
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rdx rbx]
+       ; byrRegs -[rcx]
+						;; size=130 bbWeight=0.50 PerfScore 13.38
+G_M22232_IG46:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       cmp      gword ptr [rsi+18H], 0
+       jne      G_M22232_IG76
+						;; size=11 bbWeight=1    PerfScore 4.00
+G_M22232_IG47:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rcx, 0xD1FFAB1E      ; RouteValueDictionary
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rbx, rax
+       ; gcrRegs +[rbx]
+       mov      rdx, 0xD1FFAB1E      ; const ptr
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       lea      rcx, bword ptr [rbx+08H]
+       ; byrRegs +[rcx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rax rdx]
+       ; byrRegs -[rcx]
+       mov      edx, dword ptr [rbx+18H]
+       inc      edx
+       cmp      gword ptr [rbx+10H], 0
+       jne      SHORT G_M22232_IG48
+       mov      rcx, gword ptr [rbx+08H]
+       ; gcrRegs +[rcx]
+       cmp      dword ptr [rcx+08H], edx
+       jge      SHORT G_M22232_IG49
+						;; size=61 bbWeight=0.50 PerfScore 8.75
+G_M22232_IG48:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rcx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+						;; size=9 bbWeight=0.50 PerfScore 1.62
+G_M22232_IG49:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rbp, gword ptr [rbx+08H]
+       ; gcrRegs +[rbp]
+       mov      rdx, rbp
+       ; gcrRegs +[rdx]
+       mov      r14d, dword ptr [rbx+18H]
+       mov      ecx, r14d
+       mov      eax, dword ptr [rdx+08H]
+       cmp      eax, ecx
+       jb       G_M22232_IG59
+       xor      r8d, r8d
+       test     ecx, ecx
+       jle      G_M22232_IG59
+       test     rdx, rdx
+       je       SHORT G_M22232_IG55
+       test     ecx, ecx
+       jl       SHORT G_M22232_IG55
+       cmp      eax, ecx
+       jl       SHORT G_M22232_IG55
+						;; size=49 bbWeight=0.50 PerfScore 6.50
+G_M22232_IG50:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      r9d, r8d
+       shl      r9, 4
+       mov      r9, gword ptr [rdx+r9+10H]
+       ; gcrRegs +[r9]
+       test     r9, r9
+       je       SHORT G_M22232_IG53
+						;; size=17 bbWeight=3.96 PerfScore 15.84
+G_M22232_IG51:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r9+08H], 4
+       jne      SHORT G_M22232_IG53
+						;; size=7 bbWeight=0.99 PerfScore 3.96
+G_M22232_IG52:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       mov      r10, 0xD1FFAB1E
+       or       r10, qword ptr [r9+0CH]
+       mov      r9, 0xD1FFAB1E
+       ; gcrRegs -[r9]
+       cmp      r10, r9
+       je       SHORT G_M22232_IG60
+						;; size=29 bbWeight=0.49 PerfScore 2.35
+G_M22232_IG53:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, loop=IG50, byref, isz
+       inc      r8d
+       cmp      r8d, ecx
+       jl       SHORT G_M22232_IG50
+						;; size=8 bbWeight=3.96 PerfScore 5.94
+G_M22232_IG54:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx]
+       jmp      SHORT G_M22232_IG59
+       align    [0 bytes for IG64]
+						;; size=2 bbWeight=0.50 PerfScore 1.00
+G_M22232_IG55:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs +[rdx]
+       cmp      r8d, eax
+       jae      G_M22232_IG89
+       mov      r9d, r8d
+       shl      r9, 4
+       mov      r9, gword ptr [rdx+r9+10H]
+       ; gcrRegs +[r9]
+       test     r9, r9
+       je       SHORT G_M22232_IG58
+						;; size=26 bbWeight=0.04 PerfScore 0.21
+G_M22232_IG56:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r9+08H], 4
+       jne      SHORT G_M22232_IG58
+						;; size=7 bbWeight=0.01 PerfScore 0.04
+G_M22232_IG57:        ; gcrefRegs=000002EC {rdx rbx rbp rsi rdi r9}, byrefRegs=00000000 {}, byref, isz
+       mov      r10, 0xD1FFAB1E
+       or       r10, qword ptr [r9+0CH]
+       mov      r9, 0xD1FFAB1E
+       ; gcrRegs -[r9]
+       cmp      r10, r9
+       je       SHORT G_M22232_IG60
+						;; size=29 bbWeight=0.01 PerfScore 0.02
+G_M22232_IG58:        ; gcrefRegs=000000EC {rdx rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       inc      r8d
+       cmp      r8d, ecx
+       jl       SHORT G_M22232_IG55
+						;; size=8 bbWeight=0.04 PerfScore 0.06
+G_M22232_IG59:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rdx]
+       xor      edx, edx
+       jmp      SHORT G_M22232_IG61
+						;; size=4 bbWeight=0.50 PerfScore 1.12
+G_M22232_IG60:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      edx, 1
+						;; size=5 bbWeight=0.50 PerfScore 0.12
+G_M22232_IG61:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       test     edx, edx
+       jne      G_M22232_IG87
+       mov      rdx, rbp
+       ; gcrRegs +[rdx]
+       mov      ecx, r14d
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      r9, 0xD1FFAB1E      ; string handle
+       mov      r15, gword ptr [r9]
+       ; gcrRegs +[r15]
+       cmp      ecx, eax
+       jae      G_M22232_IG89
+       mov      ecx, ecx
+       shl      rcx, 4
+       lea      r12, bword ptr [rdx+rcx+10H]
+       ; byrRegs +[r12]
+       mov      rcx, r12
+       ; byrRegs +[rcx]
+       mov      rdx, r8
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx r8]
+       ; byrRegs -[rcx]
+       lea      rcx, bword ptr [r12+08H]
+       ; byrRegs +[rcx]
+       mov      rdx, r15
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx r15]
+       ; byrRegs -[rcx r12]
+       inc      r14d
+       mov      dword ptr [rbx+18H], r14d
+       lea      edx, [r14+01H]
+       cmp      gword ptr [rbx+10H], 0
+       jne      SHORT G_M22232_IG62
+       cmp      dword ptr [rbp+08H], edx
+       jge      SHORT G_M22232_IG63
+						;; size=106 bbWeight=0.50 PerfScore 11.12
+G_M22232_IG62:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rbp]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+						;; size=9 bbWeight=0.50 PerfScore 1.62
+G_M22232_IG63:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rdx, gword ptr [rbx+08H]
+       ; gcrRegs +[rdx]
+       mov      rcx, rdx
+       ; gcrRegs +[rcx]
+       mov      ebp, dword ptr [rbx+18H]
+       mov      eax, ebp
+       mov      r8d, dword ptr [rcx+08H]
+       cmp      r8d, eax
+       jb       G_M22232_IG73
+       xor      r9d, r9d
+       test     eax, eax
+       jle      G_M22232_IG73
+       test     rcx, rcx
+       je       SHORT G_M22232_IG69
+       test     eax, eax
+       jl       SHORT G_M22232_IG69
+       cmp      r8d, eax
+       jl       SHORT G_M22232_IG69
+						;; size=50 bbWeight=0.50 PerfScore 6.50
+G_M22232_IG64:        ; gcrefRegs=000000CE {rcx rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      r10d, r9d
+       shl      r10, 4
+       mov      r10, gword ptr [rcx+r10+10H]
+       ; gcrRegs +[r10]
+       test     r10, r10
+       je       SHORT G_M22232_IG67
+						;; size=17 bbWeight=3.96 PerfScore 15.84
+G_M22232_IG65:        ; gcrefRegs=000004CE {rcx rdx rbx rsi rdi r10}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r10+08H], 10
+       jne      SHORT G_M22232_IG67
+						;; size=7 bbWeight=0.99 PerfScore 3.96
+G_M22232_IG66:        ; gcrefRegs=000004CE {rcx rdx rbx rsi rdi r10}, byrefRegs=00000000 {}, byref
+       vmovupd  xmm0, xmmword ptr [r10+0CH]
+       vpor     xmm0, xmm0, xmmword ptr [reloc @RWD00]
+       vpxor    xmm0, xmm0, xmmword ptr [reloc @RWD16]
+       vmovupd  xmm1, xmmword ptr [r10+10H]
+       vpor     xmm1, xmm1, xmmword ptr [reloc @RWD00]
+       vpxor    xmm1, xmm1, xmmword ptr [reloc @RWD32]
+       vpor     xmm0, xmm0, xmm1
+       vptest   xmm0, xmm0
+       sete     r11b
+       movzx    r11, r11b
+       test     r11d, r11d
+       jne      G_M22232_IG74
+						;; size=70 bbWeight=1.98 PerfScore 43.23
+G_M22232_IG67:        ; gcrefRegs=000000CE {rcx rdx rbx rsi rdi}, byrefRegs=00000000 {}, loop=IG64, byref, isz
+       ; gcrRegs -[r10]
+       inc      r9d
+       cmp      r9d, eax
+       jl       SHORT G_M22232_IG64
+						;; size=8 bbWeight=3.96 PerfScore 5.94
+G_M22232_IG68:        ; gcrefRegs=000000CC {rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx]
+       jmp      SHORT G_M22232_IG73
+						;; size=2 bbWeight=0.50 PerfScore 1.00
+G_M22232_IG69:        ; gcrefRegs=000000CE {rcx rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs +[rcx]
+       cmp      r9d, r8d
+       jae      G_M22232_IG89
+       mov      r10d, r9d
+       shl      r10, 4
+       mov      r10, gword ptr [rcx+r10+10H]
+       ; gcrRegs +[r10]
+       test     r10, r10
+       je       SHORT G_M22232_IG72
+						;; size=26 bbWeight=0.04 PerfScore 0.21
+G_M22232_IG70:        ; gcrefRegs=000004CE {rcx rdx rbx rsi rdi r10}, byrefRegs=00000000 {}, byref, isz
+       cmp      dword ptr [r10+08H], 10
+       jne      SHORT G_M22232_IG72
+						;; size=7 bbWeight=0.01 PerfScore 0.04
+G_M22232_IG71:        ; gcrefRegs=000004CE {rcx rdx rbx rsi rdi r10}, byrefRegs=00000000 {}, byref, isz
+       vmovupd  xmm0, xmmword ptr [r10+0CH]
+       vpor     xmm0, xmm0, xmmword ptr [reloc @RWD00]
+       vpxor    xmm0, xmm0, xmmword ptr [reloc @RWD16]
+       vmovupd  xmm1, xmmword ptr [r10+10H]
+       vpor     xmm1, xmm1, xmmword ptr [reloc @RWD00]
+       vpxor    xmm1, xmm1, xmmword ptr [reloc @RWD32]
+       vpor     xmm0, xmm0, xmm1
+       vptest   xmm0, xmm0
+       sete     r11b
+       movzx    r11, r11b
+       test     r11d, r11d
+       jne      SHORT G_M22232_IG74
+						;; size=66 bbWeight=0.02 PerfScore 0.44
+G_M22232_IG72:        ; gcrefRegs=000000CE {rcx rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r10]
+       inc      r9d
+       cmp      r9d, eax
+       jl       SHORT G_M22232_IG69
+						;; size=8 bbWeight=0.04 PerfScore 0.06
+G_M22232_IG73:        ; gcrefRegs=000000CC {rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx]
+       xor      ecx, ecx
+       jmp      SHORT G_M22232_IG75
+						;; size=4 bbWeight=0.50 PerfScore 1.12
+G_M22232_IG74:        ; gcrefRegs=000000CC {rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      ecx, 1
+						;; size=5 bbWeight=0.50 PerfScore 0.12
+G_M22232_IG75:        ; gcrefRegs=000000CC {rdx rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       test     ecx, ecx
+       jne      G_M22232_IG88
+       mov      ecx, ebp
+       mov      rax, 0xD1FFAB1E      ; string handle
+       mov      rax, gword ptr [rax]
+       ; gcrRegs +[rax]
+       mov      r9, 0xD1FFAB1E      ; string handle
+       mov      r14, gword ptr [r9]
+       ; gcrRegs +[r14]
+       cmp      ecx, r8d
+       jae      G_M22232_IG89
+       mov      ecx, ecx
+       shl      rcx, 4
+       lea      r15, bword ptr [rdx+rcx+10H]
+       ; byrRegs +[r15]
+       mov      rcx, r15
+       ; byrRegs +[rcx]
+       mov      rdx, rax
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rax rdx]
+       ; byrRegs -[rcx]
+       lea      rcx, bword ptr [r15+08H]
+       ; byrRegs +[rcx]
+       mov      rdx, r14
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx r14]
+       ; byrRegs -[rcx r15]
+       inc      ebp
+       mov      dword ptr [rbx+18H], ebp
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, gword ptr [rdi+08H]
+       ; gcrRegs +[r8]
+       mov      r8, gword ptr [r8+08H]
+       mov      r8, gword ptr [r8+20H]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       lea      rcx, bword ptr [rsi+18H]
+       ; byrRegs +[rcx]
+       mov      rdx, rbx
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rdx rbx]
+       ; byrRegs -[rcx]
+						;; size=165 bbWeight=0.50 PerfScore 17.25
+G_M22232_IG76:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       cmp      gword ptr [rsi+30H], 0
+       jne      G_M22232_IG78
+						;; size=11 bbWeight=1    PerfScore 4.00
+G_M22232_IG77:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      rcx, 0xD1FFAB1E      ; RouteValueDictionary
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rbx, rax
+       ; gcrRegs +[rbx]
+       mov      rdx, 0xD1FFAB1E      ; const ptr
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       lea      rcx, bword ptr [rbx+08H]
+       ; byrRegs +[rcx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rax rdx]
+       ; byrRegs -[rcx]
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, gword ptr [rdi+08H]
+       ; gcrRegs +[r8]
+       mov      r8, gword ptr [r8+08H]
+       mov      r8, gword ptr [r8+20H]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       lea      rcx, bword ptr [rsi+30H]
+       ; byrRegs +[rcx]
+       mov      rdx, rbx
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rdx rbx]
+       ; byrRegs -[rcx]
+						;; size=191 bbWeight=0.50 PerfScore 20.88
+G_M22232_IG78:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       cmp      gword ptr [rsi+10H], 0
+       jne      G_M22232_IG80
+						;; size=11 bbWeight=1    PerfScore 4.00
+G_M22232_IG79:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      rcx, 0xD1FFAB1E      ; RouteValueDictionary
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rbx, rax
+       ; gcrRegs +[rbx]
+       mov      rdx, 0xD1FFAB1E      ; const ptr
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       lea      rcx, bword ptr [rbx+08H]
+       ; byrRegs +[rcx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rax rdx]
+       ; byrRegs -[rcx]
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, gword ptr [rdi+08H]
+       ; gcrRegs +[r8]
+       mov      r8, gword ptr [r8+08H]
+       mov      r8, gword ptr [r8+20H]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       lea      rcx, bword ptr [rsi+10H]
+       ; byrRegs +[rcx]
+       mov      rdx, rbx
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rdx rbx]
+       ; byrRegs -[rcx]
+						;; size=191 bbWeight=0.50 PerfScore 20.88
+G_M22232_IG80:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       cmp      gword ptr [rsi+28H], 0
+       jne      G_M22232_IG82
+						;; size=11 bbWeight=1    PerfScore 4.00
+G_M22232_IG81:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      rcx, 0xD1FFAB1E      ; RouteValueDictionary
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rbx, rax
+       ; gcrRegs +[rbx]
+       mov      rdx, 0xD1FFAB1E      ; const ptr
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       lea      rcx, bword ptr [rbx+08H]
+       ; byrRegs +[rcx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rax rdx]
+       ; byrRegs -[rcx]
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, 0xD1FFAB1E      ; string handle
+       mov      r8, gword ptr [r8]
+       ; gcrRegs +[r8]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx r8]
+       ; gcr arg pop 0
+       mov      r8, gword ptr [rdi+08H]
+       ; gcrRegs +[r8]
+       mov      r8, gword ptr [r8+08H]
+       mov      r8, gword ptr [r8+20H]
+       mov      rdx, 0xD1FFAB1E      ; string handle
+       mov      rdx, gword ptr [rdx]
+       ; gcrRegs +[rdx]
+       mov      rcx, rbx
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:Add(String,Object):this]
+       ; gcrRegs -[rcx rdx rdi r8]
+       ; gcr arg pop 0
+       lea      rcx, bword ptr [rsi+28H]
+       ; byrRegs +[rcx]
+       mov      rdx, rbx
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rdx rbx rsi]
+       ; byrRegs -[rcx]
+						;; size=191 bbWeight=0.50 PerfScore 20.88
+G_M22232_IG82:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       mov      rax, 0xD1FFAB1E      ; const ptr
+       mov      rax, gword ptr [rax]
+       ; gcrRegs +[rax]
+						;; size=13 bbWeight=1    PerfScore 2.25
+G_M22232_IG83:        ; , epilog, nogc, extend
+       add      rsp, 32
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r14
+       pop      r15
+       ret      
+						;; size=15 bbWeight=1    PerfScore 4.75
+G_M22232_IG84:        ; gcVars=00000000000000000000000000000000 {}, gcrefRegs=00000000 {}, byrefRegs=00000000 {}, gcvars, byref
+       ; gcrRegs -[rax]
+       mov      rcx, 0xD1FFAB1E      ; ArgumentException
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rsi, rax
+       ; gcrRegs +[rsi]
+       mov      ecx, 0x25B2C
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 830
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, rdi
+       ; gcrRegs +[rcx]
+       call     [Resources:FormatRouteValueDictionary_DuplicateKey(Object,Object):String]
+       ; gcrRegs -[rcx rdx rdi]
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 872
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      rdx, rdi
+       ; gcrRegs +[rdx]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [ArgumentException:.ctor(String,String):this]
+       ; gcrRegs -[rax rcx rdx rdi r8]
+       ; gcr arg pop 0
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     CORINFO_HELP_THROW
+       ; gcrRegs -[rcx rsi]
+       ; gcr arg pop 0
+						;; size=119 bbWeight=0    PerfScore 0.00
+G_M22232_IG85:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       mov      rcx, 0xD1FFAB1E      ; ArgumentException
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rsi, rax
+       ; gcrRegs +[rsi]
+       mov      ecx, 0x259FC
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 830
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, rdi
+       ; gcrRegs +[rcx]
+       call     [Resources:FormatRouteValueDictionary_DuplicateKey(Object,Object):String]
+       ; gcrRegs -[rcx rdx rdi]
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 872
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      rdx, rdi
+       ; gcrRegs +[rdx]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [ArgumentException:.ctor(String,String):this]
+       ; gcrRegs -[rax rcx rdx rdi r8]
+       ; gcr arg pop 0
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     CORINFO_HELP_THROW
+       ; gcrRegs -[rcx rsi]
+       ; gcr arg pop 0
+						;; size=119 bbWeight=0    PerfScore 0.00
+G_M22232_IG86:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       mov      rcx, 0xD1FFAB1E      ; ArgumentException
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rsi, rax
+       ; gcrRegs +[rsi]
+       mov      ecx, 0x259EE
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 830
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, rdi
+       ; gcrRegs +[rcx]
+       call     [Resources:FormatRouteValueDictionary_DuplicateKey(Object,Object):String]
+       ; gcrRegs -[rcx rdx rdi]
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 872
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      rdx, rdi
+       ; gcrRegs +[rdx]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [ArgumentException:.ctor(String,String):this]
+       ; gcrRegs -[rax rcx rdx rdi r8]
+       ; gcr arg pop 0
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     CORINFO_HELP_THROW
+       ; gcrRegs -[rcx rsi]
+       ; gcr arg pop 0
+						;; size=119 bbWeight=0    PerfScore 0.00
+G_M22232_IG87:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       mov      rcx, 0xD1FFAB1E      ; ArgumentException
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rsi, rax
+       ; gcrRegs +[rsi]
+       mov      ecx, 0x25B2C
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 830
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, rdi
+       ; gcrRegs +[rcx]
+       call     [Resources:FormatRouteValueDictionary_DuplicateKey(Object,Object):String]
+       ; gcrRegs -[rcx rdx rdi]
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 872
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      rdx, rdi
+       ; gcrRegs +[rdx]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [ArgumentException:.ctor(String,String):this]
+       ; gcrRegs -[rax rcx rdx rdi r8]
+       ; gcr arg pop 0
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     CORINFO_HELP_THROW
+       ; gcrRegs -[rcx rsi]
+       ; gcr arg pop 0
+						;; size=119 bbWeight=0    PerfScore 0.00
+G_M22232_IG88:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       mov      rcx, 0xD1FFAB1E      ; ArgumentException
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rsi, rax
+       ; gcrRegs +[rsi]
+       mov      ecx, 0x259FC
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 830
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, rdi
+       ; gcrRegs +[rcx]
+       call     [Resources:FormatRouteValueDictionary_DuplicateKey(Object,Object):String]
+       ; gcrRegs -[rcx rdx rdi]
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 872
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      rdx, rdi
+       ; gcrRegs +[rdx]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [ArgumentException:.ctor(String,String):this]
+       ; gcrRegs -[rax rcx rdx rdi r8]
+       ; gcr arg pop 0
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     CORINFO_HELP_THROW
+       ; gcrRegs -[rcx rsi]
+       ; gcr arg pop 0
+       int3     
+						;; size=120 bbWeight=0    PerfScore 0.00
+G_M22232_IG89:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       call     CORINFO_HELP_RNGCHKFAIL
+       ; gcr arg pop 0
+       int3     
+						;; size=6 bbWeight=0    PerfScore 0.00
+RWD00  	dq	0020002000200020h, 0020002000200020h
+RWD16  	dq	0074006E006F0063h, 006C006C006F0072h
+RWD32  	dq	006F00720074006Eh, 00720065006C006Ch
+
+
+; Total bytes of code 3219, prolog size 23, PerfScore 781.98, instruction count 734, allocated bytes for code 3254 (MethodHash=c1f4a927) for method <>c__DisplayClass5_0:<GetContentItemAspectAsync>b__0(ContentItemMetadata):Task:this
+; ============================================================
+
+Unwind Info:
+  >> Start offset   : 0x000000 (not in unwind data)
+  >>   End offset   : 0xd1ffab1e (not in unwind data)
+  Version           : 1
+  Flags             : 0x00
+  SizeOfProlog      : 0x0E
+  CountOfUnwindCodes: 8
+  FrameRegister     : none (0)
+  FrameOffset       : N/A (no FrameRegister) (Value=0)
+  UnwindCodes       :
+    CodeOffset: 0x0E UnwindOp: UWOP_ALLOC_SMALL (2)     OpInfo: 3 * 8 + 8 = 32 = 0x20
+    CodeOffset: 0x0A UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbx (3)
+    CodeOffset: 0x09 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbp (5)
+    CodeOffset: 0x08 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rsi (6)
+    CodeOffset: 0x07 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rdi (7)
+    CodeOffset: 0x06 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r12 (12)
+    CodeOffset: 0x04 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r14 (14)
+    CodeOffset: 0x02 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r15 (15)

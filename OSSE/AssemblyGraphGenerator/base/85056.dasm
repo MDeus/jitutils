@@ -1,0 +1,985 @@
+; Assembly listing for method DefaultBinder:SelectMethod(int,ref,ref,ref):MethodBase:this
+; Emitting BLENDED_CODE for X64 CPU with AVX - Windows
+; Tier-1 compilation
+; OSR variant for entry point 0x152
+; optimized code
+; rbp based frame
+; fully interruptible
+; No matching PGO data
+; 0 inlinees with PGO data; 2 single block inlinees; 0 inlinees without PGO data
+; Final local variable assignments
+;
+;* V00 this         [V00    ] (  0,  0   )     ref  ->  zero-ref    this class-hnd single-def
+;* V01 arg1         [V01    ] (  0,  0   )     int  ->  zero-ref    single-def
+;* V02 arg2         [V02    ] (  0,  0   )     ref  ->  zero-ref    class-hnd single-def
+;  V03 arg3         [V03,T09] ( 13, 34.50)     ref  ->  rsi         class-hnd single-def
+;* V04 arg4         [V04    ] (  0,  0   )     ref  ->  zero-ref    class-hnd single-def
+;  V05 loc0         [V05,T03] ( 40, 67.12)     int  ->  [rbp+144H]   tier0-frame
+;  V06 loc1         [V06,T02] ( 25, 69.27)     int  ->  [rbp+140H]   tier0-frame
+;* V07 loc2         [V07    ] (  0,  0   )     ref  ->  zero-ref    class-hnd
+;  V08 loc3         [V08,T16] ( 16, 26   )     ref  ->  rdi         class-hnd
+;  V09 loc4         [V09,T25] ( 11, 11   )     int  ->  [rbp+12CH]   tier0-frame
+;  V10 loc5         [V10,T24] (  9, 11.50)     int  ->  r15        
+;  V11 loc6         [V11,T28] (  6,  5   )    bool  ->  r13        
+;  V12 loc7         [V12,T23] (  9, 13.04)     ref  ->  [rbp+118H]   class-hnd exact spill-single-def tier0-frame
+;  V13 loc8         [V13,T08] ( 13, 42.30)     ref  ->  r15         class-hnd
+;  V14 loc9         [V14,T06] ( 22, 56.32)     ref  ->  [rbp+108H]   class-hnd tier0-frame
+;  V15 loc10        [V15,T07] ( 21, 56.00)     ref  ->  [rbp+100H]   class-hnd tier0-frame
+;  V16 loc11        [V16,T17] (  9, 24.00)     ref  ->  [rbp+F8H]   class-hnd tier0-frame
+;  V17 loc12        [V17,T11] ( 12, 32.00)     ref  ->  rax         class-hnd
+;  V18 loc13        [V18,T18] (  9, 24.00)     ref  ->  [rbp+E8H]   class-hnd tier0-frame
+;  V19 loc14        [V19,T26] (  6, 10   )     int  ->  rax        
+;  V20 OutArgs      [V20    ] (  1,  1   )  lclBlk (64) [rsp+00H]   "OutgoingArgSpace"
+;  V21 tmp1         [V21,T12] (  6, 32.00)     ref  ->  rax         "CASTCLASS eval op1"
+;  V22 tmp2         [V22,T05] ( 15, 60.00)     ref  ->  registers   class-hnd "spilling QMark2"
+;  V23 tmp3         [V23,T20] (  8, 16   )     int  ->  r13         "impSpillLclRefs"
+;  V24 tmp4         [V24,T27] (  4,  8   )     ref  ->  rdx         class-hnd "Strict ordering of exceptions for Array store"
+;  V25 tmp5         [V25,T29] (  3,  0   )     ref  ->  rsi         class-hnd exact single-def "NewObj constructor temp"
+;  V26 tmp6         [V26,T19] (  6, 24   )     ref  ->  rcx         "argument with side effect"
+;  V27 tmp7         [V27,T00] (  9, 96.00)     ref  ->  rcx         "argument with side effect"
+;  V28 tmp8         [V28,T04] (  6, 64.00)     ref  ->  rcx         "argument with side effect"
+;  V29 tmp9         [V29,T13] (  6, 32.00)     ref  ->  rax         "argument with side effect"
+;  V30 tmp10        [V30,T14] (  6, 32.00)     ref  ->  rax         "argument with side effect"
+;  V31 tmp11        [V31,T21] (  4, 16   )     ref  ->  rcx         "argument with side effect"
+;  V32 cse0         [V32,T10] ( 19, 36.14)     int  ->  registers   "CSE - aggressive"
+;  V33 cse1         [V33,T15] (  4, 31.36)    long  ->  [rbp-40H]   spill-single-def "CSE - moderate"
+;  V34 cse2         [V34,T22] ( 13, 13.58)     int  ->  rbx         "CSE - moderate"
+;  V35 cse3         [V35,T01] (  5, 70.57)    long  ->  [rbp-48H]   spill-single-def "CSE - aggressive"
+;
+; Lcl frame size = 88
+
+G_M40137_IG01:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref, nogc <-- Prolog IG
+       mov      rax, qword ptr [rbp]
+       push     rax
+       sub      rsp, 144
+       mov      qword ptr [rsp+208H], r15
+       mov      qword ptr [rsp+200H], r14
+       mov      qword ptr [rsp+1F8H], r13
+       mov      qword ptr [rsp+1F0H], r12
+       mov      qword ptr [rsp+1E8H], rdi
+       mov      qword ptr [rsp+1E0H], rsi
+       mov      qword ptr [rsp+1D8H], rbx
+       lea      rbp, [rsp+90H]
+       mov      rsi, gword ptr [rbp+1A8H]
+       ; gcrRegs +[rsi]
+       mov      rdi, gword ptr [rbp+130H]
+       ; gcrRegs +[rdi]
+						;; size=90 bbWeight=1    PerfScore 14.75
+G_M40137_IG02:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      ebx, dword ptr [rdi+08H]
+       mov      r14d, dword ptr [rbp+144H]
+       cmp      ebx, r14d
+       jle      G_M40137_IG41
+       test     r14d, r14d
+       jl       G_M40137_IG25
+						;; size=28 bbWeight=1    PerfScore 5.50
+G_M40137_IG03:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      ecx, r14d
+       mov      rcx, gword ptr [rdi+8*rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+50H]
+       call     [rax+10H]hackishModuleName:hackishMethodName():ref:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      r15, rax
+       ; gcrRegs +[r15]
+       mov      ecx, dword ptr [r15+08H]
+       mov      r12d, dword ptr [rsi+08H]
+       cmp      ecx, r12d
+       jne      G_M40137_IG23
+						;; size=38 bbWeight=3.96 PerfScore 58.41
+G_M40137_IG04:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rax]
+       xor      r13d, r13d
+       test     r12d, r12d
+       jle      G_M40137_IG22
+       cmp      dword ptr [r15+08H], r12d
+       jl       G_M40137_IG14
+						;; size=22 bbWeight=1.98 PerfScore 10.89
+G_M40137_IG05:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       mov      eax, r13d
+       mov      qword ptr [rbp-48H], rax
+       mov      rcx, gword ptr [r15+8*rax+10H]
+       ; gcrRegs +[rcx]
+       mov      rdx, qword ptr [rcx]
+       mov      rdx, qword ptr [rdx+40H]
+       call     [rdx+38H]hackishModuleName:hackishMethodName():Type:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+108H], rax
+       ; GC ptr vars +{V14}
+       mov      r8, qword ptr [rbp-48H]
+       mov      rcx, gword ptr [rsi+8*r8+10H]
+       ; gcrRegs +[rcx]
+       mov      rdx, gword ptr [r15+8*r8+10H]
+       ; gcrRegs +[rdx]
+       call     [SignatureTypeExtensions:MatchesParameterTypeExactly(Type,ParameterInfo):bool]
+       ; gcrRegs -[rax rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      G_M40137_IG12
+						;; size=57 bbWeight=15.68 PerfScore 321.47
+G_M40137_IG06:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       mov      rcx, 0xD1FFAB1E      ; hackishClassName
+       call     CORINFO_HELP_TYPEHANDLE_TO_RUNTIMETYPE
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       cmp      rax, gword ptr [rbp+108H]
+       je       G_M40137_IG12
+       mov      rdx, qword ptr [rbp-48H]
+       mov      rax, gword ptr [rsi+8*rdx+10H]
+       mov      gword ptr [rbp+100H], rax
+       ; GC ptr vars +{V15}
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, 0xD1FFAB1E      ; SignatureType
+       call     [CORINFO_HELP_ISINSTANCEOFCLASS]
+       ; gcrRegs -[rdx]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+F8H], rax
+       ; GC ptr vars +{V16}
+       test     rax, rax
+       je       SHORT G_M40137_IG07
+       mov      edx, r14d
+       mov      rdx, gword ptr [rdi+8*rdx+10H]
+       ; gcrRegs +[rdx]
+       mov      rcx, 0xD1FFAB1E      ; MethodInfo
+       ; GC ptr vars -{V15}
+       call     [CORINFO_HELP_ISINSTANCEOFCLASS]
+       ; gcrRegs -[rdx]
+       ; gcr arg pop 0
+       test     rax, rax
+       je       G_M40137_IG22
+       mov      rcx, rax
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rax]
+       ; gcrRegs -[rax]
+       mov      rax, qword ptr [rax+58H]
+       call     [rax+28H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, gword ptr [rbp+F8H]
+       ; gcrRegs +[rcx]
+       ; GC ptr vars -{V16}
+       call     [SignatureTypeExtensions:TryResolve()]
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+100H], rax
+       ; GC ptr vars +{V15}
+       test     rax, rax
+       je       G_M40137_IG22
+						;; size=153 bbWeight=7.84 PerfScore 270.51
+G_M40137_IG07:        ; gcVars=00000000000000C0 {V14 V15}, gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs -[rax]
+       mov      rcx, gword ptr [rbp+108H]
+       ; gcrRegs +[rcx]
+       mov      gword ptr [rbp+108H], rcx
+       mov      rdx, qword ptr [rcx]
+       mov      qword ptr [rbp-40H], rdx
+       mov      r8, qword ptr [rdx+70H]
+       call     [r8+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       SHORT G_M40137_IG11
+       mov      rcx, gword ptr [rbp+100H]
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+58H]
+       ; GC ptr vars -{V15}
+       call     [rax]hackishModuleName:hackishMethodName():Type:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       test     rdx, rdx
+       je       SHORT G_M40137_IG10
+						;; size=57 bbWeight=7.84 PerfScore 162.70
+G_M40137_IG08:        ; gcrefRegs=000080C4 {rdx rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rax]
+       mov      rcx, 0xD1FFAB1E      ; RuntimeType
+       cmp      qword ptr [rdx], rcx
+       je       SHORT G_M40137_IG10
+						;; size=15 bbWeight=3.92 PerfScore 16.66
+G_M40137_IG09:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rdx]
+       xor      rdx, rdx
+       ; gcrRegs +[rdx]
+						;; size=2 bbWeight=1.96 PerfScore 0.49
+G_M40137_IG10:        ; gcrefRegs=000080C4 {rdx rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       mov      r8, rdx
+       ; gcrRegs +[r8]
+       mov      gword ptr [rbp+E8H], r8
+       ; GC ptr vars +{V18}
+       test     r8, r8
+       je       G_M40137_IG22
+       mov      rcx, gword ptr [rbp+108H]
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rbp-40H]
+       mov      rax, qword ptr [rax+58H]
+       ; GC ptr vars -{V14}
+       call     [rax]hackishModuleName:hackishMethodName():Type:this
+       ; gcrRegs -[rcx rdx r8] +[rax]
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, gword ptr [rbp+E8H]
+       ; gcrRegs +[rcx]
+       ; GC ptr vars -{V18}
+       call     [DefaultBinder:CanChangePrimitive(Type,Type):bool]
+       ; gcrRegs -[rax rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M40137_IG12
+       jmp      G_M40137_IG22
+						;; size=61 bbWeight=7.84 PerfScore 133.29
+G_M40137_IG11:        ; gcVars=00000000000000C0 {V14 V15}, gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, gcvars, byref
+       ; GC ptr vars +{V06 V14 V15}
+       mov      rcx, gword ptr [rbp+108H]
+       ; gcrRegs +[rcx]
+       mov      rdx, gword ptr [rbp+100H]
+       ; gcrRegs +[rdx]
+       mov      rax, qword ptr [rbp-40H]
+       mov      rax, qword ptr [rax+A8H]
+       ; GC ptr vars -{V06 V14 V15}
+       call     [rax+28H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       G_M40137_IG22
+						;; size=36 bbWeight=7.84 PerfScore 72.53
+G_M40137_IG12:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       inc      r13d
+       cmp      r12d, r13d
+       jg       G_M40137_IG05
+						;; size=12 bbWeight=15.68 PerfScore 23.52
+G_M40137_IG13:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[r15]
+       jmp      G_M40137_IG22
+						;; size=5 bbWeight=1.98 PerfScore 3.96
+G_M40137_IG14:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       ; gcrRegs +[r15]
+       cmp      r13d, dword ptr [r15+08H]
+       jae      G_M40137_IG65
+       mov      ecx, r13d
+       mov      rcx, gword ptr [r15+8*rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+40H]
+       call     [rax+38H]hackishModuleName:hackishMethodName():Type:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+108H], rax
+       ; GC ptr vars +{V14}
+       mov      ecx, r13d
+       mov      rcx, gword ptr [rsi+8*rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      edx, r13d
+       mov      rdx, gword ptr [r15+8*rdx+10H]
+       ; gcrRegs +[rdx]
+       call     [SignatureTypeExtensions:MatchesParameterTypeExactly(Type,ParameterInfo):bool]
+       ; gcrRegs -[rax rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      G_M40137_IG21
+						;; size=65 bbWeight=0.16 PerfScore 3.64
+G_M40137_IG15:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       mov      rcx, 0xD1FFAB1E      ; hackishClassName
+       call     CORINFO_HELP_TYPEHANDLE_TO_RUNTIMETYPE
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       cmp      rax, gword ptr [rbp+108H]
+       je       G_M40137_IG21
+       mov      edx, r13d
+       mov      rdx, gword ptr [rsi+8*rdx+10H]
+       ; gcrRegs +[rdx]
+       mov      rax, rdx
+       mov      gword ptr [rbp+100H], rax
+       ; GC ptr vars +{V15}
+       mov      rdx, rax
+       mov      rcx, 0xD1FFAB1E      ; SignatureType
+       call     [CORINFO_HELP_ISINSTANCEOFCLASS]
+       ; gcrRegs -[rdx]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+F8H], rax
+       ; GC ptr vars +{V16}
+       test     rax, rax
+       je       SHORT G_M40137_IG16
+       mov      edx, r14d
+       mov      rdx, gword ptr [rdi+8*rdx+10H]
+       ; gcrRegs +[rdx]
+       mov      rcx, 0xD1FFAB1E      ; MethodInfo
+       ; GC ptr vars -{V15}
+       call     [CORINFO_HELP_ISINSTANCEOFCLASS]
+       ; gcrRegs -[rdx]
+       ; gcr arg pop 0
+       test     rax, rax
+       je       G_M40137_IG22
+       mov      rcx, rax
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rax]
+       ; gcrRegs -[rax]
+       mov      rax, qword ptr [rax+58H]
+       call     [rax+28H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, gword ptr [rbp+F8H]
+       ; gcrRegs +[rcx]
+       ; GC ptr vars -{V16}
+       call     [SignatureTypeExtensions:TryResolve()]
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+100H], rax
+       ; GC ptr vars +{V15}
+       test     rax, rax
+       je       G_M40137_IG22
+						;; size=155 bbWeight=0.08 PerfScore 2.69
+G_M40137_IG16:        ; gcVars=00000000000000C0 {V14 V15}, gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs -[rax]
+       mov      rcx, gword ptr [rbp+108H]
+       ; gcrRegs +[rcx]
+       mov      gword ptr [rbp+108H], rcx
+       mov      rdx, qword ptr [rcx]
+       mov      rdx, qword ptr [rdx+70H]
+       call     [rdx+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       SHORT G_M40137_IG20
+       mov      rcx, gword ptr [rbp+100H]
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+58H]
+       ; GC ptr vars -{V15}
+       call     [rax]hackishModuleName:hackishMethodName():Type:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      rcx, rax
+       ; gcrRegs +[rcx]
+       test     rcx, rcx
+       je       SHORT G_M40137_IG19
+						;; size=52 bbWeight=0.08 PerfScore 1.56
+G_M40137_IG17:        ; gcrefRegs=000080C2 {rcx rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rax]
+       mov      rax, 0xD1FFAB1E      ; RuntimeType
+       cmp      qword ptr [rcx], rax
+       je       SHORT G_M40137_IG19
+						;; size=15 bbWeight=0.04 PerfScore 0.17
+G_M40137_IG18:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rcx]
+       xor      rcx, rcx
+       ; gcrRegs +[rcx]
+						;; size=2 bbWeight=0.02 PerfScore 0.00
+G_M40137_IG19:        ; gcrefRegs=000080C2 {rcx rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       mov      rax, rcx
+       ; gcrRegs +[rax]
+       mov      gword ptr [rbp+E8H], rax
+       ; GC ptr vars +{V18}
+       test     rax, rax
+       je       SHORT G_M40137_IG22
+       mov      rcx, gword ptr [rbp+108H]
+       mov      rdx, qword ptr [rcx]
+       mov      rdx, qword ptr [rdx+58H]
+       ; GC ptr vars -{V14}
+       call     [rdx]hackishModuleName:hackishMethodName():Type:this
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, gword ptr [rbp+E8H]
+       ; gcrRegs +[rcx]
+       ; GC ptr vars -{V18}
+       call     [DefaultBinder:CanChangePrimitive(Type,Type):bool]
+       ; gcrRegs -[rax rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M40137_IG21
+       jmp      SHORT G_M40137_IG22
+						;; size=53 bbWeight=0.08 PerfScore 1.43
+G_M40137_IG20:        ; gcVars=00000000000000C0 {V14 V15}, gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; GC ptr vars +{V06 V14 V15}
+       mov      rcx, gword ptr [rbp+108H]
+       ; gcrRegs +[rcx]
+       mov      rdx, gword ptr [rbp+100H]
+       ; gcrRegs +[rdx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+A8H]
+       ; GC ptr vars -{V06 V14 V15}
+       call     [rax+28H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       SHORT G_M40137_IG22
+						;; size=31 bbWeight=0.08 PerfScore 0.81
+G_M40137_IG21:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       inc      r13d
+       cmp      r12d, r13d
+       jg       G_M40137_IG14
+						;; size=12 bbWeight=0.16 PerfScore 0.24
+G_M40137_IG22:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r15]
+       cmp      r12d, r13d
+       jne      SHORT G_M40137_IG23
+       mov      r13d, dword ptr [rbp+12CH]
+       lea      edx, [r13+01H]
+       mov      r12d, edx
+       mov      edx, r14d
+       mov      rdx, gword ptr [rdi+8*rdx+10H]
+       ; gcrRegs +[rdx]
+       cmp      r13d, ebx
+       jae      G_M40137_IG65
+       mov      ecx, r13d
+       lea      rcx, bword ptr [rdi+8*rcx+10H]
+       ; byrRegs +[rcx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rdx]
+       ; byrRegs -[rcx]
+       mov      dword ptr [rbp+12CH], r12d
+						;; size=56 bbWeight=1.98 PerfScore 19.30
+G_M40137_IG23:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       inc      r14d
+       cmp      ebx, r14d
+       jg       G_M40137_IG03
+						;; size=12 bbWeight=3.96 PerfScore 5.94
+G_M40137_IG24:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       jmp      G_M40137_IG41
+						;; size=5 bbWeight=1    PerfScore 2.00
+G_M40137_IG25:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       cmp      r14d, ebx
+       jae      G_M40137_IG65
+       mov      ecx, r14d
+       mov      rcx, gword ptr [rdi+8*rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+50H]
+       call     [rax+10H]hackishModuleName:hackishMethodName():ref:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      r15, rax
+       ; gcrRegs +[r15]
+       mov      ecx, dword ptr [r15+08H]
+       mov      eax, dword ptr [rsi+08H]
+       ; gcrRegs -[rax]
+       mov      r13d, eax
+       cmp      ecx, r13d
+       jne      G_M40137_IG40
+						;; size=49 bbWeight=0.04 PerfScore 0.65
+G_M40137_IG26:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       xor      ecx, ecx
+       xor      eax, eax
+       test     r13d, r13d
+       jle      G_M40137_IG36
+						;; size=13 bbWeight=0.02 PerfScore 0.04
+G_M40137_IG27:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       cmp      eax, dword ptr [r15+08H]
+       jae      G_M40137_IG65
+       mov      dword ptr [rbp+140H], eax
+       mov      ecx, eax
+       mov      rcx, gword ptr [r15+8*rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      rdx, qword ptr [rcx]
+       mov      rdx, qword ptr [rdx+40H]
+       call     [rdx+38H]hackishModuleName:hackishMethodName():Type:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+108H], rax
+       ; GC ptr vars +{V14}
+       mov      r8d, dword ptr [rbp+140H]
+       cmp      r8d, r13d
+       jae      G_M40137_IG65
+       mov      ecx, r8d
+       mov      rcx, gword ptr [rsi+8*rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      dword ptr [rbp+140H], r8d
+       mov      edx, r8d
+       mov      rdx, gword ptr [r15+8*rdx+10H]
+       ; gcrRegs +[rdx]
+       call     [SignatureTypeExtensions:MatchesParameterTypeExactly(Type,ParameterInfo):bool]
+       ; gcrRegs -[rax rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      G_M40137_IG38
+						;; size=93 bbWeight=0.16 PerfScore 4.36
+G_M40137_IG28:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       mov      rcx, 0xD1FFAB1E      ; hackishClassName
+       call     CORINFO_HELP_TYPEHANDLE_TO_RUNTIMETYPE
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       cmp      rax, gword ptr [rbp+108H]
+       je       G_M40137_IG38
+       mov      eax, dword ptr [rbp+140H]
+       ; gcrRegs -[rax]
+       mov      edx, eax
+       mov      rdx, gword ptr [rsi+8*rdx+10H]
+       ; gcrRegs +[rdx]
+       mov      r9, rdx
+       ; gcrRegs +[r9]
+       mov      gword ptr [rbp+100H], r9
+       ; GC ptr vars +{V15}
+       mov      rdx, r9
+       mov      rcx, 0xD1FFAB1E      ; SignatureType
+       call     [CORINFO_HELP_ISINSTANCEOFCLASS]
+       ; gcrRegs -[rdx r9] +[rax]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+F8H], rax
+       ; GC ptr vars +{V16}
+       test     rax, rax
+       je       SHORT G_M40137_IG29
+       mov      edx, r14d
+       mov      rdx, gword ptr [rdi+8*rdx+10H]
+       ; gcrRegs +[rdx]
+       mov      rcx, 0xD1FFAB1E      ; MethodInfo
+       ; GC ptr vars -{V15}
+       call     [CORINFO_HELP_ISINSTANCEOFCLASS]
+       ; gcrRegs -[rdx]
+       ; gcr arg pop 0
+       test     rax, rax
+       je       G_M40137_IG35
+       mov      rcx, rax
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rax]
+       ; gcrRegs -[rax]
+       mov      rax, qword ptr [rax+58H]
+       call     [rax+28H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, gword ptr [rbp+F8H]
+       ; gcrRegs +[rcx]
+       ; GC ptr vars -{V16}
+       call     [SignatureTypeExtensions:TryResolve()]
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+100H], rax
+       ; GC ptr vars +{V15}
+       test     rax, rax
+       je       G_M40137_IG34
+						;; size=160 bbWeight=0.08 PerfScore 2.80
+G_M40137_IG29:        ; gcVars=00000000000000C0 {V14 V15}, gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs -[rax]
+       mov      rcx, gword ptr [rbp+108H]
+       ; gcrRegs +[rcx]
+       mov      gword ptr [rbp+108H], rcx
+       mov      rdx, qword ptr [rcx]
+       mov      rdx, qword ptr [rdx+70H]
+       call     [rdx+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       G_M40137_IG37
+       mov      rcx, gword ptr [rbp+100H]
+       ; gcrRegs +[rcx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+58H]
+       ; GC ptr vars -{V15}
+       call     [rax]hackishModuleName:hackishMethodName():Type:this
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      rcx, rax
+       ; gcrRegs +[rcx]
+       test     rcx, rcx
+       je       SHORT G_M40137_IG32
+						;; size=56 bbWeight=0.08 PerfScore 1.58
+G_M40137_IG30:        ; gcrefRegs=000080C2 {rcx rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rax]
+       mov      rax, 0xD1FFAB1E      ; RuntimeType
+       cmp      qword ptr [rcx], rax
+       je       SHORT G_M40137_IG32
+						;; size=15 bbWeight=0.04 PerfScore 0.17
+G_M40137_IG31:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rcx]
+       xor      rcx, rcx
+       ; gcrRegs +[rcx]
+						;; size=2 bbWeight=0.02 PerfScore 0.01
+G_M40137_IG32:        ; gcrefRegs=000080C2 {rcx rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       mov      rax, rcx
+       ; gcrRegs +[rax]
+       mov      gword ptr [rbp+E8H], rax
+       ; GC ptr vars +{V18}
+       test     rax, rax
+       je       SHORT G_M40137_IG33
+       mov      rcx, gword ptr [rbp+108H]
+       mov      rdx, qword ptr [rcx]
+       mov      rdx, qword ptr [rdx+58H]
+       ; GC ptr vars -{V14}
+       call     [rdx]hackishModuleName:hackishMethodName():Type:this
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, gword ptr [rbp+E8H]
+       ; gcrRegs +[rcx]
+       ; GC ptr vars -{V18}
+       call     [DefaultBinder:CanChangePrimitive(Type,Type):bool]
+       ; gcrRegs -[rax rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M40137_IG38
+       mov      edx, dword ptr [rbp+140H]
+       jmp      SHORT G_M40137_IG39
+						;; size=59 bbWeight=0.08 PerfScore 1.52
+G_M40137_IG33:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r15]
+       mov      edx, dword ptr [rbp+140H]
+       jmp      SHORT G_M40137_IG39
+						;; size=8 bbWeight=0.04 PerfScore 0.12
+G_M40137_IG34:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      edx, dword ptr [rbp+140H]
+       jmp      SHORT G_M40137_IG39
+						;; size=8 bbWeight=0.04 PerfScore 0.12
+G_M40137_IG35:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      edx, dword ptr [rbp+140H]
+       jmp      SHORT G_M40137_IG39
+						;; size=8 bbWeight=0.04 PerfScore 0.12
+G_M40137_IG36:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      edx, eax
+       jmp      SHORT G_M40137_IG39
+       align    [0 bytes for IG49]
+						;; size=4 bbWeight=0.01 PerfScore 0.02
+G_M40137_IG37:        ; gcVars=00000000000000C0 {V14 V15}, gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs +[r15]
+       ; GC ptr vars +{V06 V14 V15}
+       mov      rcx, gword ptr [rbp+108H]
+       ; gcrRegs +[rcx]
+       mov      rdx, gword ptr [rbp+100H]
+       ; gcrRegs +[rdx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+A8H]
+       ; GC ptr vars -{V06 V14 V15}
+       call     [rax+28H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       SHORT G_M40137_IG45
+						;; size=31 bbWeight=0.08 PerfScore 0.82
+G_M40137_IG38:        ; gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, byref, isz
+       mov      edx, dword ptr [rbp+140H]
+       inc      edx
+       cmp      r13d, edx
+       jg       SHORT G_M40137_IG44
+						;; size=13 bbWeight=0.16 PerfScore 0.40
+G_M40137_IG39:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r15]
+       cmp      r13d, edx
+       jne      SHORT G_M40137_IG40
+       mov      r12d, dword ptr [rbp+12CH]
+       mov      r13d, r12d
+       lea      r12d, [r13+01H]
+       mov      edx, r14d
+       mov      rdx, gword ptr [rdi+8*rdx+10H]
+       ; gcrRegs +[rdx]
+       cmp      r13d, ebx
+       jae      G_M40137_IG65
+       mov      ecx, r13d
+       lea      rcx, bword ptr [rdi+8*rcx+10H]
+       ; byrRegs +[rcx]
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rdx]
+       ; byrRegs -[rcx]
+       mov      dword ptr [rbp+12CH], r12d
+						;; size=56 bbWeight=0.02 PerfScore 0.20
+G_M40137_IG40:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       inc      r14d
+       cmp      ebx, r14d
+       jg       G_M40137_IG25
+						;; size=12 bbWeight=0.04 PerfScore 0.06
+G_M40137_IG41:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      r12d, dword ptr [rbp+12CH]
+       test     r12d, r12d
+       jne      SHORT G_M40137_IG46
+						;; size=12 bbWeight=1    PerfScore 2.25
+G_M40137_IG42:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rsi rdi]
+       xor      rax, rax
+       ; gcrRegs +[rax]
+						;; size=2 bbWeight=0.50 PerfScore 0.12
+G_M40137_IG43:        ; , epilog, nogc, extend
+       add      rsp, 472
+       pop      rbx
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r13
+       pop      r14
+       pop      r15
+       pop      rbp
+       ret      
+						;; size=20 bbWeight=0.50 PerfScore 2.62
+G_M40137_IG44:        ; gcVars=0000000000000000 {}, gcrefRegs=000080C0 {rsi rdi r15}, byrefRegs=00000000 {}, gcvars, byref
+       ; gcrRegs -[rax] +[rsi rdi r15]
+       mov      eax, edx
+       jmp      G_M40137_IG27
+						;; size=7 bbWeight=0.08 PerfScore 0.18
+G_M40137_IG45:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[r15]
+       mov      edx, dword ptr [rbp+140H]
+       jmp      SHORT G_M40137_IG39
+						;; size=8 bbWeight=0.04 PerfScore 0.12
+G_M40137_IG46:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       cmp      r12d, 1
+       jne      SHORT G_M40137_IG48
+       test     ebx, ebx
+       je       G_M40137_IG65
+       mov      rax, gword ptr [rdi+10H]
+       ; gcrRegs +[rax]
+						;; size=18 bbWeight=0.50 PerfScore 2.25
+G_M40137_IG47:        ; , epilog, nogc, extend
+       add      rsp, 472
+       pop      rbx
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r13
+       pop      r14
+       pop      r15
+       pop      rbp
+       ret      
+						;; size=20 bbWeight=0.50 PerfScore 2.62
+G_M40137_IG48:        ; gcVars=0000000000000000 {}, gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs -[rax]
+       xor      r15d, r15d
+       xor      r13d, r13d
+       mov      edx, dword ptr [rsi+08H]
+       mov      r14d, edx
+       mov      edx, r14d
+       mov      rcx, 0xD1FFAB1E
+       call     CORINFO_HELP_NEWARR_1_VC
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      gword ptr [rbp+118H], rax
+       ; GC ptr vars +{V12}
+       xor      ecx, ecx
+       xor      r10d, r10d
+       test     r14d, r14d
+       jle      SHORT G_M40137_IG52
+       cmp      dword ptr [rax+08H], r14d
+       jl       SHORT G_M40137_IG51
+						;; size=53 bbWeight=0.50 PerfScore 5.50
+G_M40137_IG49:        ; gcVars=0000000000800000 {V12}, gcrefRegs=000000C1 {rax rsi rdi}, byrefRegs=00000000 {}, loop=IG49, gcvars, byref, isz
+       mov      ecx, r10d
+       mov      dword ptr [rax+4*rcx+10H], r10d
+       inc      r10d
+       cmp      r14d, r10d
+       jg       SHORT G_M40137_IG49
+						;; size=16 bbWeight=3.96 PerfScore 10.89
+G_M40137_IG50:        ; gcrefRegs=000000C1 {rax rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       jmp      SHORT G_M40137_IG52
+						;; size=2 bbWeight=0.50 PerfScore 1.00
+G_M40137_IG51:        ; gcrefRegs=000000C1 {rax rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       cmp      r10d, dword ptr [rax+08H]
+       jae      G_M40137_IG65
+       mov      ecx, r10d
+       mov      dword ptr [rax+4*rcx+10H], r10d
+       inc      r10d
+       cmp      r14d, r10d
+       jg       SHORT G_M40137_IG51
+						;; size=26 bbWeight=0.04 PerfScore 0.27
+G_M40137_IG52:        ; gcrefRegs=000000C1 {rax rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      r10d, 1
+       cmp      r12d, 1
+       jle      G_M40137_IG62
+       test     r12d, r12d
+       jl       G_M40137_IG58
+       cmp      ebx, r12d
+       jl       G_M40137_IG58
+						;; size=34 bbWeight=0.50 PerfScore 2.00
+G_M40137_IG53:        ; gcrefRegs=000000C1 {rax rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       cmp      r15d, ebx
+       jae      G_M40137_IG65
+       mov      ecx, r15d
+       mov      rcx, gword ptr [rdi+8*rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      gword ptr [rsp+20H], rax
+       ; gcr arg write
+       xor      r9, r9
+       ; gcrRegs +[r9]
+       mov      gword ptr [rsp+28H], r9
+       ; gcr arg write
+       mov      gword ptr [rsp+30H], rsi
+       ; gcr arg write
+       mov      gword ptr [rsp+38H], r9
+       ; gcr arg write
+       mov      dword ptr [rbp+144H], r10d
+       mov      r9d, r10d
+       ; gcrRegs -[r9]
+       mov      r9, gword ptr [rdi+8*r9+10H]
+       ; gcrRegs +[r9]
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       xor      r8, r8
+       ; gcrRegs +[r8]
+       call     [DefaultBinder:FindMostSpecificMethod(MethodBase,ref,Type,MethodBase,ref,Type,ref,ref):int]
+       ; gcrRegs -[rax rcx rdx r8-r9]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M40137_IG55
+						;; size=71 bbWeight=3.96 PerfScore 62.37
+G_M40137_IG54:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      r13d, 1
+       jmp      SHORT G_M40137_IG56
+						;; size=8 bbWeight=1.98 PerfScore 4.46
+G_M40137_IG55:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       cmp      eax, 2
+       jne      SHORT G_M40137_IG56
+       xor      r13d, r13d
+       mov      r14d, dword ptr [rbp+144H]
+       mov      r15d, r14d
+       mov      dword ptr [rbp+144H], r14d
+						;; size=25 bbWeight=1.98 PerfScore 7.43
+G_M40137_IG56:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      r14d, dword ptr [rbp+144H]
+       inc      r14d
+       cmp      r14d, r12d
+       mov      r10d, r14d
+       mov      rax, gword ptr [rbp+118H]
+       ; gcrRegs +[rax]
+       jl       G_M40137_IG53
+						;; size=29 bbWeight=3.96 PerfScore 14.85
+G_M40137_IG57:        ; gcVars=0000000000000000 {}, gcrefRegs=00000080 {rdi}, byrefRegs=00000000 {}, gcvars, byref
+       ; gcrRegs -[rax rsi]
+       ; GC ptr vars -{V12}
+       jmp      G_M40137_IG62
+						;; size=5 bbWeight=0.50 PerfScore 1.00
+G_M40137_IG58:        ; gcVars=0000000000800000 {V12}, gcrefRegs=000000C1 {rax rsi rdi}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs +[rax rsi]
+       ; GC ptr vars +{V12 V23}
+       cmp      r15d, ebx
+       jae      G_M40137_IG65
+       mov      ecx, r15d
+       mov      rcx, gword ptr [rdi+8*rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      gword ptr [rsp+20H], rax
+       ; gcr arg write
+       xor      r9, r9
+       ; gcrRegs +[r9]
+       mov      gword ptr [rsp+28H], r9
+       ; gcr arg write
+       mov      gword ptr [rsp+30H], rsi
+       ; gcr arg write
+       mov      gword ptr [rsp+38H], r9
+       ; gcr arg write
+       cmp      r10d, ebx
+       jae      G_M40137_IG65
+       mov      dword ptr [rbp+144H], r10d
+       mov      r9d, r10d
+       ; gcrRegs -[r9]
+       mov      r9, gword ptr [rdi+8*r9+10H]
+       ; gcrRegs +[r9]
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       xor      r8, r8
+       ; gcrRegs +[r8]
+       call     [DefaultBinder:FindMostSpecificMethod(MethodBase,ref,Type,MethodBase,ref,Type,ref,ref):int]
+       ; gcrRegs -[rax rcx rdx r8-r9]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M40137_IG60
+						;; size=80 bbWeight=0.04 PerfScore 0.68
+G_M40137_IG59:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      r13d, 1
+       jmp      SHORT G_M40137_IG61
+						;; size=8 bbWeight=0.02 PerfScore 0.05
+G_M40137_IG60:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       cmp      eax, 2
+       jne      SHORT G_M40137_IG61
+       xor      r13d, r13d
+       mov      r14d, dword ptr [rbp+144H]
+       mov      r15d, r14d
+       mov      dword ptr [rbp+144H], r14d
+						;; size=25 bbWeight=0.02 PerfScore 0.08
+G_M40137_IG61:        ; gcrefRegs=000000C0 {rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      r14d, dword ptr [rbp+144H]
+       inc      r14d
+       cmp      r14d, r12d
+       mov      r10d, r14d
+       mov      rax, gword ptr [rbp+118H]
+       ; gcrRegs +[rax]
+       jl       G_M40137_IG58
+						;; size=29 bbWeight=0.04 PerfScore 0.15
+G_M40137_IG62:        ; gcVars=0000000000000000 {}, gcrefRegs=00000080 {rdi}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs -[rax rsi]
+       ; GC ptr vars -{V12 V23}
+       test     r13d, r13d
+       jne      SHORT G_M40137_IG64
+       cmp      r15d, ebx
+       jae      SHORT G_M40137_IG65
+       mov      eax, r15d
+       mov      rax, gword ptr [rdi+8*rax+10H]
+       ; gcrRegs +[rax]
+						;; size=18 bbWeight=0.50 PerfScore 2.38
+G_M40137_IG63:        ; , epilog, nogc, extend
+       add      rsp, 472
+       pop      rbx
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r13
+       pop      r14
+       pop      r15
+       pop      rbp
+       ret      
+						;; size=20 bbWeight=0.50 PerfScore 2.62
+G_M40137_IG64:        ; gcVars=0000000000000000 {}, gcrefRegs=00000000 {}, byrefRegs=00000000 {}, gcvars, byref
+       ; gcrRegs -[rax rdi]
+       mov      rcx, 0xD1FFAB1E      ; AmbiguousMatchException
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rsi, rax
+       ; gcrRegs +[rsi]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [AmbiguousMatchException:.ctor():this]
+       ; gcrRegs -[rax rcx]
+       ; gcr arg pop 0
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     CORINFO_HELP_THROW
+       ; gcrRegs -[rcx rsi]
+       ; gcr arg pop 0
+						;; size=35 bbWeight=0    PerfScore 0.00
+G_M40137_IG65:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       call     CORINFO_HELP_RNGCHKFAIL
+       ; gcr arg pop 0
+       int3     
+						;; size=6 bbWeight=0    PerfScore 0.00
+
+; Total bytes of code 2198, prolog size 90, PerfScore 1491.14, instruction count 518, allocated bytes for code 2198 (MethodHash=660c6336) for method DefaultBinder:SelectMethod(int,ref,ref,ref):MethodBase:this
+; ============================================================
+
+Unwind Info:
+  >> Start offset   : 0x000000 (not in unwind data)
+  >>   End offset   : 0xd1ffab1e (not in unwind data)
+  Version           : 1
+  Flags             : 0x00
+  SizeOfProlog      : 0x44
+  CountOfUnwindCodes: 20
+  FrameRegister     : none (0)
+  FrameOffset       : N/A (no FrameRegister) (Value=0)
+  UnwindCodes       :
+    CodeOffset: 0x44 UnwindOp: UWOP_SAVE_NONVOL (4)     OpInfo: rbx (3)
+      Scaled Small Offset: 59 * 8 = 472 = 0x001D8
+    CodeOffset: 0x3C UnwindOp: UWOP_SAVE_NONVOL (4)     OpInfo: rsi (6)
+      Scaled Small Offset: 60 * 8 = 480 = 0x001E0
+    CodeOffset: 0x34 UnwindOp: UWOP_SAVE_NONVOL (4)     OpInfo: rdi (7)
+      Scaled Small Offset: 61 * 8 = 488 = 0x001E8
+    CodeOffset: 0x2C UnwindOp: UWOP_SAVE_NONVOL (4)     OpInfo: r12 (12)
+      Scaled Small Offset: 62 * 8 = 496 = 0x001F0
+    CodeOffset: 0x24 UnwindOp: UWOP_SAVE_NONVOL (4)     OpInfo: r13 (13)
+      Scaled Small Offset: 63 * 8 = 504 = 0x001F8
+    CodeOffset: 0x1C UnwindOp: UWOP_SAVE_NONVOL (4)     OpInfo: r14 (14)
+      Scaled Small Offset: 64 * 8 = 512 = 0x00200
+    CodeOffset: 0x14 UnwindOp: UWOP_SAVE_NONVOL (4)     OpInfo: r15 (15)
+      Scaled Small Offset: 65 * 8 = 520 = 0x00208
+    CodeOffset: 0x0C UnwindOp: UWOP_ALLOC_LARGE (1)     OpInfo: 0 - Scaled small  
+      Size: 18 * 8 = 144 = 0x00090
+    CodeOffset: 0x05 UnwindOp: UWOP_ALLOC_SMALL (2)     OpInfo: 0 * 8 + 8 = 8 = 0x08
+    CodeOffset: 0x00 UnwindOp: UWOP_ALLOC_LARGE (1)     OpInfo: 0 - Scaled small  
+      Size: 47 * 8 = 376 = 0x00178
+    CodeOffset: 0x00 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbp (5)

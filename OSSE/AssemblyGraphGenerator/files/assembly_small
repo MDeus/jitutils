@@ -1,0 +1,52 @@
+
+; Assembly listing for method System.Runtime.CompilerServices.CastHelpers:LdelemaRef(System.Array,int,long):byref
+; Emitting BLENDED_CODE for generic ARM64 CPU - Windows
+; optimized code
+; fp based frame
+; fully interruptible
+; Final local variable assignments
+;
+;  V00 arg0         [V00,T00] (  5,  5   )     ref  ->   x0         class-hnd
+;  V01 arg1         [V01,T01] (  4,  4   )     int  ->   x1        
+;  V02 arg2         [V02,T02] (  3,  3   )    long  ->   x2        
+;  V03 loc0         [V03,T04] (  2,  1.50)   byref  ->   x1        
+;  V04 loc1         [V04,T03] (  2,  2   )    long  ->   x0        
+;# V05 OutArgs      [V05    ] (  1,  1   )  lclBlk ( 0) [sp+0x00]   "OutgoingArgSpace"
+;
+; Lcl frame size = 0
+
+G_M46441_IG01:
+        A9BF7BFD          stp     fp, lr, [sp,#-16]!
+        910003FD          mov     fp, sp
+						;; bbWeight=1    PerfScore 1.50
+G_M46441_IG02:
+        B9400803          ldr     w3, [x0,#8]
+        6B03003F          cmp     w1, w3
+        540001C2          bhs     G_M46441_IG06
+        93407C21          sxtw    x1, x1
+        D37DF021          lsl     x1, x1, #3
+        91004021          add     x1, x1, #16
+        8B010001          add     x1, x0, x1
+        F9400000          ldr     x0, [x0]
+        F9401C00          ldr     x0, [x0,#56]
+        EB02001F          cmp     x0, x2
+        54000081          bne     G_M46441_IG05
+						;; bbWeight=1    PerfScore 14.50
+G_M46441_IG03:
+        AA0103E0          mov     x0, x1
+						;; bbWeight=0.50 PerfScore 0.25
+G_M46441_IG04:
+        A8C17BFD          ldp     fp, lr, [sp],#16
+        D65F03C0          ret     lr
+						;; bbWeight=0.50 PerfScore 1.00
+G_M46441_IG05:
+        A8C17BFD          ldp     fp, lr, [sp],#16
+        17FFF723          b       System.Runtime.CompilerServices.CastHelpers:ThrowArrayMismatchException():byref
+						;; bbWeight=0.50 PerfScore 1.00
+G_M46441_IG06:
+        97FFFF70          bl      CORINFO_HELP_RNGCHKFAIL
+        D43E0000          bkpt    
+						;; bbWeight=0    PerfScore 0.00
+
+; Total bytes of code 80, prolog size 8, PerfScore 26.25, (MethodHash=d1234a96) for method System.Runtime.CompilerServices.CastHelpers:LdelemaRef(System.Array,int,long):byref
+; ============================================================

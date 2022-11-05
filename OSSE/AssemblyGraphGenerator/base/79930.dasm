@@ -1,0 +1,270 @@
+; Assembly listing for method RouteValueDictionary:set_Item(String,Object):this
+; Emitting BLENDED_CODE for X64 CPU with AVX - Windows
+; Tier-1 compilation
+; optimized code
+; optimized using profile data
+; rsp based frame
+; partially interruptible
+; with Dynamic PGO: edge weights are valid, and fgCalledCount is 334604
+; 3 inlinees with PGO data; 3 single block inlinees; 0 inlinees without PGO data
+; Final local variable assignments
+;
+;  V00 this         [V00,T00] ( 16, 13.46)     ref  ->  rsi         this class-hnd single-def
+;  V01 arg1         [V01,T02] (  7,  5.80)     ref  ->  rdi         class-hnd single-def
+;  V02 arg2         [V02,T06] (  4,  3   )     ref  ->  rbx         class-hnd single-def
+;  V03 loc0         [V03,T12] (  4,  2.00)     int  ->  rbp         single-def
+;  V04 loc1         [V04,T10] (  4,  4.00)     int  ->  rcx         single-def
+;  V05 OutArgs      [V05    ] (  1,  1   )  lclBlk (32) [rsp+00H]   "OutgoingArgSpace"
+;* V06 tmp1         [V06    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;  V07 tmp2         [V07,T15] (  3,  0.00)     ref  ->  rdx         class-hnd single-def "impAppendStmt"
+;  V08 tmp3         [V08,T03] (  3,  6.00)     ref  ->  rdx         class-hnd single-def "impAppendStmt"
+;* V09 tmp4         [V09    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;  V10 tmp5         [V10,T08] (  3,  4.46)     int  ->  rdx         "Inlining Arg"
+;  V11 tmp6         [V11,T11] (  3,  2.00)     int  ->  rbp         "Inline return value spill temp"
+;  V12 tmp7         [V12,T07] (  6,  4.82)     ref  ->  rbp         class-hnd "Inline stloc first use temp"
+;  V13 tmp8         [V13,T05] (  6,  5.80)     int  ->  r14         single-def "Inline stloc first use temp"
+;  V14 tmp9         [V14,T01] ( 11,  8.22)     int  ->  r15         "Inline stloc first use temp"
+;* V15 tmp10        [V15    ] (  0,  0   )   byref  ->  zero-ref    "Inlining Arg"
+;  V16 tmp11        [V16,T09] (  3,  4.46)     int  ->  rdx         "Inlining Arg"
+;  V17 tmp12        [V17,T17] (  2,  0.00)     ref  ->  rax         single-def V06.key(offs=0x00) P-INDEP "field V06.key (fldOffset=0x0)"
+;  V18 tmp13        [V18,T18] (  2,  0.00)     ref  ->  rsi         single-def V06.value(offs=0x08) P-INDEP "field V06.value (fldOffset=0x8)"
+;  V19 tmp14        [V19,T13] (  2,  2.00)     ref  ->  rdi         single-def V09.key(offs=0x00) P-INDEP "field V09.key (fldOffset=0x0)"
+;  V20 tmp15        [V20,T14] (  2,  2.00)     ref  ->  rbx         single-def V09.value(offs=0x08) P-INDEP "field V09.value (fldOffset=0x8)"
+;  V21 tmp16        [V21,T04] (  3,  6.00)   byref  ->  rsi         single-def "BlockOp address local"
+;  V22 tmp17        [V22,T16] (  3,  0.00)   byref  ->  rdi         single-def "BlockOp address local"
+;
+; Lcl frame size = 40
+
+G_M14771_IG01:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref, nogc <-- Prolog IG
+       push     r15
+       push     r14
+       push     rdi
+       push     rsi
+       push     rbp
+       push     rbx
+       sub      rsp, 40
+       mov      rsi, rcx
+       ; gcrRegs +[rsi]
+       mov      rdi, rdx
+       ; gcrRegs +[rdi]
+       mov      rbx, r8
+       ; gcrRegs +[rbx]
+						;; size=21 bbWeight=1    PerfScore 7.00
+G_M14771_IG02:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       test     rdi, rdi
+       je       G_M14771_IG19
+       mov      edx, dword ptr [rsi+18H]
+       cmp      gword ptr [rsi+10H], 0
+       jne      SHORT G_M14771_IG07
+						;; size=19 bbWeight=1    PerfScore 7.25
+G_M14771_IG03:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rcx, gword ptr [rsi+08H]
+       ; gcrRegs +[rcx]
+       cmp      dword ptr [rcx+08H], edx
+       jl       SHORT G_M14771_IG07
+						;; size=9 bbWeight=1.00 PerfScore 5.99
+G_M14771_IG04:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rcx]
+       mov      rbp, gword ptr [rsi+08H]
+       ; gcrRegs +[rbp]
+       mov      r14d, dword ptr [rsi+18H]
+       xor      r15d, r15d
+       test     r14d, r14d
+       jle      SHORT G_M14771_IG09
+       test     rbp, rbp
+       je       SHORT G_M14771_IG08
+       test     r14d, r14d
+       jl       SHORT G_M14771_IG08
+       cmp      dword ptr [rbp+08H], r14d
+       jl       SHORT G_M14771_IG08
+						;; size=32 bbWeight=1    PerfScore 12.00
+G_M14771_IG05:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      ecx, r15d
+       shl      rcx, 4
+       mov      rcx, gword ptr [rbp+rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      rdx, rdi
+       ; gcrRegs +[rdx]
+       mov      r8d, 5
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M14771_IG10
+       inc      r15d
+       cmp      r15d, r14d
+       jl       SHORT G_M14771_IG05
+						;; size=39 bbWeight=1.78 PerfScore 16.04
+G_M14771_IG06:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rbp]
+       jmp      SHORT G_M14771_IG09
+						;; size=2 bbWeight=1    PerfScore 2.00
+G_M14771_IG07:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:EnsureCapacitySlow(int):this]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       jmp      SHORT G_M14771_IG04
+						;; size=11 bbWeight=0.23 PerfScore 1.20
+G_M14771_IG08:        ; gcrefRegs=000000E8 {rbx rbp rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs +[rbp]
+       cmp      r15d, dword ptr [rbp+08H]
+       jae      G_M14771_IG20
+       mov      ecx, r15d
+       shl      rcx, 4
+       mov      rcx, gword ptr [rbp+rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      rdx, rdi
+       ; gcrRegs +[rdx]
+       mov      r8d, 5
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M14771_IG10
+       inc      r15d
+       cmp      r15d, r14d
+       jl       SHORT G_M14771_IG08
+						;; size=49 bbWeight=0.02 PerfScore 0.23
+G_M14771_IG09:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       ; gcrRegs -[rbp]
+       mov      ebp, -1
+       jmp      SHORT G_M14771_IG11
+						;; size=7 bbWeight=1.00 PerfScore 2.26
+G_M14771_IG10:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       mov      ebp, r15d
+						;; size=3 bbWeight=0.00 PerfScore 0.00
+G_M14771_IG11:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       test     ebp, ebp
+       jge      SHORT G_M14771_IG17
+						;; size=4 bbWeight=1    PerfScore 1.25
+G_M14771_IG12:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      edx, dword ptr [rsi+18H]
+       inc      edx
+       cmp      gword ptr [rsi+10H], 0
+       jne      SHORT G_M14771_IG16
+						;; size=12 bbWeight=1.00 PerfScore 6.25
+G_M14771_IG13:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rcx, gword ptr [rsi+08H]
+       ; gcrRegs +[rcx]
+       cmp      dword ptr [rcx+08H], edx
+       jl       SHORT G_M14771_IG16
+						;; size=9 bbWeight=1.00 PerfScore 5.99
+G_M14771_IG14:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rcx]
+       mov      rdx, gword ptr [rsi+08H]
+       ; gcrRegs +[rdx]
+       mov      ecx, dword ptr [rsi+18H]
+       lea      eax, [rcx+01H]
+       mov      dword ptr [rsi+18H], eax
+       cmp      ecx, dword ptr [rdx+08H]
+       jae      G_M14771_IG20
+       mov      ecx, ecx
+       shl      rcx, 4
+       lea      rsi, bword ptr [rdx+rcx+10H]
+       ; gcrRegs -[rsi]
+       ; byrRegs +[rsi]
+       mov      rcx, rsi
+       ; byrRegs +[rcx]
+       mov      rdx, rdi
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx rdi]
+       ; byrRegs -[rcx]
+       lea      rcx, bword ptr [rsi+08H]
+       ; byrRegs +[rcx]
+       mov      rdx, rbx
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx rbx]
+       ; byrRegs -[rcx rsi]
+       nop      
+						;; size=57 bbWeight=1.00 PerfScore 14.75
+G_M14771_IG15:        ; , epilog, nogc, extend
+       add      rsp, 40
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r14
+       pop      r15
+       ret      
+						;; size=13 bbWeight=1.00 PerfScore 4.25
+G_M14771_IG16:        ; gcVars=0000000000000000 {}, gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, gcvars, byref, isz
+       ; gcrRegs +[rbx rsi rdi]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [RouteValueDictionary:EnsureCapacitySlow(int):this]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       jmp      SHORT G_M14771_IG14
+						;; size=11 bbWeight=0.23 PerfScore 1.20
+G_M14771_IG17:        ; gcrefRegs=000000C8 {rbx rsi rdi}, byrefRegs=00000000 {}, byref, isz
+       mov      rdx, gword ptr [rsi+08H]
+       ; gcrRegs +[rdx]
+       mov      rax, rdi
+       ; gcrRegs +[rax]
+       mov      rsi, rbx
+       cmp      ebp, dword ptr [rdx+08H]
+       jae      SHORT G_M14771_IG20
+       mov      ecx, ebp
+       shl      rcx, 4
+       lea      rdi, bword ptr [rdx+rcx+10H]
+       ; gcrRegs -[rdi]
+       ; byrRegs +[rdi]
+       mov      rcx, rdi
+       ; byrRegs +[rcx]
+       mov      rdx, rax
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rax rdx rbx]
+       ; byrRegs -[rcx]
+       lea      rcx, bword ptr [rdi+08H]
+       ; byrRegs +[rcx]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx rsi]
+       ; byrRegs -[rcx rdi]
+       nop      
+						;; size=50 bbWeight=0.00 PerfScore 0.00
+G_M14771_IG18:        ; , epilog, nogc, extend
+       add      rsp, 40
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r14
+       pop      r15
+       ret      
+						;; size=13 bbWeight=0.00 PerfScore 0.00
+G_M14771_IG19:        ; gcVars=0000000000000000 {}, gcrefRegs=00000000 {}, byrefRegs=00000000 {}, gcvars, byref
+       call     [RouteValueDictionary:ThrowArgumentNullExceptionForKey()]
+       ; gcr arg pop 0
+       int3     
+						;; size=7 bbWeight=0    PerfScore 0.00
+G_M14771_IG20:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       call     CORINFO_HELP_RNGCHKFAIL
+       ; gcr arg pop 0
+       int3     
+						;; size=6 bbWeight=0    PerfScore 0.00
+
+; Total bytes of code 374, prolog size 12, PerfScore 125.07, instruction count 123, allocated bytes for code 374 (MethodHash=8d3fc64c) for method RouteValueDictionary:set_Item(String,Object):this
+; ============================================================
+
+Unwind Info:
+  >> Start offset   : 0x000000 (not in unwind data)
+  >>   End offset   : 0xd1ffab1e (not in unwind data)
+  Version           : 1
+  Flags             : 0x00
+  SizeOfProlog      : 0x0C
+  CountOfUnwindCodes: 7
+  FrameRegister     : none (0)
+  FrameOffset       : N/A (no FrameRegister) (Value=0)
+  UnwindCodes       :
+    CodeOffset: 0x0C UnwindOp: UWOP_ALLOC_SMALL (2)     OpInfo: 4 * 8 + 8 = 40 = 0x28
+    CodeOffset: 0x08 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbx (3)
+    CodeOffset: 0x07 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbp (5)
+    CodeOffset: 0x06 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rsi (6)
+    CodeOffset: 0x05 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rdi (7)
+    CodeOffset: 0x04 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r14 (14)
+    CodeOffset: 0x02 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r15 (15)

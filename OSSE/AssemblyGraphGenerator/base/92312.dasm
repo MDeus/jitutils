@@ -1,0 +1,461 @@
+; Assembly listing for method StringBuilder:MakeRoom(int,int,byref,byref,bool):this
+; Emitting BLENDED_CODE for X64 CPU with AVX - Windows
+; Tier-1 compilation
+; optimized code
+; rsp based frame
+; fully interruptible
+; No matching PGO data
+; 0 inlinees with PGO data; 13 single block inlinees; 12 inlinees without PGO data
+; Final local variable assignments
+;
+;  V00 this         [V00,T11] (  6,  6   )     ref  ->  [rsp+60H]   this class-hnd single-def
+;  V01 arg1         [V01,T10] (  5,  8   )     int  ->  rbx         single-def
+;  V02 arg2         [V02,T04] ( 15, 16.50)     int  ->  rdi         single-def
+;  V03 arg3         [V03,T00] ( 18, 29   )   byref  ->  rsi         single-def
+;  V04 arg4         [V04,T12] (  7,  7.50)   byref  ->  rbp         single-def
+;  V05 arg5         [V05,T46] (  1,  1   )    bool  ->  [rsp+88H]   single-def
+;  V06 loc0         [V06,T26] (  5,  2.50)     ref  ->  r15         class-hnd exact single-def
+;  V07 loc1         [V07,T13] ( 11,  5.50)     int  ->  rbx        
+;  V08 loc2         [V08,T01] (  8, 25   )     int  ->  rcx        
+;  V09 loc3         [V09,T19] (  6,  3   )     int  ->  r14        
+;* V10 loc4         [V10    ] (  0,  0   )  struct (16) zero-ref    ld-addr-op
+;  V11 OutArgs      [V11    ] (  1,  1   )  lclBlk (32) [rsp+00H]   "OutgoingArgSpace"
+;  V12 tmp1         [V12,T47] (  3,  0   )     ref  ->  rsi         class-hnd exact single-def "NewObj constructor temp"
+;  V13 tmp2         [V13,T02] (  3, 24   )     ref  ->  rdx         class-hnd "dup spill"
+;  V14 tmp3         [V14,T21] (  3,  3   )     ref  ->  r15         class-hnd exact single-def "NewObj constructor temp"
+;  V15 tmp4         [V15,T22] (  3,  3   )     ref  ->  rdx         class-hnd single-def "dup spill"
+;* V16 tmp5         [V16    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;* V17 tmp6         [V17    ] (  0,  0   )  struct (16) zero-ref    "struct address for call/obj"
+;* V18 tmp7         [V18    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;* V19 tmp8         [V19    ] (  0,  0   )  struct (16) zero-ref    "struct address for call/obj"
+;  V20 tmp9         [V20,T05] (  2, 16   )     ref  ->  rdx         class-hnd "Strict ordering of exceptions for Array store"
+;  V21 tmp10        [V21,T06] (  2, 16   )     int  ->  rax         "Strict ordering of exceptions for Array store"
+;  V22 tmp11        [V22,T23] (  3,  3   )     ref  ->  rcx         class-hnd single-def "dup spill"
+;  V23 tmp12        [V23,T36] (  3,  1.50)     int  ->  r14         "Inline return value spill temp"
+;  V24 tmp13        [V24,T37] (  3,  1.50)     int  ->  rbx         "Inline return value spill temp"
+;  V25 tmp14        [V25,T24] (  3,  3   )     int  ->  rbx         "Inlining Arg"
+;  V26 tmp15        [V26,T14] (  4,  4   )     ref  ->   r8         class-hnd single-def "Inlining Arg"
+;  V27 tmp16        [V27,T15] (  4,  4   )     ref  ->   r8         class-hnd single-def "Inlining Arg"
+;* V28 tmp17        [V28    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;* V29 tmp18        [V29    ] (  0,  0   )  struct (16) zero-ref    ld-addr-op "Inlining Arg"
+;* V30 tmp19        [V30    ] (  0,  0   )     int  ->  zero-ref    "impAppendStmt"
+;* V31 tmp20        [V31    ] (  0,  0   )   byref  ->  zero-ref    single-def "Inlining Arg"
+;* V32 tmp21        [V32    ] (  0,  0   )   byref  ->  zero-ref    single-def "Inlining Arg"
+;  V33 tmp22        [V33,T29] (  2,  2   )    long  ->   r8         "Inlining Arg"
+;* V34 tmp23        [V34    ] (  0,  0   )    long  ->  zero-ref    "Inlining Arg"
+;  V35 tmp24        [V35,T16] (  4,  4   )     ref  ->  rcx         class-hnd single-def "Inlining Arg"
+;  V36 tmp25        [V36,T17] (  4,  4   )     ref  ->   r8         class-hnd single-def "Inlining Arg"
+;* V37 tmp26        [V37    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;* V38 tmp27        [V38    ] (  0,  0   )  struct (16) zero-ref    ld-addr-op "Inlining Arg"
+;* V39 tmp28        [V39    ] (  0,  0   )     int  ->  zero-ref    "impAppendStmt"
+;* V40 tmp29        [V40    ] (  0,  0   )   byref  ->  zero-ref    single-def "Inlining Arg"
+;* V41 tmp30        [V41    ] (  0,  0   )   byref  ->  zero-ref    single-def "Inlining Arg"
+;  V42 tmp31        [V42,T30] (  2,  2   )    long  ->   r8         "Inlining Arg"
+;* V43 tmp32        [V43    ] (  0,  0   )    long  ->  zero-ref    "Inlining Arg"
+;  V44 tmp33        [V44,T27] (  4,  2   )   byref  ->  rdx         V10._reference(offs=0x00) P-INDEP "field V10._reference (fldOffset=0x0)"
+;  V45 tmp34        [V45,T20] (  6,  3   )     int  ->  rax         V10._length(offs=0x08) P-INDEP "field V10._length (fldOffset=0x8)"
+;  V46 tmp35        [V46,T31] (  3,  1.50)   byref  ->  rdx         V16._reference(offs=0x00) P-INDEP "field V16._reference (fldOffset=0x0)"
+;  V47 tmp36        [V47,T38] (  3,  1.50)     int  ->  rax         V16._length(offs=0x08) P-INDEP "field V16._length (fldOffset=0x8)"
+;  V48 tmp37        [V48,T42] (  2,  1   )   byref  ->  rcx         single-def V17._reference(offs=0x00) P-INDEP "field V17._reference (fldOffset=0x0)"
+;* V49 tmp38        [V49    ] (  0,  0   )     int  ->  zero-ref    V17._length(offs=0x08) P-INDEP "field V17._length (fldOffset=0x8)"
+;  V50 tmp39        [V50,T32] (  3,  1.50)   byref  ->  rdx         V18._reference(offs=0x00) P-INDEP "field V18._reference (fldOffset=0x0)"
+;  V51 tmp40        [V51,T39] (  3,  1.50)     int  ->  rax         V18._length(offs=0x08) P-INDEP "field V18._length (fldOffset=0x8)"
+;  V52 tmp41        [V52,T43] (  2,  1   )   byref  ->  rcx         single-def V19._reference(offs=0x00) P-INDEP "field V19._reference (fldOffset=0x0)"
+;* V53 tmp42        [V53    ] (  0,  0   )     int  ->  zero-ref    V19._length(offs=0x08) P-INDEP "field V19._length (fldOffset=0x8)"
+;  V54 tmp43        [V54,T33] (  3,  1.50)   byref  ->  rcx         V28._reference(offs=0x00) P-INDEP "field V28._reference (fldOffset=0x0)"
+;  V55 tmp44        [V55,T40] (  3,  1.50)     int  ->   r9         V28._length(offs=0x08) P-INDEP "field V28._length (fldOffset=0x8)"
+;  V56 tmp45        [V56,T44] (  2,  1   )   byref  ->  rcx         single-def V29._reference(offs=0x00) P-INDEP "field V29._reference (fldOffset=0x0)"
+;* V57 tmp46        [V57    ] (  0,  0   )     int  ->  zero-ref    V29._length(offs=0x08) P-INDEP "field V29._length (fldOffset=0x8)"
+;  V58 tmp47        [V58,T34] (  3,  1.50)   byref  ->  rcx         V37._reference(offs=0x00) P-INDEP "field V37._reference (fldOffset=0x0)"
+;  V59 tmp48        [V59,T41] (  3,  1.50)     int  ->   r9         V37._length(offs=0x08) P-INDEP "field V37._length (fldOffset=0x8)"
+;  V60 tmp49        [V60,T45] (  2,  1   )   byref  ->  rcx         single-def V38._reference(offs=0x00) P-INDEP "field V38._reference (fldOffset=0x0)"
+;* V61 tmp50        [V61    ] (  0,  0   )     int  ->  zero-ref    V38._length(offs=0x08) P-INDEP "field V38._length (fldOffset=0x8)"
+;  V62 tmp51        [V62,T48] (  2,  0   )     ref  ->  rdi         single-def "argument with side effect"
+;  V63 tmp52        [V63,T49] (  2,  0   )     ref  ->   r8         single-def "argument with side effect"
+;  V64 tmp53        [V64,T03] (  3, 24   )     ref  ->  rax         "arr expr"
+;  V65 cse0         [V65,T25] (  3,  3   )     int  ->  rdx         "CSE - moderate"
+;  V66 cse1         [V66,T07] (  3, 12   )     ref  ->  rax         "CSE - aggressive"
+;  V67 cse2         [V67,T28] (  4,  2   )     int  ->  rcx         "CSE - moderate"
+;  V68 cse3         [V68,T35] (  3,  1.50)     ref  ->   r8         "CSE - moderate"
+;  V69 cse4         [V69,T08] (  3, 12   )     int  ->   r8         "CSE - aggressive"
+;  V70 cse5         [V70,T09] (  3, 12   )     int  ->   r9         "CSE - aggressive"
+;  V71 cse6         [V71,T18] (  6,  3   )     ref  ->  rbx         "CSE - moderate"
+;
+; Lcl frame size = 40
+
+G_M21914_IG01:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref, nogc <-- Prolog IG
+       push     r15
+       push     r14
+       push     rdi
+       push     rsi
+       push     rbp
+       push     rbx
+       sub      rsp, 40
+       mov      ebx, edx
+       mov      edi, r8d
+       mov      rsi, r9
+       ; byrRegs +[rsi]
+       mov      rbp, bword ptr [rsp+80H]
+       ; byrRegs +[rbp]
+						;; size=28 bbWeight=1    PerfScore 8.00
+G_M21914_IG02:        ; gcrefRegs=00000002 {rcx}, byrefRegs=00000060 {rbp rsi}, byref, isz, align
+       ; gcrRegs +[rcx]
+       mov      edx, edi
+       add      edx, dword ptr [rcx+1CH]
+       add      edx, dword ptr [rcx+18H]
+       mov      gword ptr [rsp+60H], rcx
+       ; GC ptr vars +{V00}
+       cmp      edx, dword ptr [rcx+20H]
+       jg       G_M21914_IG24
+       cmp      edx, edi
+       jl       G_M21914_IG24
+       mov      rdx, gword ptr [rsp+60H]
+       ; gcrRegs +[rdx]
+       mov      rcx, rsi
+       ; gcrRegs -[rcx]
+       ; byrRegs +[rcx]
+       ; GC ptr vars -{V00}
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx]
+       ; byrRegs -[rcx]
+       mov      rdx, gword ptr [rsi]
+       ; gcrRegs +[rdx]
+       cmp      dword ptr [rdx+1CH], ebx
+       jle      SHORT G_M21914_IG04
+       align    [1 bytes for IG03]
+						;; size=52 bbWeight=1    PerfScore 21.00
+G_M21914_IG03:        ; gcrefRegs=00000000 {}, byrefRegs=00000060 {rbp rsi}, loop=IG03, byref, isz
+       ; gcrRegs -[rdx]
+       mov      rdx, gword ptr [rsi]
+       ; gcrRegs +[rdx]
+       add      dword ptr [rdx+1CH], edi
+       mov      rdx, gword ptr [rsi]
+       mov      rdx, gword ptr [rdx+10H]
+       mov      rcx, rsi
+       ; byrRegs +[rcx]
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx]
+       ; byrRegs -[rcx]
+       mov      rcx, gword ptr [rsi]
+       ; gcrRegs +[rcx]
+       cmp      dword ptr [rcx+1CH], ebx
+       jg       SHORT G_M21914_IG03
+						;; size=29 bbWeight=4    PerfScore 65.00
+G_M21914_IG04:        ; gcrefRegs=00000000 {}, byrefRegs=00000060 {rbp rsi}, byref
+       ; gcrRegs -[rcx]
+       mov      rcx, gword ptr [rsi]
+       ; gcrRegs +[rcx]
+       sub      ebx, dword ptr [rcx+1CH]
+       mov      dword ptr [rbp], ebx
+       cmp      byte  ptr [rsp+88H], 0
+       jne      SHORT G_M21914_IG09
+						;; size=19 bbWeight=1    PerfScore 9.00
+G_M21914_IG05:        ; gcrefRegs=00000000 {}, byrefRegs=00000060 {rbp rsi}, byref, isz
+       ; gcrRegs -[rcx]
+       mov      rbx, gword ptr [rsi]
+       ; gcrRegs +[rbx]
+       mov      ecx, dword ptr [rbx+18H]
+       cmp      ecx, 32
+       jg       SHORT G_M21914_IG09
+       mov      rax, gword ptr [rbx+08H]
+       ; gcrRegs +[rax]
+       mov      eax, dword ptr [rax+08H]
+       ; gcrRegs -[rax]
+       sub      eax, ecx
+       cmp      eax, edi
+       jl       SHORT G_M21914_IG09
+       cmp      ecx, dword ptr [rbp]
+       jle      SHORT G_M21914_IG07
+       align    [0 bytes for IG06]
+						;; size=29 bbWeight=0.50 PerfScore 7.38
+G_M21914_IG06:        ; gcrefRegs=00000000 {}, byrefRegs=00000060 {rbp rsi}, loop=IG06, byref, isz
+       ; gcrRegs -[rbx]
+       dec      ecx
+       mov      rax, gword ptr [rsi]
+       ; gcrRegs +[rax]
+       mov      rax, gword ptr [rax+08H]
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      r8d, dword ptr [rax+08H]
+       cmp      ecx, r8d
+       jae      G_M21914_IG27
+       mov      r9d, ecx
+       movzx    rax, word  ptr [rax+2*r9+10H]
+       ; gcrRegs -[rax]
+       lea      r9d, [rcx+rdi]
+       cmp      r9d, r8d
+       jae      G_M21914_IG27
+       mov      r8d, r9d
+       mov      word  ptr [rdx+2*r8+10H], ax
+       cmp      ecx, dword ptr [rbp]
+       jg       SHORT G_M21914_IG06
+						;; size=61 bbWeight=4    PerfScore 68.00
+G_M21914_IG07:        ; gcrefRegs=00000000 {}, byrefRegs=00000040 {rsi}, byref
+       ; gcrRegs -[rdx]
+       ; byrRegs -[rbp]
+       mov      rcx, gword ptr [rsi]
+       ; gcrRegs +[rcx]
+       add      dword ptr [rcx+18H], edi
+						;; size=6 bbWeight=0.50 PerfScore 2.50
+G_M21914_IG08:        ; , epilog, nogc, extend
+       add      rsp, 40
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r14
+       pop      r15
+       ret      
+						;; size=13 bbWeight=0.50 PerfScore 2.12
+G_M21914_IG09:        ; gcVars=0000000000000000 {}, gcrefRegs=00000000 {}, byrefRegs=00000060 {rbp rsi}, gcvars, byref, isz
+       ; gcrRegs -[rcx]
+       ; byrRegs +[rbp]
+       cmp      edi, 16
+       jge      SHORT G_M21914_IG10
+       mov      r14d, 16
+       jmp      SHORT G_M21914_IG11
+						;; size=13 bbWeight=0.50 PerfScore 1.75
+G_M21914_IG10:        ; gcrefRegs=00000000 {}, byrefRegs=00000060 {rbp rsi}, byref
+       mov      r14d, edi
+						;; size=3 bbWeight=0.50 PerfScore 0.12
+G_M21914_IG11:        ; gcrefRegs=00000000 {}, byrefRegs=00000060 {rbp rsi}, byref, isz
+       mov      rcx, 0xD1FFAB1E      ; StringBuilder
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      r15, rax
+       ; gcrRegs +[r15]
+       mov      rbx, gword ptr [rsi]
+       ; gcrRegs +[rbx]
+       mov      r8d, dword ptr [rbx+20H]
+       mov      r9, gword ptr [rbx+10H]
+       ; gcrRegs +[r9]
+       mov      rcx, r15
+       ; gcrRegs +[rcx]
+       mov      edx, r14d
+       call     [StringBuilder:.ctor(int,int,StringBuilder):this]
+       ; gcrRegs -[rax rcx rbx r9]
+       ; gcr arg pop 0
+       mov      dword ptr [r15+18H], edi
+       mov      ebx, dword ptr [rbp]
+       cmp      edi, ebx
+       jle      SHORT G_M21914_IG12
+       jmp      SHORT G_M21914_IG13
+						;; size=54 bbWeight=0.50 PerfScore 8.62
+G_M21914_IG12:        ; gcrefRegs=00008000 {r15}, byrefRegs=00000060 {rbp rsi}, byref
+       mov      ebx, edi
+						;; size=2 bbWeight=0.50 PerfScore 0.12
+G_M21914_IG13:        ; gcrefRegs=00008000 {r15}, byrefRegs=00000060 {rbp rsi}, byref, isz
+       test     ebx, ebx
+       jle      G_M21914_IG22
+       mov      r8, gword ptr [rsi]
+       ; gcrRegs +[r8]
+       mov      r8, gword ptr [r8+08H]
+       test     r8, r8
+       jne      SHORT G_M21914_IG14
+       test     ebx, ebx
+       jne      G_M21914_IG25
+       xor      rdx, rdx
+       ; byrRegs +[rdx]
+       xor      eax, eax
+       jmp      SHORT G_M21914_IG15
+						;; size=34 bbWeight=0.50 PerfScore 5.12
+G_M21914_IG14:        ; gcrefRegs=00008100 {r8 r15}, byrefRegs=00000060 {rbp rsi}, byref
+       ; byrRegs -[rdx]
+       cmp      dword ptr [r8+08H], ebx
+       jb       G_M21914_IG25
+       lea      rdx, bword ptr [r8+10H]
+       ; byrRegs +[rdx]
+       mov      eax, ebx
+						;; size=16 bbWeight=0.50 PerfScore 2.38
+G_M21914_IG15:        ; gcrefRegs=00008000 {r15}, byrefRegs=00000064 {rdx rbp rsi}, byref, isz
+       ; gcrRegs -[r8]
+       mov      r8, gword ptr [r15+08H]
+       ; gcrRegs +[r8]
+       test     r8, r8
+       jne      SHORT G_M21914_IG16
+       xor      rcx, rcx
+       ; byrRegs +[rcx]
+       xor      r9d, r9d
+       jmp      SHORT G_M21914_IG17
+						;; size=16 bbWeight=0.50 PerfScore 2.88
+G_M21914_IG16:        ; gcrefRegs=00008100 {r8 r15}, byrefRegs=00000064 {rdx rbp rsi}, byref
+       ; byrRegs -[rcx]
+       lea      rcx, bword ptr [r8+10H]
+       ; byrRegs +[rcx]
+       mov      r9d, dword ptr [r8+08H]
+						;; size=8 bbWeight=0.50 PerfScore 1.25
+G_M21914_IG17:        ; gcrefRegs=00008000 {r15}, byrefRegs=00000066 {rcx rdx rbp rsi}, byref, isz
+       ; gcrRegs -[r8]
+       cmp      eax, r9d
+       ja       G_M21914_IG26
+       mov      r8d, eax
+       add      r8, r8
+       call     [hackishModuleName:hackishMethodName()]
+       ; byrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       mov      r14d, dword ptr [rbp]
+       sub      r14d, ebx
+       js       SHORT G_M21914_IG22
+       mov      r8, gword ptr [rsi]
+       ; gcrRegs +[r8]
+       mov      r8, gword ptr [r8+08H]
+       mov      rcx, r8
+       ; gcrRegs +[rcx]
+       test     rcx, rcx
+       jne      SHORT G_M21914_IG18
+       mov      ecx, ebx
+       ; gcrRegs -[rcx]
+       or       ecx, r14d
+       jne      G_M21914_IG25
+       xor      rdx, rdx
+       ; byrRegs +[rdx]
+       xor      eax, eax
+       jmp      SHORT G_M21914_IG19
+						;; size=62 bbWeight=0.50 PerfScore 8.75
+G_M21914_IG18:        ; gcrefRegs=00008102 {rcx r8 r15}, byrefRegs=00000060 {rbp rsi}, byref
+       ; gcrRegs +[rcx]
+       ; byrRegs -[rdx]
+       mov      edx, ebx
+       mov      eax, r14d
+       add      rdx, rax
+       mov      eax, dword ptr [rcx+08H]
+       cmp      rdx, rax
+       ja       G_M21914_IG25
+       mov      edx, ebx
+       lea      rdx, bword ptr [rcx+2*rdx+10H]
+       ; byrRegs +[rdx]
+       mov      eax, r14d
+						;; size=30 bbWeight=0.50 PerfScore 2.75
+G_M21914_IG19:        ; gcrefRegs=00008100 {r8 r15}, byrefRegs=00000064 {rdx rbp rsi}, byref, isz
+       ; gcrRegs -[rcx]
+       test     r8, r8
+       jne      SHORT G_M21914_IG20
+       xor      rcx, rcx
+       ; byrRegs +[rcx]
+       xor      r9d, r9d
+       jmp      SHORT G_M21914_IG21
+						;; size=12 bbWeight=0.50 PerfScore 1.88
+G_M21914_IG20:        ; gcrefRegs=00008100 {r8 r15}, byrefRegs=00000064 {rdx rbp rsi}, byref
+       ; byrRegs -[rcx]
+       lea      rcx, bword ptr [r8+10H]
+       ; byrRegs +[rcx]
+       mov      r9d, dword ptr [r8+08H]
+						;; size=8 bbWeight=0.50 PerfScore 1.25
+G_M21914_IG21:        ; gcrefRegs=00008000 {r15}, byrefRegs=00000066 {rcx rdx rbp rsi}, byref
+       ; gcrRegs -[r8]
+       cmp      eax, r9d
+       ja       G_M21914_IG26
+       mov      r8d, eax
+       add      r8, r8
+       call     [hackishModuleName:hackishMethodName()]
+       ; byrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       mov      dword ptr [rbp], r14d
+						;; size=25 bbWeight=0.50 PerfScore 2.88
+G_M21914_IG22:        ; gcrefRegs=00008000 {r15}, byrefRegs=00000060 {rbp rsi}, byref, isz
+       mov      rdx, gword ptr [rsi]
+       ; gcrRegs +[rdx]
+       lea      rcx, bword ptr [rdx+10H]
+       ; byrRegs +[rcx]
+       mov      rdx, r15
+       call     CORINFO_HELP_ASSIGN_REF
+       ; gcrRegs -[rdx]
+       ; byrRegs -[rcx]
+       mov      rdx, gword ptr [rsi]
+       ; gcrRegs +[rdx]
+       add      dword ptr [rdx+1CH], edi
+       cmp      ebx, edi
+       jge      SHORT G_M21914_IG23
+       mov      rcx, rsi
+       ; byrRegs +[rcx]
+       mov      rdx, r15
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx r15]
+       ; byrRegs -[rcx rsi]
+       mov      dword ptr [rbp], ebx
+						;; size=39 bbWeight=0.50 PerfScore 6.25
+G_M21914_IG23:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref, epilog, nogc
+       ; byrRegs -[rbp]
+       add      rsp, 40
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r14
+       pop      r15
+       ret      
+						;; size=13 bbWeight=0.50 PerfScore 2.12
+G_M21914_IG24:        ; gcVars=0000000000000000 {}, gcrefRegs=00000000 {}, byrefRegs=00000000 {}, gcvars, byref
+       mov      rcx, 0xD1FFAB1E      ; ArgumentOutOfRangeException
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rsi, rax
+       ; gcrRegs +[rsi]
+       mov      ecx, 0x17945
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rdi, rax
+       ; gcrRegs +[rdi]
+       mov      ecx, 0xA481
+       mov      rdx, 0xD1FFAB1E
+       call     CORINFO_HELP_STRCNS
+       ; gcr arg pop 0
+       mov      rcx, rax
+       ; gcrRegs +[rcx]
+       call     [hackishModuleName:hackishMethodName(String):String]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      rdx, rdi
+       ; gcrRegs +[rdx]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [ArgumentOutOfRangeException:.ctor(String,String):this]
+       ; gcrRegs -[rax rcx rdx rdi r8]
+       ; gcr arg pop 0
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     CORINFO_HELP_THROW
+       ; gcrRegs -[rcx rsi]
+       ; gcr arg pop 0
+						;; size=93 bbWeight=0    PerfScore 0.00
+G_M21914_IG25:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       call     [ThrowHelper:ThrowArgumentOutOfRangeException()]
+       ; gcr arg pop 0
+       int3     
+						;; size=7 bbWeight=0    PerfScore 0.00
+G_M21914_IG26:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       call     [ThrowHelper:ThrowArgumentException_DestinationTooShort()]
+       ; gcr arg pop 0
+       int3     
+						;; size=7 bbWeight=0    PerfScore 0.00
+G_M21914_IG27:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       call     CORINFO_HELP_RNGCHKFAIL
+       ; gcr arg pop 0
+       int3     
+						;; size=6 bbWeight=0    PerfScore 0.00
+
+; Total bytes of code 685, prolog size 28, PerfScore 300.03, instruction count 206, allocated bytes for code 689 (MethodHash=4184aa65) for method StringBuilder:MakeRoom(int,int,byref,byref,bool):this
+; ============================================================
+
+Unwind Info:
+  >> Start offset   : 0x000000 (not in unwind data)
+  >>   End offset   : 0xd1ffab1e (not in unwind data)
+  Version           : 1
+  Flags             : 0x00
+  SizeOfProlog      : 0x0C
+  CountOfUnwindCodes: 7
+  FrameRegister     : none (0)
+  FrameOffset       : N/A (no FrameRegister) (Value=0)
+  UnwindCodes       :
+    CodeOffset: 0x0C UnwindOp: UWOP_ALLOC_SMALL (2)     OpInfo: 4 * 8 + 8 = 40 = 0x28
+    CodeOffset: 0x08 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbx (3)
+    CodeOffset: 0x07 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbp (5)
+    CodeOffset: 0x06 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rsi (6)
+    CodeOffset: 0x05 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rdi (7)
+    CodeOffset: 0x04 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r14 (14)
+    CodeOffset: 0x02 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r15 (15)

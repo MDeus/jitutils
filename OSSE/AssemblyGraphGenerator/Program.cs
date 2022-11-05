@@ -1,8 +1,11 @@
-﻿using Graphviz;
+namespace AssemblyGraphGenerator;
 using System.Diagnostics;
+using AssemblyGraph;
 
 class Program {
-
+    /// <summary>
+    /// Adds a list of edges to the graph 
+    /// </summary>
     public static Graph addEdges(Graph graph, Dictionary<String, List<String>> edges) {
         foreach (var pair in edges) {
             String label = pair.Key;
@@ -23,6 +26,9 @@ class Program {
         return graph;
     }
 
+    /// <summary>
+    /// Handles the cases in the file which starts with a semicolon
+    /// </summary>
     public static void caseWithSemicolon(ref Graph temp_graph, String line, ref String current_node, 
                                     ref Double temp_weight, ref Double temp_score, ref HashSet<String> temp_conn,
                                     ref List<String> temp_cont, ref List<Graph> graph_list,
@@ -62,6 +68,9 @@ class Program {
         }
     }
 
+    /// <summary>
+    /// handles the cases in file which includes a group
+    /// </summary>
     public static void caseWithGroups(String first_word, String line, ref Boolean connectToNextNode, ref String current_node, 
                                     ref Graph temp_graph, ref Double temp_weight, ref Double temp_score, ref HashSet<String> temp_conn,
                                     ref List<String> temp_cont, ref Dictionary<String, List<String>> edges, ref int j) {
@@ -90,8 +99,11 @@ class Program {
             temp_conn.Add(temp_node);
             temp_cont.Add(line_arr[0] + temp_node);
         }
-}
+    }
 
+    /// <summary>
+    /// creates graph(s) given an assembly file with method(s)
+    /// </summary>
     public static List<Graph> createGraphs(String[] lines, Boolean keep_hash_code) {
         int j = 0; 
         String current_node = ""; // holds the current group/node
@@ -102,7 +114,7 @@ class Program {
         Double        temp_weight = 0; 
         Double         temp_score = 0;
         Boolean connectToNextNode = true;
-        Boolean          in_group = false;
+        Boolean          in_group = false; // to know if currently inside a group
         Dictionary<String, List<String>> edges = new Dictionary<String, List<String>>(); // dict of connected nodes and their edges
 
         // iterate over the lines of the file
@@ -127,7 +139,7 @@ class Program {
                 if (!keep_hash_code) {line = new_line;}
             } 
 
-            // unconditional jump or ret so dont connect
+            // unconditional jump or ret so dont ad edge
             if (first_word.CompareTo("ret") == 0 || first_word.CompareTo("b") == 0 
                 || first_word.CompareTo("jmp") == 0 || (line.Contains("HELP_THROW")) 
                 || line.Contains("Throw") || line.Contains("HELP_OVERFLOW")) {
@@ -147,23 +159,29 @@ class Program {
 
         return graph_list;
     }
-
-    static public void printGraphs(List<Graph> graph_list, String output_folder_path, Boolean stats) {
+    
+    /// <summary>
+    /// create SVG file(s) from graph(s)
+    /// </summary>
+    static public void createSVG(List<Graph> graph_list, String output_folder_path, Boolean stats) {
         Process process = new Process();
-        // specify dot.exe path
-        process.StartInfo.FileName = "cmd.exe";
-        process.StartInfo.RedirectStandardInput = true;
-        process.StartInfo.RedirectStandardOutput = true;
-        process.StartInfo.UseShellExecute = false;
-        process.Start();
         foreach (Graph g in graph_list) {
+
+            process.StartInfo.FileName = "dot.exe";
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.UseShellExecute = false;
+            String inputfile = Path.Combine(output_folder_path, g.getHashcode()) + ".dot";
+            String svgFile =  Path.Combine(output_folder_path, g.getHashcode()) + ".svg";
+            process.StartInfo.Arguments = $"-Tsvg \"{inputfile}\" -o \"{svgFile}\"";
+
             g.createSVG(output_folder_path, stats, process);
+
+            process.Start();
+            process.WaitForExit();
+
+            if (File.Exists(inputfile)) { File.Delete(inputfile);}
         }
-
-        process.StandardInput.Close();
-        process.WaitForExit();
-
-        // File.Delete(output_folder_path + "\\*.dot" );
     }
 
     static public void Main(String[] args) {
@@ -205,6 +223,6 @@ class Program {
         }
 
         String[] lines = File.ReadAllLines(args[0]); 
-        printGraphs(createGraphs(lines, keep_hash_code), output_folder_path, stats);
+        createSVG(createGraphs(lines, keep_hash_code), output_folder_path, stats);
     }
 }

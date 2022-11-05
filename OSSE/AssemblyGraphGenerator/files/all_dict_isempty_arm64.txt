@@ -22,7 +22,7 @@ G_M24931_IG02:
         B9400803          ldr     w3, [x0,#8]
         6B03003F          cmp     w1, w3
         54000362          bhs     G_M24931_IG10
-        93407C21          sxtw    x1, x1
+        93407C21          sxtw    x1,  x1
         D37DF021          lsl     x1, x1, #3
         91004021          add     x1, x1, #16
         8B010003          add     x3, x0, x1

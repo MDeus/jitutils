@@ -1,0 +1,25 @@
+
+; Assembly listing for method System.Runtime.CompilerServices.CastHelpers:LdelemaRef(System.Array,int,long):byref
+; Emitting BLENDED_CODE for generic ARM64 CPU - Windows
+; optimized code
+; fp based frame
+; fully interruptible
+; Final local variable assignments
+;
+
+
+G_M46441_IG01:
+
+G_M46441_IG02:
+
+G_M46441_IG03:
+
+G_M46441_IG04:
+
+G_M46441_IG05:
+
+G_M46441_IG06:
+
+
+; Total bytes of code 80, prolog size 8, PerfScore 26.25, (MethodHash=d1234a96) for method System.Runtime.CompilerServices.CastHelpers:LdelemaRef(System.Array,int,long):byref
+; ============================================================

@@ -1,0 +1,439 @@
+; Assembly listing for method ExpressionUtils:ValidateArgumentTypes(MethodBase,int,byref,String)
+; Emitting BLENDED_CODE for X64 CPU with AVX - Windows
+; Tier-1 compilation
+; optimized code
+; optimized using profile data
+; rsp based frame
+; partially interruptible
+; with Static PGO: edge weights are invalid, and fgCalledCount is 272
+; 1 inlinees with PGO data; 6 single block inlinees; 0 inlinees without PGO data
+; Final local variable assignments
+;
+;  V00 arg0         [V00,T00] (  6,  5.01)     ref  ->  rsi         class-hnd single-def
+;  V01 arg1         [V01,T01] (  6,  5.01)     int  ->  rdi         single-def
+;  V02 arg2         [V02,T02] ( 12,  4.62)   byref  ->  rbx         single-def
+;  V03 arg3         [V03,T04] (  4,  3.01)     ref  ->  rbp         class-hnd single-def
+;  V04 loc0         [V04,T06] (  5,  4.01)     ref  ->  r14         class-hnd single-def
+;  V05 loc1         [V05,T08] ( 15,  3.61)     ref  ->  r15         class-hnd
+;  V06 loc2         [V06,T03] ( 19,  6.46)     int  ->  r12        
+;  V07 loc3         [V07,T07] (  5,  3.61)     int  ->  r13        
+;  V08 loc4         [V08,T09] ( 10,  3.64)     ref  ->  [rsp+38H]   class-hnd
+;* V09 loc5         [V09    ] (  0,  0   )     ref  ->  zero-ref    class-hnd
+;  V10 loc6         [V10,T13] ( 12,  0   )     int  ->  [rsp+44H]  
+;  V11 OutArgs      [V11    ] (  1,  1   )  lclBlk (56) [rsp+00H]   "OutgoingArgSpace"
+;  V12 tmp1         [V12,T16] (  3,  0   )     ref  ->  rsi         class-hnd exact single-def "NewObj constructor temp"
+;  V13 tmp2         [V13,T11] (  2,  2   )     ref  ->  r14         class-hnd single-def "Inline return value spill temp"
+;  V14 tmp3         [V14,T10] (  4,  2   )     ref  ->  rax         class-hnd "Inline stloc first use temp"
+;* V15 tmp4         [V15    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V16 tmp5         [V16    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V17 tmp6         [V17    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V18 tmp7         [V18    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V19 tmp8         [V19    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;  V20 tmp9         [V20,T05] (  2,  4   )     int  ->   r8         "argument with side effect"
+;  V21 tmp10        [V21,T15] (  4,  0   )    long  ->  rdx         "argument with side effect"
+;  V22 tmp11        [V22,T14] (  4,  0   )     ref  ->  rax         "argument with side effect"
+;  V23 cse0         [V23,T12] (  2,  2   )     int  ->  r13         "CSE - aggressive"
+;
+; Lcl frame size = 72
+
+G_M5680_IG01:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref, nogc <-- Prolog IG
+       push     r15
+       push     r14
+       push     r13
+       push     r12
+       push     rdi
+       push     rsi
+       push     rbp
+       push     rbx
+       sub      rsp, 72
+       mov      rsi, rcx
+       ; gcrRegs +[rsi]
+       mov      edi, edx
+       mov      rbx, r8
+       ; byrRegs +[rbx]
+       mov      rbp, r9
+       ; gcrRegs +[rbp]
+						;; size=27 bbWeight=1    PerfScore 9.25
+G_M5680_IG02:        ; gcrefRegs=00000060 {rbp rsi}, byrefRegs=00000008 {rbx}, byref
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [TypeExtensions:GetParametersCached(MethodBase):ref]
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       cmp      edi, 50
+       je       G_M5680_IG17
+						;; size=18 bbWeight=1    PerfScore 4.50
+G_M5680_IG03:        ; gcrefRegs=00000061 {rax rbp rsi}, byrefRegs=00000008 {rbx}, byref
+       mov      r14, rax
+       ; gcrRegs +[r14]
+       mov      rcx, gword ptr [rbx]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      r11, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [r11]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rax rcx]
+       ; gcr arg pop 0
+       mov      r8d, eax
+       mov      edx, edi
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       mov      r9, r14
+       ; gcrRegs +[r9]
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx r9]
+       ; gcr arg pop 0
+       xor      r15, r15
+       ; gcrRegs +[r15]
+       xor      r12d, r12d
+       mov      r13d, dword ptr [r14+08H]
+       test     r13d, r13d
+       jle      G_M5680_IG14
+       test     r13d, r13d
+       jl       G_M5680_IG09
+						;; size=68 bbWeight=1    PerfScore 16.50
+G_M5680_IG04:        ; gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, byref, isz
+       mov      rcx, gword ptr [rbx]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      edx, r12d
+       mov      r11, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [r11]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      gword ptr [rsp+20H], rbp
+       ; gcr arg write
+       mov      r9, 0xD1FFAB1E      ; string handle
+       mov      r9, gword ptr [r9]
+       ; gcrRegs +[r9]
+       mov      gword ptr [rsp+28H], r9
+       ; gcr arg write
+       mov      dword ptr [rsp+30H], r12d
+       mov      r9d, r12d
+       ; gcrRegs -[r9]
+       mov      r9, gword ptr [r14+8*r9+10H]
+       ; gcrRegs +[r9]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       mov      edx, edi
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx r8-r9]
+       ; gcr arg pop 0
+       mov      gword ptr [rsp+38H], rax
+       ; GC ptr vars +{V08}
+       test     r15, r15
+       jne      SHORT G_M5680_IG06
+						;; size=83 bbWeight=1    PerfScore 21.00
+G_M5680_IG05:        ; gcVars=0000000000000200 {V08}, gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, gcvars, byref
+       ; gcrRegs -[rax]
+       mov      rcx, gword ptr [rbx]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      edx, r12d
+       mov      r11, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [r11]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      r8, gword ptr [rsp+38H]
+       ; gcrRegs +[r8]
+       cmp      rax, r8
+       mov      gword ptr [rsp+38H], r8
+       jne      G_M5680_IG18
+						;; size=42 bbWeight=0.60 PerfScore 6.46
+G_M5680_IG06:        ; gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, byref
+       ; gcrRegs -[rax r8]
+       test     r15, r15
+       mov      rax, gword ptr [rsp+38H]
+       ; gcrRegs +[rax]
+       jne      G_M5680_IG21
+						;; size=14 bbWeight=0.60 PerfScore 1.35
+G_M5680_IG07:        ; gcVars=0000000000000000 {}, gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, gcvars, byref
+       ; gcrRegs -[rax]
+       ; GC ptr vars -{V08}
+       inc      r12d
+       cmp      r12d, r13d
+       jl       G_M5680_IG04
+						;; size=12 bbWeight=0.60 PerfScore 0.90
+G_M5680_IG08:        ; gcrefRegs=00008000 {r15}, byrefRegs=00000008 {rbx}, byref
+       ; gcrRegs -[rbp rsi r14]
+       jmp      G_M5680_IG14
+						;; size=5 bbWeight=1    PerfScore 2.00
+G_M5680_IG09:        ; gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, byref, isz
+       ; gcrRegs +[rbp rsi r14]
+       mov      rcx, gword ptr [rbx]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      edx, r12d
+       mov      r11, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [r11]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      gword ptr [rsp+20H], rbp
+       ; gcr arg write
+       mov      r9, 0xD1FFAB1E      ; string handle
+       mov      r9, gword ptr [r9]
+       ; gcrRegs +[r9]
+       mov      gword ptr [rsp+28H], r9
+       ; gcr arg write
+       mov      dword ptr [rsp+30H], r12d
+       mov      r9d, r12d
+       ; gcrRegs -[r9]
+       mov      r9, gword ptr [r14+8*r9+10H]
+       ; gcrRegs +[r9]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       mov      edx, edi
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       call     [hackishModuleName:hackishMethodName()]
+       ; gcrRegs -[rcx r8-r9]
+       ; gcr arg pop 0
+       mov      gword ptr [rsp+38H], rax
+       ; GC ptr vars +{V08}
+       test     r15, r15
+       jne      SHORT G_M5680_IG16
+						;; size=83 bbWeight=0.01 PerfScore 0.21
+G_M5680_IG10:        ; gcVars=0000000000000200 {V08}, gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, gcvars, byref
+       ; gcrRegs -[rax]
+       mov      rcx, gword ptr [rbx]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      edx, r12d
+       mov      r11, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [r11]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       cmp      rax, gword ptr [rsp+38H]
+       jne      G_M5680_IG22
+						;; size=34 bbWeight=0.01 PerfScore 0.06
+G_M5680_IG11:        ; gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, byref
+       ; gcrRegs -[rax]
+       mov      rax, gword ptr [rsp+38H]
+       ; gcrRegs +[rax]
+						;; size=5 bbWeight=0.00 PerfScore 0.00
+G_M5680_IG12:        ; gcVars=0000000000000000 {}, gcrefRegs=0000C061 {rax rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, gcvars, byref
+       ; GC ptr vars -{V08}
+       test     r15, r15
+       jne      G_M5680_IG25
+						;; size=9 bbWeight=0.01 PerfScore 0.01
+G_M5680_IG13:        ; gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, byref
+       ; gcrRegs -[rax]
+       inc      r12d
+       cmp      r12d, r13d
+       jl       G_M5680_IG09
+						;; size=12 bbWeight=0.01 PerfScore 0.01
+G_M5680_IG14:        ; gcrefRegs=00008000 {r15}, byrefRegs=00000008 {rbx}, byref
+       ; gcrRegs -[rbp rsi r14]
+       test     r15, r15
+       jne      G_M5680_IG26
+						;; size=9 bbWeight=0.99 PerfScore 1.24
+G_M5680_IG15:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref, epilog, nogc
+       ; gcrRegs -[r15]
+       ; byrRegs -[rbx]
+       add      rsp, 72
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r13
+       pop      r14
+       pop      r15
+       ret      
+						;; size=17 bbWeight=0.99 PerfScore 5.19
+G_M5680_IG16:        ; gcVars=0000000000000200 {V08}, gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, gcvars, byref, isz
+       ; gcrRegs +[rbp rsi r14-r15]
+       ; byrRegs +[rbx]
+       ; GC ptr vars +{V08}
+       mov      rax, gword ptr [rsp+38H]
+       ; gcrRegs +[rax]
+       jmp      SHORT G_M5680_IG12
+						;; size=7 bbWeight=0.01 PerfScore 0.02
+G_M5680_IG17:        ; gcVars=0000000000000000 {}, gcrefRegs=00000061 {rax rbp rsi}, byrefRegs=00000008 {rbx}, gcvars, byref
+       ; gcrRegs -[r14-r15]
+       ; GC ptr vars -{V08}
+       mov      rdx, rax
+       ; gcrRegs +[rdx]
+       mov      rcx, 0xD1FFAB1E      ; hackishModuleName:hackishMethodName()
+       call     [CollectionExtensions:RemoveFirst(ref):ref]
+       ; gcrRegs -[rdx]
+       ; gcr arg pop 0
+       jmp      G_M5680_IG03
+						;; size=24 bbWeight=0    PerfScore 0.00
+G_M5680_IG18:        ; gcVars=0000000000000200 {V08}, gcrefRegs=00004060 {rbp rsi r14}, byrefRegs=00000008 {rbx}, gcvars, byref, isz
+       ; gcrRegs -[rax] +[r14]
+       ; GC ptr vars +{V08}
+       mov      rcx, gword ptr [rbx]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      r11, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [r11]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       movsxd   rdx, eax
+       mov      rcx, 0xD1FFAB1E
+       call     CORINFO_HELP_NEWARR_1_OBJ
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      r15, rax
+       ; gcrRegs +[r15]
+       xor      eax, eax
+       ; gcrRegs -[rax]
+       jmp      SHORT G_M5680_IG20
+						;; size=45 bbWeight=0    PerfScore 0.00
+G_M5680_IG19:        ; gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, byref
+       mov      rcx, gword ptr [rbx]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      dword ptr [rsp+44H], eax
+       mov      edx, eax
+       mov      r11, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [r11]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      eax, dword ptr [rsp+44H]
+       ; gcrRegs -[rax]
+       movsxd   rdx, eax
+       mov      rcx, r15
+       ; gcrRegs +[rcx]
+       call     CORINFO_HELP_ARRADDR_ST
+       ; gcrRegs -[rcx r8]
+       ; gcr arg pop 0
+       mov      eax, dword ptr [rsp+44H]
+       inc      eax
+						;; size=50 bbWeight=0    PerfScore 0.00
+G_M5680_IG20:        ; gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, byref, isz
+       cmp      eax, r12d
+       jl       SHORT G_M5680_IG19
+       test     r15, r15
+       mov      rax, gword ptr [rsp+38H]
+       ; gcrRegs +[rax]
+       je       G_M5680_IG07
+						;; size=19 bbWeight=0    PerfScore 0.00
+G_M5680_IG21:        ; gcVars=0000000000000000 {}, gcrefRegs=0000C061 {rax rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, gcvars, byref
+       ; GC ptr vars -{V08}
+       movsxd   rdx, r12d
+       mov      rcx, r15
+       ; gcrRegs +[rcx]
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       call     CORINFO_HELP_ARRADDR_ST
+       ; gcrRegs -[rax rcx r8]
+       ; gcr arg pop 0
+       jmp      G_M5680_IG07
+						;; size=19 bbWeight=0    PerfScore 0.00
+G_M5680_IG22:        ; gcVars=0000000000000200 {V08}, gcrefRegs=00004060 {rbp rsi r14}, byrefRegs=00000008 {rbx}, gcvars, byref, isz
+       ; gcrRegs -[r15]
+       ; GC ptr vars +{V08}
+       mov      rcx, gword ptr [rbx]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      r11, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [r11]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       movsxd   rdx, eax
+       mov      rcx, 0xD1FFAB1E
+       call     CORINFO_HELP_NEWARR_1_OBJ
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      r15, rax
+       ; gcrRegs +[r15]
+       xor      eax, eax
+       ; gcrRegs -[rax]
+       jmp      SHORT G_M5680_IG24
+						;; size=45 bbWeight=0    PerfScore 0.00
+G_M5680_IG23:        ; gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, byref
+       mov      rcx, gword ptr [rbx]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      dword ptr [rsp+44H], eax
+       mov      edx, eax
+       mov      r11, 0xD1FFAB1E      ; code for hackishModuleName:hackishMethodName
+       call     [r11]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx] +[rax]
+       ; gcr arg pop 0
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       mov      eax, dword ptr [rsp+44H]
+       ; gcrRegs -[rax]
+       movsxd   rdx, eax
+       mov      rcx, r15
+       ; gcrRegs +[rcx]
+       call     CORINFO_HELP_ARRADDR_ST
+       ; gcrRegs -[rcx r8]
+       ; gcr arg pop 0
+       mov      edx, dword ptr [rsp+44H]
+       inc      edx
+       mov      eax, edx
+						;; size=52 bbWeight=0    PerfScore 0.00
+G_M5680_IG24:        ; gcrefRegs=0000C060 {rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, byref, isz
+       cmp      eax, r12d
+       jl       SHORT G_M5680_IG23
+       test     r15, r15
+       mov      rax, gword ptr [rsp+38H]
+       ; gcrRegs +[rax]
+       je       G_M5680_IG13
+						;; size=19 bbWeight=0    PerfScore 0.00
+G_M5680_IG25:        ; gcVars=0000000000000000 {}, gcrefRegs=0000C061 {rax rbp rsi r14 r15}, byrefRegs=00000008 {rbx}, gcvars, byref
+       ; GC ptr vars -{V08}
+       movsxd   rdx, r12d
+       mov      rcx, r15
+       ; gcrRegs +[rcx]
+       mov      r8, rax
+       ; gcrRegs +[r8]
+       call     CORINFO_HELP_ARRADDR_ST
+       ; gcrRegs -[rax rcx r8]
+       ; gcr arg pop 0
+       jmp      G_M5680_IG13
+						;; size=19 bbWeight=0    PerfScore 0.00
+G_M5680_IG26:        ; gcrefRegs=00008000 {r15}, byrefRegs=00000008 {rbx}, byref
+       ; gcrRegs -[rbp rsi r14]
+       mov      rcx, 0xD1FFAB1E      ; TrueReadOnlyCollection`1
+       call     CORINFO_HELP_NEWSFAST
+       ; gcrRegs +[rax]
+       ; gcr arg pop 0
+       mov      rsi, rax
+       ; gcrRegs +[rsi]
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       mov      rdx, r15
+       ; gcrRegs +[rdx]
+       call     [ReadOnlyCollection`1:.ctor(IList`1):this]
+       ; gcrRegs -[rax rcx rdx r15]
+       ; gcr arg pop 0
+       mov      rcx, rbx
+       ; byrRegs +[rcx]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       call     CORINFO_HELP_CHECKED_ASSIGN_REF
+       ; gcrRegs -[rdx rsi]
+       ; byrRegs -[rcx rbx]
+       jmp      G_M5680_IG15
+						;; size=46 bbWeight=0    PerfScore 0.00
+
+; Total bytes of code 783, prolog size 16, PerfScore 146.99, instruction count 196, allocated bytes for code 783 (MethodHash=fd94e9cf) for method ExpressionUtils:ValidateArgumentTypes(MethodBase,int,byref,String)
+; ============================================================
+
+Unwind Info:
+  >> Start offset   : 0x000000 (not in unwind data)
+  >>   End offset   : 0xd1ffab1e (not in unwind data)
+  Version           : 1
+  Flags             : 0x00
+  SizeOfProlog      : 0x10
+  CountOfUnwindCodes: 9
+  FrameRegister     : none (0)
+  FrameOffset       : N/A (no FrameRegister) (Value=0)
+  UnwindCodes       :
+    CodeOffset: 0x10 UnwindOp: UWOP_ALLOC_SMALL (2)     OpInfo: 8 * 8 + 8 = 72 = 0x48
+    CodeOffset: 0x0C UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbx (3)
+    CodeOffset: 0x0B UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbp (5)
+    CodeOffset: 0x0A UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rsi (6)
+    CodeOffset: 0x09 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rdi (7)
+    CodeOffset: 0x08 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r12 (12)
+    CodeOffset: 0x06 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r13 (13)
+    CodeOffset: 0x04 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r14 (14)
+    CodeOffset: 0x02 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r15 (15)

@@ -1,0 +1,1121 @@
+; Assembly listing for method OneOf`1:Parse(ParseContext,byref):bool:this
+; Emitting BLENDED_CODE for X64 CPU with AVX - Windows
+; Tier-1 compilation
+; optimized code
+; optimized using profile data
+; rsp based frame
+; fully interruptible
+; with Dynamic PGO: edge weights are invalid, and fgCalledCount is 96
+; 12 inlinees with PGO data; 18 single block inlinees; 1 inlinees without PGO data
+; Final local variable assignments
+;
+;  V00 this         [V00,T15] (  9,  4   )     ref  ->  rbx         this class-hnd single-def
+;  V01 arg1         [V01,T03] ( 33, 11.06)     ref  ->  rsi         class-hnd single-def
+;  V02 arg2         [V02,T10] ( 10,  4.89)   byref  ->  rdi         single-def
+;  V03 loc0         [V03,T39] (  4,  1   )     ref  ->  rbp         class-hnd single-def
+;  V04 loc1         [V04    ] (  3,  0   )  struct (16) [rsp+68H]   do-not-enreg[XS] must-init addr-exposed ld-addr-op
+;  V05 loc2         [V05    ] (  3,  0   )     ref  ->  [rsp+60H]   do-not-enreg[X] must-init addr-exposed ld-addr-op class-hnd
+;  V06 loc3         [V06,T57] (  2,  0   )     int  ->  rbp         single-def
+;  V07 loc4         [V07,T44] (  7,  0   )     int  ->  rbx        
+;  V08 loc5         [V08    ] (  3,  0   )     ref  ->  [rsp+58H]   do-not-enreg[X] must-init addr-exposed ld-addr-op class-hnd
+;  V09 loc6         [V09,T58] (  2,  0   )     int  ->  r13         single-def
+;  V10 loc7         [V10,T45] (  7,  0   )     int  ->  r14        
+;  V11 loc8         [V11,T18] (  6,  4.95)     ref  ->  r14         class-hnd single-def
+;  V12 loc9         [V12,T16] (  5,  5.85)     int  ->  r15         single-def
+;  V13 loc10        [V13,T04] ( 10, 11.51)     int  ->  r12        
+;  V14 OutArgs      [V14    ] (  1,  1   )  lclBlk (32) [rsp+00H]   "OutgoingArgSpace"
+;* V15 tmp1         [V15    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "impAppendStmt"
+;* V16 tmp2         [V16    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "impAppendStmt"
+;  V17 tmp3         [V17,T19] (  4,  3.85)     int  ->  rax         "guarded devirt return temp"
+;  V18 tmp4         [V18,T02] (  9, 13.53)     ref  ->  r13         "guarded devirt this temp"
+;  V19 tmp5         [V19,T31] (  7,  1.94)     ref  ->  r13         class-hnd exact "guarded devirt this exact temp"
+;  V20 tmp6         [V20,T20] (  2,  4   )     ref  ->  rax         class-hnd single-def "dup spill"
+;  V21 tmp7         [V21,T30] (  4,  2   )     ref  ->  rax         single-def
+;  V22 tmp8         [V22,T55] (  2,  0   )     ref  ->  rcx         class-hnd single-def "Inlining Arg"
+;  V23 tmp9         [V23,T48] (  3,  0   )     ref  ->  rcx         class-hnd "Inlining Arg"
+;  V24 tmp10        [V24,T49] (  3,  0   )     ref  ->  rcx         class-hnd single-def "Inlining Arg"
+;  V25 tmp11        [V25,T56] (  2,  0   )     ref  ->  rax         class-hnd single-def "Inlining Arg"
+;  V26 tmp12        [V26,T50] (  3,  0   )     ref  ->  rcx         class-hnd "Inlining Arg"
+;  V27 tmp13        [V27    ] ( 12,  4.20)  struct (16) [rsp+48H]   do-not-enreg[XS] must-init addr-exposed ld-addr-op "Inline stloc first use temp"
+;  V28 tmp14        [V28,T33] (  6,  1.93)     int  ->  rax         "guarded devirt return temp"
+;  V29 tmp15        [V29,T13] ( 10,  6.74)     ref  ->  rcx         "guarded devirt this temp"
+;* V30 tmp16        [V30    ] (  0,  0   )     ref  ->  zero-ref    class-hnd exact "guarded devirt this exact temp"
+;  V31 tmp17        [V31,T21] (  4,  3.85)     ref  ->  rbp         class-hnd "dup spill"
+;  V32 tmp18        [V32,T32] (  8,  1.93)     ref  ->  rbp        
+;  V33 tmp19        [V33,T08] (  8,  7.71)     ref  ->  rax         class-hnd "Inlining Arg"
+;* V34 tmp20        [V34    ] (  0,  0   )  struct (16) zero-ref    "NewObj constructor temp"
+;  V35 tmp21        [V35,T22] (  4,  3.85)     int  ->   r9         "Inlining Arg"
+;  V36 tmp22        [V36,T23] (  4,  3.85)     int  ->  r10         "Inlining Arg"
+;  V37 tmp23        [V37,T24] (  4,  3.85)     int  ->  r11         "Inlining Arg"
+;  V38 tmp24        [V38    ] (  6,  0.96)  struct (24) [rsp+30H]   do-not-enreg[XS] must-init addr-exposed ld-addr-op "Inline ldloca(s) first use temp"
+;* V39 tmp25        [V39    ] (  0,  0   )    bool  ->  zero-ref    "Inline return value spill temp"
+;  V40 tmp26        [V40,T42] ( 14,  0   )     int  ->  rbp         "Inline stloc first use temp"
+;  V41 tmp27        [V41,T43] ( 10,  0   )     ref  ->  rbx         class-hnd "Inlining Arg"
+;* V42 tmp28        [V42    ] (  0,  0   )     int  ->  zero-ref    "impAppendStmt"
+;  V43 tmp29        [V43,T47] (  4,  0   )     int  ->  [rsp+2CH]   "Inline stloc first use temp"
+;* V44 tmp30        [V44    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V45 tmp31        [V45    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V46 tmp32        [V46    ] (  0,  0   )    bool  ->  zero-ref    "Inline return value spill temp"
+;  V47 tmp33        [V47,T09] ( 14,  7.67)     int  ->  rbx         "Inline stloc first use temp"
+;  V48 tmp34        [V48,T05] ( 10, 10.76)     ref  ->  rbp         class-hnd "Inlining Arg"
+;* V49 tmp35        [V49    ] (  0,  0   )     int  ->  zero-ref    "impAppendStmt"
+;  V50 tmp36        [V50,T29] (  4,  2.68)     int  ->  [rsp+28H]   "Inline stloc first use temp"
+;* V51 tmp37        [V51    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;* V52 tmp38        [V52    ] (  0,  0   )     ref  ->  zero-ref    class-hnd "Inlining Arg"
+;  V53 tmp39        [V53,T14] ( 22,  6.10)  ushort  ->  rcx         "Inline return value spill temp"
+;  V54 tmp40        [V54,T01] (  8, 13.77)     ref  ->  rdx         class-hnd "Inlining Arg"
+;  V55 tmp41        [V55,T07] ( 10,  8.60)     int  ->  rcx         "Inline stloc first use temp"
+;  V56 tmp42        [V56,T37] (  4,  0   )    bool  ->  rax         "Inline return value spill temp"
+;  V57 tmp43        [V57,T00] ( 48, 31.18)     ref  ->  rax         class-hnd "Inlining Arg"
+;  V58 tmp44        [V58,T25] ( 10,  3.43)     int  ->   r9         "Inline stloc first use temp"
+;  V59 tmp45        [V59,T26] (  6,  3.41)  ushort  ->  rcx         "Inline stloc first use temp"
+;  V60 tmp46        [V60,T38] (  6,  1.32)     ref  ->  rcx         class-hnd "Inlining Arg"
+;  V61 tmp47        [V61    ] (  3,  0   )     int  ->  [rsp+68H]   do-not-enreg[X] addr-exposed V04.Offset(offs=0x00) P-DEP "field V04.Offset (fldOffset=0x0)"
+;  V62 tmp48        [V62    ] (  2,  0   )     int  ->  [rsp+6CH]   do-not-enreg[X] addr-exposed V04.Line(offs=0x04) P-DEP "field V04.Line (fldOffset=0x4)"
+;  V63 tmp49        [V63    ] (  2,  0   )     int  ->  [rsp+70H]   do-not-enreg[X] addr-exposed V04.Column(offs=0x08) P-DEP "field V04.Column (fldOffset=0x8)"
+;  V64 tmp50        [V64    ] (  8,  2.27)     int  ->  [rsp+48H]   do-not-enreg[X] addr-exposed V27.Offset(offs=0x00) P-DEP "field V27.Offset (fldOffset=0x0)"
+;  V65 tmp51        [V65    ] (  6,  1.95)     int  ->  [rsp+4CH]   do-not-enreg[X] addr-exposed V27.Line(offs=0x04) P-DEP "field V27.Line (fldOffset=0x4)"
+;  V66 tmp52        [V66    ] (  6,  1.95)     int  ->  [rsp+50H]   do-not-enreg[X] addr-exposed V27.Column(offs=0x08) P-DEP "field V27.Column (fldOffset=0x8)"
+;  V67 tmp53        [V67,T34] (  4,  1.93)     int  ->   r9         V34.Offset(offs=0x00) P-INDEP "field V34.Offset (fldOffset=0x0)"
+;  V68 tmp54        [V68,T35] (  4,  1.93)     int  ->  r10         V34.Line(offs=0x04) P-INDEP "field V34.Line (fldOffset=0x4)"
+;  V69 tmp55        [V69,T36] (  4,  1.93)     int  ->  r11         V34.Column(offs=0x08) P-INDEP "field V34.Column (fldOffset=0x8)"
+;  V70 tmp56        [V70,T51] (  3,  0   )     ref  ->  rcx         "arr expr"
+;  V71 tmp57        [V71,T52] (  3,  0   )     ref  ->  rcx         "argument with side effect"
+;  V72 tmp58        [V72,T53] (  3,  0   )     ref  ->  rcx         "arr expr"
+;  V73 tmp59        [V73,T54] (  3,  0   )     ref  ->  rcx         "argument with side effect"
+;  V74 tmp60        [V74,T06] (  6, 10.33)     ref  ->  registers   "arr expr"
+;  V75 tmp61        [V75,T11] (  6,  6.80)     ref  ->  r10         "arr expr"
+;  V76 tmp62        [V76,T12] (  6,  6.80)     int  ->  rcx         "index expr"
+;  V77 tmp63        [V77,T46] (  6,  0   )     ref  ->  rcx         "argument with side effect"
+;  V78 cse0         [V78,T27] (  3,  3.37)     int  ->  rcx         "CSE - moderate"
+;  V79 cse1         [V79,T40] (  3,  0.03)     int  ->  rcx         "CSE - conservative"
+;  V80 cse2         [V80,T28] (  4,  2.86)     ref  ->  rbp         "CSE - moderate"
+;  V81 cse3         [V81,T41] (  4,  0.03)     ref  ->  rbp         "CSE - conservative"
+;  V82 cse4         [V82,T17] (  3,  5.72)    long  ->  rbx         "CSE - moderate"
+;
+; Lcl frame size = 120
+
+G_M51820_IG01:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref, nogc <-- Prolog IG
+       push     r15
+       push     r14
+       push     r13
+       push     r12
+       push     rdi
+       push     rsi
+       push     rbp
+       push     rbx
+       sub      rsp, 120
+       vzeroupper 
+       vxorps   xmm4, xmm4
+       vmovdqa  xmmword ptr [rsp+30H], xmm4
+       vmovdqa  xmmword ptr [rsp+40H], xmm4
+       vmovdqa  xmmword ptr [rsp+50H], xmm4
+       vmovdqa  xmmword ptr [rsp+60H], xmm4
+       xor      eax, eax
+       mov      qword ptr [rsp+70H], rax
+       mov      rbx, rcx
+       ; gcrRegs +[rbx]
+       mov      rsi, rdx
+       ; gcrRegs +[rsi]
+       mov      rdi, r8
+       ; byrRegs +[rdi]
+						;; size=63 bbWeight=1    PerfScore 19.58
+G_M51820_IG02:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000080 {rdi}, byref
+       mov      rax, gword ptr [rsi+10H]
+       ; gcrRegs +[rax]
+       test     rax, rax
+       jne      G_M51820_IG71
+       mov      rcx, gword ptr [rsi+08H]
+       ; gcrRegs +[rcx]
+       mov      rbp, gword ptr [rcx+10H]
+       ; gcrRegs +[rbp]
+       cmp      gword ptr [rbx+20H], 0
+       jne      G_M51820_IG72
+						;; size=32 bbWeight=1    PerfScore 11.25
+G_M51820_IG03:        ; gcrefRegs=00000048 {rbx rsi}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rax rcx rbp]
+       mov      r14, gword ptr [rbx+18H]
+       ; gcrRegs +[r14]
+       mov      r15d, dword ptr [r14+08H]
+       xor      r12d, r12d
+       test     r15d, r15d
+       jle      G_M51820_IG59
+       test     r15d, r15d
+       jl       G_M51820_IG37
+       mov      ecx, dword ptr [r14+08H]
+						;; size=33 bbWeight=1    PerfScore 8.75
+G_M51820_IG04:        ; gcrefRegs=00004040 {rsi r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rbx]
+       mov      ecx, r12d
+       mov      rcx, gword ptr [r14+8*rcx+10H]
+       ; gcrRegs +[rcx]
+       mov      r13, rcx
+       ; gcrRegs +[r13]
+       mov      rbx, qword ptr [r13]
+       mov      rcx, 0xD1FFAB1E      ; SkipWhiteSpace`1
+       ; gcrRegs -[rcx]
+       cmp      rbx, rcx
+       jne      G_M51820_IG12
+						;; size=34 bbWeight=1.91 PerfScore 11.45
+G_M51820_IG05:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       xor      ecx, ecx
+       mov      qword ptr [rsp+48H], rcx
+       mov      qword ptr [rsp+4CH], rcx
+       mov      rbp, gword ptr [rsi+10H]
+       ; gcrRegs +[rbp]
+       test     rbp, rbp
+       jne      G_M51820_IG85
+						;; size=25 bbWeight=0.95 PerfScore 5.25
+G_M51820_IG06:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rbp]
+       mov      rbp, gword ptr [rsi+08H]
+       ; gcrRegs +[rbp]
+       mov      rax, gword ptr [rbp+10H]
+       ; gcrRegs +[rax]
+       mov      r9d, dword ptr [rax+14H]
+       mov      r10d, dword ptr [rax+18H]
+       mov      r11d, dword ptr [rax+1CH]
+       mov      dword ptr [rsp+48H], r9d
+       mov      dword ptr [rsp+4CH], r10d
+       mov      dword ptr [rsp+50H], r11d
+       xor      ecx, ecx
+       vxorps   xmm0, xmm0
+       vmovdqu  xmmword ptr [rsp+30H], xmm0
+       mov      qword ptr [rsp+40H], rcx
+       cmp      gword ptr [rsi+18H], 0
+       jne      G_M51820_IG94
+       cmp      byte  ptr [rsi+24H], 0
+       jne      G_M51820_IG86
+       xor      ebx, ebx
+       mov      rcx, gword ptr [rbp+10H]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      r8d, dword ptr [rcx+08H]
+       mov      rcx, gword ptr [rbp+10H]
+       sub      r8d, dword ptr [rcx+14H]
+						;; size=95 bbWeight=0.95 PerfScore 33.23
+G_M51820_IG07:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rax rcx]
+       cmp      ebx, r8d
+       jge      G_M51820_IG18
+						;; size=9 bbWeight=1.70 PerfScore 2.13
+G_M51820_IG08:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       mov      rdx, gword ptr [rbp+10H]
+       ; gcrRegs +[rdx]
+       mov      ecx, ebx
+       add      ecx, dword ptr [rdx+14H]
+       cmp      ecx, dword ptr [rdx+10H]
+       jge      G_M51820_IG90
+       test     ecx, ecx
+       jl       G_M51820_IG90
+       mov      rax, gword ptr [rdx+08H]
+       ; gcrRegs +[rax]
+       cmp      ecx, dword ptr [rax+08H]
+       jae      G_M51820_IG104
+       mov      ecx, ecx
+       movzx    rcx, word  ptr [rax+2*rcx+0CH]
+						;; size=46 bbWeight=1.70 PerfScore 31.95
+G_M51820_IG09:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rax rdx]
+       cmp      ecx, 32
+       jg       SHORT G_M51820_IG17
+						;; size=5 bbWeight=1.70 PerfScore 2.13
+G_M51820_IG10:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      ecx, 32
+       jne      SHORT G_M51820_IG15
+						;; size=5 bbWeight=0.78 PerfScore 0.97
+G_M51820_IG11:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       inc      ebx
+       jmp      SHORT G_M51820_IG07
+						;; size=4 bbWeight=0.78 PerfScore 1.74
+G_M51820_IG12:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rbp]
+       mov      rcx, r13
+       ; gcrRegs +[rcx]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      r8, rdi
+       ; byrRegs +[r8]
+       mov      rax, qword ptr [rbx+40H]
+       call     [rax+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx r13]
+       ; byrRegs -[r8]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      G_M51820_IG63
+						;; size=24 bbWeight=1.91 PerfScore 13.35
+G_M51820_IG13:        ; gcrefRegs=00004040 {rsi r14}, byrefRegs=00000080 {rdi}, byref
+       inc      r12d
+       cmp      r12d, r15d
+       jl       G_M51820_IG04
+						;; size=12 bbWeight=2.83 PerfScore 4.24
+G_M51820_IG14:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rsi r14]
+       ; byrRegs -[rdi]
+       jmp      G_M51820_IG59
+						;; size=5 bbWeight=1    PerfScore 2.00
+G_M51820_IG15:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs +[rbp rsi r13-r14]
+       ; byrRegs +[rdi]
+       cmp      ecx, 10
+       je       SHORT G_M51820_IG11
+						;; size=5 bbWeight=0.00 PerfScore 0.00
+G_M51820_IG16:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      ecx, 13
+       jne      G_M51820_IG91
+       jmp      SHORT G_M51820_IG11
+						;; size=11 bbWeight=0.00 PerfScore 0.00
+G_M51820_IG17:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      ecx, 160
+       je       SHORT G_M51820_IG11
+       cmp      ecx, 0x1680
+       mov      dword ptr [rsp+28H], r8d
+       jge      G_M51820_IG92
+						;; size=25 bbWeight=0.93 PerfScore 3.25
+G_M51820_IG18:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       test     ebx, ebx
+       jle      SHORT G_M51820_IG28
+						;; size=4 bbWeight=0.93 PerfScore 1.16
+G_M51820_IG19:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       mov      rax, gword ptr [rbp+10H]
+       ; gcrRegs +[rax]
+       cmp      byte  ptr [rax+22H], 0
+       jne      SHORT G_M51820_IG28
+						;; size=10 bbWeight=0.76 PerfScore 4.56
+G_M51820_IG20:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rbp]
+       mov      r9d, ebx
+       add      r9d, dword ptr [rax+14H]
+       mov      ecx, dword ptr [rax+10H]
+       dec      ecx
+       cmp      r9d, ecx
+       jg       G_M51820_IG93
+						;; size=21 bbWeight=0.76 PerfScore 5.12
+G_M51820_IG21:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      dword ptr [rax+14H], r9d
+       jl       SHORT G_M51820_IG24
+						;; size=6 bbWeight=1.88 PerfScore 7.52
+G_M51820_IG22:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      byte  ptr [rax+22H], 0
+       je       SHORT G_M51820_IG28
+						;; size=6 bbWeight=0.76 PerfScore 3.05
+G_M51820_IG23:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       mov      word  ptr [rax+20H], 0
+       mov      ecx, dword ptr [rax+10H]
+       mov      dword ptr [rax+14H], ecx
+       inc      dword ptr [rax+1CH]
+       jmp      SHORT G_M51820_IG28
+						;; size=17 bbWeight=0.38 PerfScore 3.40
+G_M51820_IG24:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       mov      ecx, dword ptr [rax+14H]
+       inc      ecx
+       mov      dword ptr [rax+14H], ecx
+       mov      r10, gword ptr [rax+08H]
+       ; gcrRegs +[r10]
+       cmp      ecx, dword ptr [r10+08H]
+       jae      G_M51820_IG104
+       mov      ecx, ecx
+       movzx    rcx, word  ptr [r10+2*rcx+0CH]
+       cmp      word  ptr [rax+20H], 10
+       je       SHORT G_M51820_IG27
+       cmp      ecx, 13
+       je       SHORT G_M51820_IG26
+						;; size=42 bbWeight=1.12 PerfScore 18.81
+G_M51820_IG25:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[r10]
+       inc      dword ptr [rax+1CH]
+						;; size=3 bbWeight=1.12 PerfScore 3.37
+G_M51820_IG26:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       mov      word  ptr [rax+20H], cx
+       jmp      SHORT G_M51820_IG21
+						;; size=6 bbWeight=1.13 PerfScore 3.38
+G_M51820_IG27:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       inc      dword ptr [rax+18H]
+       mov      dword ptr [rax+1CH], 1
+       jmp      SHORT G_M51820_IG26
+						;; size=12 bbWeight=0.00 PerfScore 0.00
+G_M51820_IG28:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rax]
+       mov      rcx, gword ptr [r13+18H]
+       ; gcrRegs +[rcx]
+       mov      rdx, 0xD1FFAB1E      ; IdentifierParser
+       cmp      qword ptr [rcx], rdx
+       jne      SHORT G_M51820_IG30
+						;; size=19 bbWeight=0.95 PerfScore 5.96
+G_M51820_IG29:        ; gcrefRegs=00004042 {rcx rsi r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[r13]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      r8, rdi
+       ; byrRegs +[r8]
+       cmp      dword ptr [rcx], ecx
+       call     [IdentifierParser:Parse(ParseContext,byref):bool:this]
+       ; gcrRegs -[rcx rdx]
+       ; byrRegs -[r8]
+       ; gcr arg pop 0
+       jmp      SHORT G_M51820_IG31
+						;; size=16 bbWeight=0.48 PerfScore 4.05
+G_M51820_IG30:        ; gcrefRegs=00004042 {rcx rsi r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs +[rcx]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      r8, rdi
+       ; byrRegs +[r8]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+40H]
+       call     [rax+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx]
+       ; byrRegs -[r8]
+       ; gcr arg pop 0
+						;; size=16 bbWeight=0.48 PerfScore 3.58
+G_M51820_IG31:        ; gcrefRegs=00004040 {rsi r14}, byrefRegs=00000080 {rdi}, byref
+       test     eax, eax
+       jne      G_M51820_IG63
+						;; size=8 bbWeight=0.95 PerfScore 1.19
+G_M51820_IG32:        ; gcrefRegs=00004040 {rsi r14}, byrefRegs=00000080 {rdi}, byref
+       mov      rdx, gword ptr [rsi+08H]
+       ; gcrRegs +[rdx]
+       mov      rcx, gword ptr [rdx+10H]
+       ; gcrRegs +[rcx]
+       mov      edx, dword ptr [rsp+48H]
+       ; gcrRegs -[rdx]
+       cmp      edx, dword ptr [rcx+14H]
+       je       G_M51820_IG13
+						;; size=21 bbWeight=0.31 PerfScore 2.82
+G_M51820_IG33:        ; gcrefRegs=00004042 {rcx rsi r14}, byrefRegs=00000080 {rdi}, byref
+       lea      rdx, bword ptr [rsp+48H]
+       ; byrRegs +[rdx]
+       call     [Cursor:ResetPositionNotInlined(byref):this]
+       ; gcrRegs -[rcx]
+       ; byrRegs -[rdx]
+       ; gcr arg pop 0
+       jmp      G_M51820_IG13
+						;; size=16 bbWeight=0.03 PerfScore 0.14
+G_M51820_IG34:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs +[r13]
+       mov      rcx, r13
+       ; gcrRegs +[rcx]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      r8, rdi
+       ; byrRegs +[r8]
+       mov      rax, qword ptr [r13]
+       mov      rax, qword ptr [rax+40H]
+       call     [rax+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx r13]
+       ; byrRegs -[r8]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      G_M51820_IG63
+       jmp      G_M51820_IG58
+						;; size=33 bbWeight=0.02 PerfScore 0.21
+G_M51820_IG35:        ; gcrefRegs=00004040 {rsi r14}, byrefRegs=00000080 {rdi}, byref
+       mov      rcx, gword ptr [rsi+08H]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+10H]
+       mov      edx, dword ptr [rsp+48H]
+       cmp      edx, dword ptr [rcx+14H]
+       je       G_M51820_IG58
+						;; size=21 bbWeight=0.00 PerfScore 0.03
+G_M51820_IG36:        ; gcrefRegs=00004042 {rcx rsi r14}, byrefRegs=00000080 {rdi}, byref
+       jmp      G_M51820_IG46
+						;; size=5 bbWeight=0.00 PerfScore 0.00
+G_M51820_IG37:        ; gcrefRegs=00004040 {rsi r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rcx]
+       cmp      r12d, dword ptr [r14+08H]
+       jae      G_M51820_IG104
+       mov      ecx, r12d
+       mov      r13, gword ptr [r14+8*rcx+10H]
+       ; gcrRegs +[r13]
+       mov      rcx, 0xD1FFAB1E      ; SkipWhiteSpace`1
+       cmp      qword ptr [r13], rcx
+       jne      SHORT G_M51820_IG34
+						;; size=34 bbWeight=0.02 PerfScore 0.20
+G_M51820_IG38:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       cmp      byte  ptr [r13], r13b
+       xor      ecx, ecx
+       mov      qword ptr [rsp+48H], rcx
+       mov      qword ptr [rsp+4CH], rcx
+       mov      rbp, gword ptr [rsi+10H]
+       ; gcrRegs +[rbp]
+       test     rbp, rbp
+       jne      G_M51820_IG95
+						;; size=29 bbWeight=0.01 PerfScore 0.08
+G_M51820_IG39:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rbp]
+       mov      rbp, gword ptr [rsi+08H]
+       ; gcrRegs +[rbp]
+       mov      rax, gword ptr [rbp+10H]
+       ; gcrRegs +[rax]
+       mov      r9d, dword ptr [rax+14H]
+       mov      r10d, dword ptr [rax+18H]
+       mov      r11d, dword ptr [rax+1CH]
+       mov      dword ptr [rsp+48H], r9d
+       mov      dword ptr [rsp+4CH], r10d
+       mov      dword ptr [rsp+50H], r11d
+       xor      ecx, ecx
+       vxorps   xmm0, xmm0
+       vmovdqu  xmmword ptr [rsp+30H], xmm0
+       mov      qword ptr [rsp+40H], rcx
+       cmp      gword ptr [rsi+18H], 0
+       jne      G_M51820_IG70
+       cmp      byte  ptr [rsi+24H], 0
+       jne      G_M51820_IG96
+       xor      ebx, ebx
+       mov      rcx, gword ptr [rbp+10H]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      r8d, dword ptr [rcx+08H]
+       mov      rcx, gword ptr [rbp+10H]
+       sub      r8d, dword ptr [rcx+14H]
+       mov      eax, r8d
+       ; gcrRegs -[rax]
+						;; size=98 bbWeight=0.01 PerfScore 0.34
+G_M51820_IG40:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rcx]
+       cmp      ebx, eax
+       jge      SHORT G_M51820_IG49
+						;; size=4 bbWeight=0.02 PerfScore 0.02
+G_M51820_IG41:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       mov      rdx, gword ptr [rbp+10H]
+       ; gcrRegs +[rdx]
+       mov      ecx, ebx
+       add      ecx, dword ptr [rdx+14H]
+       cmp      ecx, dword ptr [rdx+10H]
+       jge      G_M51820_IG101
+       test     ecx, ecx
+       jl       G_M51820_IG101
+       mov      rdx, gword ptr [rdx+08H]
+       cmp      ecx, dword ptr [rdx+08H]
+       jae      G_M51820_IG104
+       mov      ecx, ecx
+       movzx    rcx, word  ptr [rdx+2*rcx+0CH]
+						;; size=46 bbWeight=0.02 PerfScore 0.32
+G_M51820_IG42:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rdx]
+       cmp      ecx, 32
+       jle      SHORT G_M51820_IG44
+						;; size=5 bbWeight=0.02 PerfScore 0.02
+G_M51820_IG43:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      ecx, 160
+       je       SHORT G_M51820_IG45
+       cmp      ecx, 0x1680
+       jge      G_M51820_IG100
+       jmp      SHORT G_M51820_IG49
+						;; size=22 bbWeight=0.01 PerfScore 0.04
+G_M51820_IG44:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      ecx, 32
+       jne      SHORT G_M51820_IG47
+						;; size=5 bbWeight=0.01 PerfScore 0.01
+G_M51820_IG45:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       inc      ebx
+       jmp      SHORT G_M51820_IG40
+						;; size=4 bbWeight=0.01 PerfScore 0.02
+G_M51820_IG46:        ; gcrefRegs=00004042 {rcx rsi r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rbp r13] +[rcx]
+       lea      rdx, bword ptr [rsp+48H]
+       ; byrRegs +[rdx]
+       call     [Cursor:ResetPositionNotInlined(byref):this]
+       ; gcrRegs -[rcx]
+       ; byrRegs -[rdx]
+       ; gcr arg pop 0
+       jmp      G_M51820_IG58
+						;; size=16 bbWeight=0.00 PerfScore 0.00
+G_M51820_IG47:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs +[rbp r13]
+       cmp      ecx, 10
+       je       SHORT G_M51820_IG45
+						;; size=5 bbWeight=0.00 PerfScore 0.00
+G_M51820_IG48:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      ecx, 13
+       jne      G_M51820_IG102
+       jmp      SHORT G_M51820_IG45
+						;; size=11 bbWeight=0.00 PerfScore 0.00
+G_M51820_IG49:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       test     ebx, ebx
+       jg       SHORT G_M51820_IG52
+						;; size=4 bbWeight=0.01 PerfScore 0.01
+G_M51820_IG50:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rbp]
+       mov      rcx, gword ptr [r13+18H]
+       ; gcrRegs +[rcx]
+       mov      rdx, 0xD1FFAB1E      ; IdentifierParser
+       cmp      qword ptr [rcx], rdx
+       jne      G_M51820_IG61
+						;; size=23 bbWeight=0.01 PerfScore 0.06
+G_M51820_IG51:        ; gcrefRegs=00004042 {rcx rsi r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[r13]
+       jmp      G_M51820_IG67
+						;; size=5 bbWeight=0.00 PerfScore 0.01
+G_M51820_IG52:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rcx] +[rbp r13]
+       mov      rax, gword ptr [rbp+10H]
+       ; gcrRegs +[rax]
+       cmp      byte  ptr [rax+22H], 0
+       jne      SHORT G_M51820_IG50
+						;; size=10 bbWeight=0.01 PerfScore 0.05
+G_M51820_IG53:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rbp]
+       mov      r9d, ebx
+       add      r9d, dword ptr [rax+14H]
+       mov      ecx, dword ptr [rax+10H]
+       dec      ecx
+       cmp      r9d, ecx
+       jg       G_M51820_IG69
+						;; size=21 bbWeight=0.01 PerfScore 0.05
+G_M51820_IG54:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       cmp      dword ptr [rax+14H], r9d
+       jge      G_M51820_IG65
+						;; size=10 bbWeight=0.02 PerfScore 0.08
+G_M51820_IG55:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       mov      ecx, dword ptr [rax+14H]
+       inc      ecx
+       mov      dword ptr [rax+14H], ecx
+       mov      r10, gword ptr [rax+08H]
+       ; gcrRegs +[r10]
+       cmp      ecx, dword ptr [r10+08H]
+       jae      G_M51820_IG104
+       mov      ecx, ecx
+       movzx    rcx, word  ptr [r10+2*rcx+0CH]
+       cmp      word  ptr [rax+20H], 10
+       je       G_M51820_IG68
+       cmp      ecx, 13
+       je       SHORT G_M51820_IG57
+						;; size=46 bbWeight=0.01 PerfScore 0.19
+G_M51820_IG56:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[r10]
+       inc      dword ptr [rax+1CH]
+						;; size=3 bbWeight=0.01 PerfScore 0.03
+G_M51820_IG57:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       mov      word  ptr [rax+20H], cx
+       jmp      SHORT G_M51820_IG54
+						;; size=6 bbWeight=0.01 PerfScore 0.03
+G_M51820_IG58:        ; gcrefRegs=00004040 {rsi r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rax r13]
+       inc      r12d
+       cmp      r12d, r15d
+       jl       G_M51820_IG37
+						;; size=12 bbWeight=0.03 PerfScore 0.04
+G_M51820_IG59:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rsi r14]
+       ; byrRegs -[rdi]
+       xor      eax, eax
+						;; size=2 bbWeight=0.94 PerfScore 0.23
+G_M51820_IG60:        ; , epilog, nogc, extend
+       add      rsp, 120
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r13
+       pop      r14
+       pop      r15
+       ret      
+						;; size=17 bbWeight=0.94 PerfScore 4.92
+G_M51820_IG61:        ; gcVars=0000000000000000 {}, gcrefRegs=00004042 {rcx rsi r14}, byrefRegs=00000080 {rdi}, gcvars, byref
+       ; gcrRegs +[rcx rsi r14]
+       ; byrRegs +[rdi]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      r8, rdi
+       ; byrRegs +[r8]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+40H]
+       call     [rax+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx]
+       ; byrRegs -[r8]
+       ; gcr arg pop 0
+						;; size=16 bbWeight=0.00 PerfScore 0.04
+G_M51820_IG62:        ; gcrefRegs=00004040 {rsi r14}, byrefRegs=00000080 {rdi}, byref
+       test     eax, eax
+       je       G_M51820_IG35
+						;; size=8 bbWeight=0.01 PerfScore 0.01
+G_M51820_IG63:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rsi r14]
+       ; byrRegs -[rdi]
+       mov      eax, 1
+						;; size=5 bbWeight=0.32 PerfScore 0.08
+G_M51820_IG64:        ; , epilog, nogc, extend
+       add      rsp, 120
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r13
+       pop      r14
+       pop      r15
+       ret      
+						;; size=17 bbWeight=0.32 PerfScore 1.66
+G_M51820_IG65:        ; gcVars=0000000000000000 {}, gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, gcvars, byref
+       ; gcrRegs +[rax rsi r13-r14]
+       ; byrRegs +[rdi]
+       cmp      byte  ptr [rax+22H], 0
+       je       G_M51820_IG50
+						;; size=10 bbWeight=0.01 PerfScore 0.03
+G_M51820_IG66:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       mov      word  ptr [rax+20H], 0
+       mov      ecx, dword ptr [rax+10H]
+       mov      dword ptr [rax+14H], ecx
+       inc      dword ptr [rax+1CH]
+       jmp      G_M51820_IG50
+						;; size=20 bbWeight=0.00 PerfScore 0.03
+G_M51820_IG67:        ; gcrefRegs=00004042 {rcx rsi r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rax r13] +[rcx]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      r8, rdi
+       ; byrRegs +[r8]
+       cmp      dword ptr [rcx], ecx
+       call     [IdentifierParser:Parse(ParseContext,byref):bool:this]
+       ; gcrRegs -[rcx rdx]
+       ; byrRegs -[r8]
+       ; gcr arg pop 0
+       jmp      SHORT G_M51820_IG62
+						;; size=16 bbWeight=0.00 PerfScore 0.04
+G_M51820_IG68:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs +[rax r13]
+       inc      dword ptr [rax+18H]
+       mov      dword ptr [rax+1CH], 1
+       jmp      G_M51820_IG57
+						;; size=15 bbWeight=0.00 PerfScore 0.00
+G_M51820_IG69:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       mov      byte  ptr [rax+22H], 1
+       mov      r9d, dword ptr [rax+10H]
+       dec      r9d
+       cmp      dword ptr [rax+14H], r9d
+       jge      SHORT G_M51820_IG65
+       jmp      G_M51820_IG55
+						;; size=22 bbWeight=0    PerfScore 0.00
+G_M51820_IG70:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rax]
+       xor      ecx, ecx
+       vxorps   xmm0, xmm0
+       vmovdqu  xmmword ptr [rsp+30H], xmm0
+       mov      qword ptr [rsp+40H], rcx
+       mov      rcx, gword ptr [rsi+18H]
+       ; gcrRegs +[rcx]
+       lea      r8, [rsp+30H]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+40H]
+       call     [rax+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       jmp      G_M51820_IG50
+						;; size=44 bbWeight=0    PerfScore 0.00
+G_M51820_IG71:        ; gcrefRegs=00000049 {rax rbx rsi}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[r13-r14] +[rax rbx]
+       mov      rcx, gword ptr [rax+08H]
+       ; gcrRegs +[rcx]
+       mov      rdx, rbx
+       ; gcrRegs +[rdx]
+       mov      r8, rsi
+       ; gcrRegs +[r8]
+       call     [rax+18H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rax rcx rdx r8]
+       ; gcr arg pop 0
+       mov      rcx, gword ptr [rsi+08H]
+       ; gcrRegs +[rcx]
+       mov      rbp, gword ptr [rcx+10H]
+       ; gcrRegs +[rbp]
+       cmp      gword ptr [rbx+20H], 0
+       je       G_M51820_IG03
+						;; size=32 bbWeight=0    PerfScore 0.00
+G_M51820_IG72:        ; gcrefRegs=00000068 {rbx rbp rsi}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rcx]
+       cmp      byte  ptr [rbx+14H], 0
+       je       G_M51820_IG78
+       mov      rcx, gword ptr [rsi+08H]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+10H]
+       lea      rdx, bword ptr [rsp+68H]
+       ; byrRegs +[rdx]
+       cmp      dword ptr [rcx], ecx
+       call     [Cursor:get_Position():TextPosition:this]
+       ; gcrRegs -[rcx]
+       ; byrRegs -[rdx]
+       ; gcr arg pop 0
+       mov      rcx, rsi
+       ; gcrRegs +[rcx]
+       call     [ParseContext:SkipWhiteSpace():this]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       movzx    rdx, word  ptr [rbp+20H]
+       mov      rcx, gword ptr [rbx+20H]
+       ; gcrRegs +[rcx]
+       lea      r8, [rsp+60H]
+       cmp      dword ptr [rcx], ecx
+       call     [Dictionary`2:TryGetValue(ushort,byref):bool:this]
+       ; gcrRegs -[rcx rbx rbp]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       SHORT G_M51820_IG77
+       mov      rcx, gword ptr [rsp+60H]
+       ; gcrRegs +[rcx]
+       mov      ebp, dword ptr [rcx+10H]
+       xor      ebx, ebx
+       jmp      SHORT G_M51820_IG76
+						;; size=77 bbWeight=0    PerfScore 0.00
+G_M51820_IG73:        ; gcrefRegs=00000040 {rsi}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rcx]
+       mov      rcx, gword ptr [rsp+60H]
+       ; gcrRegs +[rcx]
+       cmp      ebx, dword ptr [rcx+10H]
+       jae      G_M51820_IG80
+       mov      rcx, gword ptr [rcx+08H]
+       cmp      ebx, dword ptr [rcx+08H]
+       jae      G_M51820_IG104
+       mov      edx, ebx
+       mov      rcx, gword ptr [rcx+8*rdx+10H]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      r8, rdi
+       ; byrRegs +[r8]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+40H]
+       call     [rax+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx]
+       ; byrRegs -[r8]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       SHORT G_M51820_IG75
+       mov      eax, 1
+						;; size=59 bbWeight=0    PerfScore 0.00
+G_M51820_IG74:        ; , epilog, nogc, extend
+       add      rsp, 120
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r13
+       pop      r14
+       pop      r15
+       ret      
+						;; size=17 bbWeight=0    PerfScore 0.00
+G_M51820_IG75:        ; gcVars=0000000000000000 {}, gcrefRegs=00000040 {rsi}, byrefRegs=00000080 {rdi}, gcvars, byref
+       inc      ebx
+						;; size=2 bbWeight=0    PerfScore 0.00
+G_M51820_IG76:        ; gcrefRegs=00000040 {rsi}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      ebx, ebp
+       jl       SHORT G_M51820_IG73
+						;; size=4 bbWeight=0    PerfScore 0.00
+G_M51820_IG77:        ; gcrefRegs=00000040 {rsi}, byrefRegs=00000000 {}, byref
+       ; byrRegs -[rdi]
+       mov      rdx, gword ptr [rsi+08H]
+       ; gcrRegs +[rdx]
+       mov      rcx, gword ptr [rdx+10H]
+       ; gcrRegs +[rcx]
+       mov      edx, dword ptr [rsp+68H]
+       ; gcrRegs -[rdx]
+       cmp      edx, dword ptr [rcx+14H]
+       je       G_M51820_IG59
+       lea      rdx, bword ptr [rsp+68H]
+       ; byrRegs +[rdx]
+       call     [Cursor:ResetPositionNotInlined(byref):this]
+       ; gcrRegs -[rcx rsi]
+       ; byrRegs -[rdx]
+       ; gcr arg pop 0
+       jmp      G_M51820_IG59
+						;; size=37 bbWeight=0    PerfScore 0.00
+G_M51820_IG78:        ; gcrefRegs=00000068 {rbx rbp rsi}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs +[rbx rbp rsi]
+       ; byrRegs +[rdi]
+       movzx    rdx, word  ptr [rbp+20H]
+       mov      rcx, gword ptr [rbx+20H]
+       ; gcrRegs +[rcx]
+       lea      r8, [rsp+58H]
+       cmp      dword ptr [rcx], ecx
+       call     [Dictionary`2:TryGetValue(ushort,byref):bool:this]
+       ; gcrRegs -[rcx rbx rbp]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       G_M51820_IG59
+       mov      rax, gword ptr [rsp+58H]
+       ; gcrRegs +[rax]
+       mov      r13d, dword ptr [rax+10H]
+       xor      r14d, r14d
+       jmp      SHORT G_M51820_IG84
+						;; size=43 bbWeight=0    PerfScore 0.00
+G_M51820_IG79:        ; gcrefRegs=00000040 {rsi}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs -[rax]
+       mov      rcx, gword ptr [rsp+58H]
+       ; gcrRegs +[rcx]
+       cmp      r14d, dword ptr [rcx+10H]
+       jb       SHORT G_M51820_IG81
+						;; size=11 bbWeight=0    PerfScore 0.00
+G_M51820_IG80:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rcx rsi]
+       ; byrRegs -[rdi]
+       call     [ThrowHelper:ThrowArgumentOutOfRange_IndexMustBeLessException()]
+       ; gcr arg pop 0
+       int3     
+						;; size=7 bbWeight=0    PerfScore 0.00
+G_M51820_IG81:        ; gcrefRegs=00000042 {rcx rsi}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs +[rcx rsi]
+       ; byrRegs +[rdi]
+       mov      rcx, gword ptr [rcx+08H]
+       cmp      r14d, dword ptr [rcx+08H]
+       jae      G_M51820_IG104
+       mov      edx, r14d
+       mov      rcx, gword ptr [rcx+8*rdx+10H]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      r8, rdi
+       ; byrRegs +[r8]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+40H]
+       call     [rax+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx]
+       ; byrRegs -[r8]
+       ; gcr arg pop 0
+       test     eax, eax
+       je       SHORT G_M51820_IG83
+       mov      eax, 1
+						;; size=47 bbWeight=0    PerfScore 0.00
+G_M51820_IG82:        ; , epilog, nogc, extend
+       add      rsp, 120
+       pop      rbx
+       pop      rbp
+       pop      rsi
+       pop      rdi
+       pop      r12
+       pop      r13
+       pop      r14
+       pop      r15
+       ret      
+						;; size=17 bbWeight=0    PerfScore 0.00
+G_M51820_IG83:        ; gcVars=0000000000000000 {}, gcrefRegs=00000040 {rsi}, byrefRegs=00000080 {rdi}, gcvars, byref
+       inc      r14d
+						;; size=3 bbWeight=0    PerfScore 0.00
+G_M51820_IG84:        ; gcrefRegs=00000040 {rsi}, byrefRegs=00000080 {rdi}, byref, isz
+       cmp      r14d, r13d
+       jl       SHORT G_M51820_IG79
+       jmp      G_M51820_IG59
+						;; size=10 bbWeight=0    PerfScore 0.00
+G_M51820_IG85:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs +[rbp r13-r14]
+       mov      rcx, gword ptr [rbp+08H]
+       ; gcrRegs +[rcx]
+       mov      rdx, r13
+       ; gcrRegs +[rdx]
+       mov      r8, rsi
+       ; gcrRegs +[r8]
+       call     [rbp+18H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx rbp r8]
+       ; gcr arg pop 0
+       jmp      G_M51820_IG06
+						;; size=18 bbWeight=0    PerfScore 0.00
+G_M51820_IG86:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs +[rbp]
+       mov      rbx, rbp
+       ; gcrRegs +[rbx]
+       xor      ebp, ebp
+       ; gcrRegs -[rbp]
+       mov      rcx, gword ptr [rbx+10H]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      eax, dword ptr [rcx+08H]
+       mov      rcx, gword ptr [rbx+10H]
+       sub      eax, dword ptr [rcx+14H]
+       jmp      SHORT G_M51820_IG88
+						;; size=25 bbWeight=0    PerfScore 0.00
+G_M51820_IG87:        ; gcrefRegs=00006048 {rbx rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rcx]
+       inc      ebp
+       mov      eax, dword ptr [rsp+2CH]
+						;; size=6 bbWeight=0    PerfScore 0.00
+G_M51820_IG88:        ; gcrefRegs=00006048 {rbx rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       mov      dword ptr [rsp+2CH], eax
+       cmp      ebp, eax
+       jge      SHORT G_M51820_IG89
+       mov      rcx, gword ptr [rbx+10H]
+       ; gcrRegs +[rcx]
+       mov      edx, ebp
+       cmp      dword ptr [rcx], ecx
+       call     [Cursor:PeekNext(int):ushort:this]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       mov      ecx, eax
+       call     [Character:IsWhiteSpace(ushort):bool]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M51820_IG87
+						;; size=34 bbWeight=0    PerfScore 0.00
+G_M51820_IG89:        ; gcrefRegs=00006048 {rbx rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       test     ebp, ebp
+       jle      G_M51820_IG28
+       mov      rcx, gword ptr [rbx+10H]
+       ; gcrRegs +[rcx]
+       mov      edx, ebp
+       cmp      dword ptr [rcx], ecx
+       call     [Cursor:AdvanceNoNewLines(int):this]
+       ; gcrRegs -[rcx rbx]
+       ; gcr arg pop 0
+       jmp      G_M51820_IG28
+						;; size=27 bbWeight=0    PerfScore 0.00
+G_M51820_IG90:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs +[rbp]
+       xor      ecx, ecx
+       jmp      G_M51820_IG09
+						;; size=7 bbWeight=0    PerfScore 0.00
+G_M51820_IG91:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       cmp      ecx, 9
+       je       G_M51820_IG11
+       cmp      ecx, 11
+       je       G_M51820_IG11
+       jmp      G_M51820_IG17
+						;; size=23 bbWeight=0    PerfScore 0.00
+G_M51820_IG92:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       call     [Character:IsWhiteSpaceNonAscii(ushort):bool]
+       ; gcr arg pop 0
+       test     eax, eax
+       mov      r8d, dword ptr [rsp+28H]
+       jne      G_M51820_IG11
+       jmp      G_M51820_IG18
+						;; size=24 bbWeight=0    PerfScore 0.00
+G_M51820_IG93:        ; gcrefRegs=00006041 {rax rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rbp] +[rax]
+       mov      byte  ptr [rax+22H], 1
+       mov      r9d, dword ptr [rax+10H]
+       dec      r9d
+       cmp      dword ptr [rax+14H], r9d
+       jge      G_M51820_IG22
+       jmp      G_M51820_IG24
+						;; size=26 bbWeight=0    PerfScore 0.00
+G_M51820_IG94:        ; gcrefRegs=00006040 {rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rax]
+       xor      ecx, ecx
+       vxorps   xmm0, xmm0
+       vmovdqu  xmmword ptr [rsp+30H], xmm0
+       mov      qword ptr [rsp+40H], rcx
+       mov      rcx, gword ptr [rsi+18H]
+       ; gcrRegs +[rcx]
+       lea      r8, [rsp+30H]
+       mov      rdx, rsi
+       ; gcrRegs +[rdx]
+       mov      rax, qword ptr [rcx]
+       mov      rax, qword ptr [rax+40H]
+       call     [rax+20H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx]
+       ; gcr arg pop 0
+       jmp      G_M51820_IG28
+						;; size=44 bbWeight=0    PerfScore 0.00
+G_M51820_IG95:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs +[rbp]
+       mov      rcx, gword ptr [rbp+08H]
+       ; gcrRegs +[rcx]
+       mov      rdx, r13
+       ; gcrRegs +[rdx]
+       mov      r8, rsi
+       ; gcrRegs +[r8]
+       call     [rbp+18H]hackishModuleName:hackishMethodName()
+       ; gcrRegs -[rcx rdx rbp r8]
+       ; gcr arg pop 0
+       jmp      G_M51820_IG39
+						;; size=18 bbWeight=0    PerfScore 0.00
+G_M51820_IG96:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs +[rbp]
+       mov      rbx, rbp
+       ; gcrRegs +[rbx]
+       xor      ebp, ebp
+       ; gcrRegs -[rbp]
+       mov      rcx, gword ptr [rbx+10H]
+       ; gcrRegs +[rcx]
+       mov      rcx, gword ptr [rcx+08H]
+       mov      eax, dword ptr [rcx+08H]
+       mov      rcx, gword ptr [rbx+10H]
+       sub      eax, dword ptr [rcx+14H]
+       jmp      SHORT G_M51820_IG98
+						;; size=25 bbWeight=0    PerfScore 0.00
+G_M51820_IG97:        ; gcrefRegs=00006048 {rbx rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       ; gcrRegs -[rcx]
+       inc      ebp
+       mov      eax, dword ptr [rsp+2CH]
+						;; size=6 bbWeight=0    PerfScore 0.00
+G_M51820_IG98:        ; gcrefRegs=00006048 {rbx rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       mov      dword ptr [rsp+2CH], eax
+       cmp      ebp, eax
+       jge      SHORT G_M51820_IG99
+       mov      rcx, gword ptr [rbx+10H]
+       ; gcrRegs +[rcx]
+       mov      edx, ebp
+       cmp      dword ptr [rcx], ecx
+       call     [Cursor:PeekNext(int):ushort:this]
+       ; gcrRegs -[rcx]
+       ; gcr arg pop 0
+       mov      ecx, eax
+       call     [Character:IsWhiteSpace(ushort):bool]
+       ; gcr arg pop 0
+       test     eax, eax
+       jne      SHORT G_M51820_IG97
+						;; size=34 bbWeight=0    PerfScore 0.00
+G_M51820_IG99:        ; gcrefRegs=00006048 {rbx rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       test     ebp, ebp
+       jle      G_M51820_IG50
+       mov      rcx, gword ptr [rbx+10H]
+       ; gcrRegs +[rcx]
+       mov      edx, ebp
+       cmp      dword ptr [rcx], ecx
+       call     [Cursor:AdvanceNoNewLines(int):this]
+       ; gcrRegs -[rcx rbx]
+       ; gcr arg pop 0
+       jmp      G_M51820_IG50
+						;; size=27 bbWeight=0    PerfScore 0.00
+G_M51820_IG100:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref, isz
+       ; gcrRegs +[rbp]
+       mov      dword ptr [rsp+28H], eax
+       call     [Character:IsWhiteSpaceNonAscii(ushort):bool]
+       ; gcr arg pop 0
+       jmp      SHORT G_M51820_IG103
+						;; size=12 bbWeight=0    PerfScore 0.00
+G_M51820_IG101:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       xor      ecx, ecx
+       jmp      G_M51820_IG42
+						;; size=7 bbWeight=0    PerfScore 0.00
+G_M51820_IG102:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       cmp      ecx, 9
+       je       G_M51820_IG45
+       cmp      ecx, 11
+       je       G_M51820_IG45
+       jmp      G_M51820_IG43
+						;; size=23 bbWeight=0    PerfScore 0.00
+G_M51820_IG103:        ; gcrefRegs=00006060 {rbp rsi r13 r14}, byrefRegs=00000080 {rdi}, byref
+       test     eax, eax
+       mov      eax, dword ptr [rsp+28H]
+       jne      G_M51820_IG45
+       jmp      G_M51820_IG49
+						;; size=17 bbWeight=0    PerfScore 0.00
+G_M51820_IG104:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
+       ; gcrRegs -[rbp rsi r13-r14]
+       ; byrRegs -[rdi]
+       call     CORINFO_HELP_RNGCHKFAIL
+       ; gcr arg pop 0
+       int3     
+						;; size=6 bbWeight=0    PerfScore 0.00
+
+; Total bytes of code 2101, prolog size 63, PerfScore 439.69, instruction count 574, allocated bytes for code 2114 (MethodHash=0e563593) for method OneOf`1:Parse(ParseContext,byref):bool:this
+; ============================================================
+
+Unwind Info:
+  >> Start offset   : 0x000000 (not in unwind data)
+  >>   End offset   : 0xd1ffab1e (not in unwind data)
+  Version           : 1
+  Flags             : 0x00
+  SizeOfProlog      : 0x10
+  CountOfUnwindCodes: 9
+  FrameRegister     : none (0)
+  FrameOffset       : N/A (no FrameRegister) (Value=0)
+  UnwindCodes       :
+    CodeOffset: 0x10 UnwindOp: UWOP_ALLOC_SMALL (2)     OpInfo: 14 * 8 + 8 = 120 = 0x78
+    CodeOffset: 0x0C UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbx (3)
+    CodeOffset: 0x0B UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rbp (5)
+    CodeOffset: 0x0A UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rsi (6)
+    CodeOffset: 0x09 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: rdi (7)
+    CodeOffset: 0x08 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r12 (12)
+    CodeOffset: 0x06 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r13 (13)
+    CodeOffset: 0x04 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r14 (14)
+    CodeOffset: 0x02 UnwindOp: UWOP_PUSH_NONVOL (0)     OpInfo: r15 (15)

@@ -1,15 +1,23 @@
-using System;
+﻿using System;
 using System.Diagnostics;
-// using System.ComponentModel;
 
-namespace Graphviz {
-
+namespace AssemblyGraph {
+    /// <summary>
+    /// vertex class which represents a group in a method
+    /// </summary>
     class Vertex {
-        private String label;
-        private List<String> content_code;
-        private Double weight;
-        private Double score;
+        private String label; // name of the of the group e.g. IG01, IG02...
+        private List<String> content_code; // the lines of assembly code in the group
+        private Double weight; // the weight of the group
+        private Double score; // the perfoscore of the group
 
+        /// <summary>
+        /// vertex constructor
+        /// </summary>
+        /// <param name="label"></param>
+        /// <param name="weight"></param>
+        /// <param name="score"></param>
+        /// <param name="content"></param>
         public Vertex (String label, Double weight, Double score, List<String> content) {
             this.label = label;
             this.content_code = content;
@@ -17,6 +25,11 @@ namespace Graphviz {
             this.score = score;
         }
 
+        /// <summary>
+        /// returns true or false if the current vertex equals v1
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <returns></returns>
         public Boolean Equals (Vertex v1){
             return v1.label == label;
         }
@@ -50,6 +63,10 @@ namespace Graphviz {
             return label;
         }
     }
+
+    /// <summary>
+    /// This graph class represents a method
+    /// </summary>
 
     class Graph {
         private Dictionary<Vertex, List<Vertex>> adjVertices;
@@ -99,14 +116,6 @@ namespace Graphviz {
             this.system = s;
         }
 
-        public void AddVertex (Vertex v) {
-            adjVertices.TryAdd(v, new List<Vertex>());
-        }
-
-        public void AddEdge (Vertex v1, Vertex v2) {
-            adjVertices[v1].Add(v2);
-        }
-
         public void setMaxWeight (Double weight) {
             this.maxWeight = weight;
         }
@@ -123,10 +132,37 @@ namespace Graphviz {
             return maxScore;
         }
 
+        /// <summary>
+        /// adds a vertex v to the graph
+        /// </summary>
+        /// <param name="v"></param>
+        public void AddVertex (Vertex v) {
+            adjVertices.TryAdd(v, new List<Vertex>());
+        }
+
+        /// <summary>
+        /// adds an edge v1->v2 to the graph
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        public void AddEdge (Vertex v1, Vertex v2) {
+            adjVertices[v1].Add(v2);
+        }
+
+        /// <summary>
+        /// returns the list of vertices currently in the graph
+        /// </summary>
+        /// <returns></returns>
         public List<Vertex> getVertices() {
             return adjVertices.Keys.ToList();
         }
 
+        /// <summary>
+        /// given a label the function returns the vertex associated with that label
+        /// or throws an exception if the vertex with such label is currently not in the graph
+        /// </summary>
+        /// <param name="label"></param>
+        /// <returns></returns>
         public Vertex getVertex (String label) {
             List<Vertex> vertices = getVertices();
 
@@ -139,6 +175,7 @@ namespace Graphviz {
             throw new InvalidDataException("This vertex does not exist");
         }
 
+    
         private String choose_color (Double val, Double max, Boolean heatMap) {
 
             Double score = Math.Round(val / max, 1 );
@@ -166,6 +203,14 @@ namespace Graphviz {
             
         }
 
+        /// <summary>
+        /// DFS implementaton to detect and return all cycles found along a path
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="visited"></param>
+        /// <param name="explore"></param>
+        /// <param name="cycles"></param>
+        /// <returns></returns>
         private bool DFS (Vertex v, ref Stack<Vertex> visited, ref Stack<Vertex> explore, ref HashSet<List<Vertex>> cycles) {
             if (explore.Contains(v)) {
                 // found a cycle
@@ -204,6 +249,10 @@ namespace Graphviz {
             return false; // no cycle found
         }
 
+        /// <summary>
+        /// returns a list of all the cycles found in the graph
+        /// </summary>
+        /// <returns></returns>
         private HashSet<List<Vertex>> detectCycle() {
             Stack<Vertex> visited = new Stack<Vertex>();
             Stack<Vertex> explore = new Stack<Vertex>();
@@ -218,6 +267,12 @@ namespace Graphviz {
             return cycles;
         }
 
+        /// <summary>
+        /// generates an SVG file from created dot file
+        /// </summary>
+        /// <param name="folder_path"></param>
+        /// <param name="show_stats"></param>
+        /// <param name="process"></param>
         public void createSVG (String folder_path, Boolean show_stats, Process process) {
             // creating graphviz file
             String file_path = folder_path + "\\" + getHashcode();
@@ -321,10 +376,6 @@ namespace Graphviz {
 
                 Console.WriteLine("Hash: {0}",hashcode);
             }
-
-            process.StandardInput.WriteLine(@"dot -Tsvg " + "\"" + file_path + ".dot\"" + " -o \"" + file_path +".svg\"");
-            process.StandardInput.Flush();
-
         }
     }
 }
