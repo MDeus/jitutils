@@ -165,14 +165,18 @@ class Program {
     /// </summary>
     static public void createSVG(List<Graph> graph_list, String output_folder_path, Boolean stats) {
         Process process = new Process();
+        int i = 0;;
         foreach (Graph g in graph_list) {
+
+            String graph_name = "graph_" + i;
+            if (g.getHashcode() != "") {graph_name = g.getHashcode();}
 
             process.StartInfo.FileName = "dot.exe";
             process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.UseShellExecute = false;
-            String inputfile = Path.Combine(output_folder_path, g.getHashcode()) + ".dot";
-            String svgFile =  Path.Combine(output_folder_path, g.getHashcode()) + ".svg";
+            String inputfile = Path.Combine(output_folder_path, graph_name) + ".dot";
+            String svgFile =  Path.Combine(output_folder_path, graph_name) + ".svg";
             process.StartInfo.Arguments = $"-Tsvg \"{inputfile}\" -o \"{svgFile}\"";
 
             g.createSVG(output_folder_path, stats, process);
