@@ -1,122 +1,97 @@
 
 // https://stackoverflow.com/questions/41514967/yes-no-is-there-a-way-to-improve-mouse-dragging-with-pure-svg-tools/41518545#41518545
+{/* <script src="https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js"></script>
+<script src="script.js"></script> */}
 
-// <script xlink:href="script.js" />
-var dre = document.querySelectorAll(".node")
-for (var i = 0; i < dre.length; i++) {
-    var o = new Draggable(dre[i])
+var node_list = document.querySelectorAll(".node")
+var edge_list = document.querySelectorAll(".edge")
+
+var map = {};
+
+// create leaderlines
+for (var i = 0; i < edge_list.length; i++) {
+    var edge_title = edge_list[i].getElementsByTagName('title')[0].textContent.split("->")
+    var s_num = parseInt(edge_title[0].split('G')[1]).toString()
+    var e_num = parseInt(edge_title[1].split('G')[1]).toString()
+
+    if(s_num == e_num) {continue;}
+
+    // get start and end element of edge
+    var startElem = document.getElementById('node'+s_num)
+    var endElem = document.getElementById('node'+e_num)
+
+    // get line color
+    var color = edge_list[i].getElementsByTagName('polygon')[0].getAttribute('fill')
+    var options = {color: color, size: 2, path:'straight'}
+
+    if (parseInt(e_num) != parseInt(s_num) + 1 && parseInt(e_num) != parseInt(s_num) - 1) { 
+        var startSocket, endSocket;
+        if (color == 'green') {startSocket= 'left'; endSocket= 'left';}
+        else {startSocket= 'right'; endSocket= 'right';}
+        
+        options = {color: color, size: 2, path:'fluid', startSocket:startSocket, endSocket:endSocket}
+    }
+
+    // create leader line
+    var line = new LeaderLine((startElem), endElem, options)
+    
+    addValueToList(startElem.id, line)
+    addValueToList(endElem.id, line)
+    edge_list[i].remove()
 }
 
-function Draggable(elem) {
+for (var i = 0; i < node_list.length; i++) {
+    var id = node_list[i].id
+    var o = new Draggable(node_list[i], map[id])
+}
+
+function addValueToList(key, value) {
+    //if the list is already created for the "key", then uses it
+    //else creates new list for the "key" to store multiple values in it.
+    map[key] = map[key] || [];
+    map[key].push(value);
+}
+
+function Draggable(elem, lines) {
     this.target = elem
     this.clickPoint = this.target.ownerSVGElement.createSVGPoint()
     this.lastMove = this.target.ownerSVGElement.createSVGPoint()
     this.currentMove = this.target.ownerSVGElement.createSVGPoint()
     this.target.addEventListener("mousedown", this)
-    this.edge;
     
     this.handleEvent = function(evt) {
-        // this.target.appendChild(document.getElementById("edge3"))
-        this.edge = document.getElementById("edge3")
-        console.log(this.edge.getAttributeNS(null, "d"))
-        // evt.target
-        console.log(evt);
-        this.edge = this.target.get
         evt.preventDefault()
-        this.clickPoint = globalToLocalCoords(evt.clientX, evt.clientY)
+        this.clickPoint = globalToLocalCoords(elem, evt.clientX, evt.clientY)
         this.target.classList.add("dragged")
         this.target.setAttribute("pointer-events", "none")
         this.target.ownerSVGElement.addEventListener("mousemove", this.move)
         this.target.ownerSVGElement.addEventListener("mouseup", this.endMove)
-
     }
 
     this.move = function(evt) {
-        var p = globalToLocalCoords(evt.clientX, evt.clientY)
+        var p = globalToLocalCoords(elem, evt.clientX, evt.clientY)
         this.currentMove.x = this.lastMove.x + (p.x - this.clickPoint.x)
         this.currentMove.y = this.lastMove.y + (p.y - this.clickPoint.y)
-
-        // var p2 = globalToLocalCoords(this.edge.clientX, this.edge.clientY)
-        // this.edge.setAttribute("x" , this.currentMove.x)
-        // this.edge.setAttribute("y" , this.currentMove.y)
-
         this.target.setAttribute("transform", "translate(" + this.currentMove.x + "," + this.currentMove.y + ")")
+        for (var i = 0; i < lines.length; i++) {lines[i].position();}
     }.bind(this)
 
     this.endMove = function(evt) {
+        evt.preventDefault()
         this.lastMove.x = this.currentMove.x
         this.lastMove.y = this.currentMove.y
         this.target.classList.remove("dragged")
         this.target.setAttribute("pointer-events", "all")
         this.target.ownerSVGElement.removeEventListener("mousemove", this.move)
         this.target.ownerSVGElement.removeEventListener("mouseup", this.endMove)
+        
     }.bind(this)
 
-    function globalToLocalCoords(x, y) {
+    function globalToLocalCoords(elem, x, y) {
         var p = elem.ownerSVGElement.createSVGPoint()
         var m = elem.parentNode.getScreenCTM()
-        // console.log(p);
         p.x = x
         p.y = y
         return p.matrixTransform(m.inverse())
     }
-}
-
-var svgDoc;
-var selectedPoint = 0;
-var dx = 0;
-var dy = 0;
-
-var example_shape;
-var text_variables;
-var control_lines;
-var coords = [0, 0, 100, 100, 150, 20, 180, 150, 280, 100];
-
-function init(evt) {
-    if ( window.svgDocument == null ) {
-        svgDoc = evt.target.ownerDocument;
-    }  
-    example_shape = svgDoc.getElementById('example_shape');
-    controls_lines = [svgDoc.getElementById('control_line1'),
-                      svgDoc.getElementById('control_line2')] ;
-    text_variables = [];
-    for (var i=1; i<=4; i++){
-        text_variables.push(svgDoc.getElementById('variable'+i));
-    }
-};
-
-function selectElement(evt, point){
-    selectedPoint = point;
-    control_point = evt.target.parentNode;
-    dx = coords[selectedPoint*2] - evt.clientX;
-    dy = coords[selectedPoint*2 + 1] - evt.clientY;
-};
-
-function drag(evt){
-    if (selectedPoint === 0) { return; }
-    
-    var x = evt.clientX + dx;
-    var y = evt.clientY + dy;
-    coords[selectedPoint*2] = x;
-    coords[selectedPoint*2 + 1] = y;
-    
-    var d = "M";
-    for (var i=2; i<coords.length; i+=2){
-        if (i === 4) { d += "C"; }
-        d += " " + coords[i] + " " + coords[i+1];
-    }
-    example_shape.setAttributeNS(null, "d", d);
-    control_point.setAttributeNS(null, "transform", "translate(" + x + "," + y + ")");
-    text_variables[selectedPoint-1].firstChild.data = x + "," + y;
-    
-    // Control lines
-    var n = Math.floor(selectedPoint/3);
-    var i = (selectedPoint % 2) + 1;
-    controls_lines[n].setAttributeNS(null, "x"+i, x);
-    controls_lines[n].setAttributeNS(null, "y"+i, y);
-    
-};
-
-function deselect(){
-    selectedPoint = 0;
 }

@@ -2,13 +2,13 @@
   cursor:move;
 }
 
-/* .node:hover {
+.node:hover {
   fill: azure;
   stroke: lightsteelblue;
   stroke-width: 1;
 
 
-} */
+}
 
 .dragged {
   fill-opacity: 0.5;

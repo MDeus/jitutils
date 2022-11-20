@@ -519,7 +519,7 @@ G_M16506_IG44:        ; gcrefRegs=00000000 {}, byrefRegs=00000000 {}, byref
 						;; size=6 bbWeight=0    PerfScore 0.00
 
 ; Total bytes of code 1161, prolog size 57, PerfScore 393.62, instruction count 318, allocated bytes for code 1163 (MethodHash=e2a8bf85) for method FileSystemName:TranslateWin32Expression(String):String
-; ============================================================
+
 
 Unwind Info:
   >> Start offset   : 0x000000 (not in unwind data)

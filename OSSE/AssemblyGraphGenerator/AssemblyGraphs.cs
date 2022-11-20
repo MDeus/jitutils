@@ -34,32 +34,32 @@ namespace AssemblyGraph {
             return v1.label == label;
         }
 
-        public void setContentCode (List<String> content) {
+        public void SetContentCode (List<String> content) {
             this.content_code = content;
         }
 
-        public List<String> getContentCode () {
+        public List<String> GetContentCode () {
             return content_code;
         }
 
-        public void setWeight (int weight) {
+        public void SetWeight (int weight) {
             this.weight = weight;
         }
 
-        public Double getWeight () {
+        public Double GetWeight () {
             return weight;
         }
 
-        public void setScore (int score) {
+        public void SetScore (int score) {
             this.score = score;
         }
 
-        public Double getScore () {
+        public Double GetScore () {
             return score;
         }
         
         
-        public String getLabel () {
+        public String GetLabel () {
             return label;
         }
     }
@@ -82,53 +82,53 @@ namespace AssemblyGraph {
             this.adjVertices = new Dictionary<Vertex, List<Vertex>>();
         }
         
-        public void setMethodName (String name) {
+        public void SetMethodName (String name) {
             this.method_name = name;
         }
 
-        public String getMethodName () {
+        public String GetMethodName () {
             return method_name;
         }
-        public void setOptimized (Boolean o) {
+        public void SetOptimized (Boolean o) {
             this.optimized = o;
         }
 
-        public Boolean getOptimized () {
+        public Boolean GetOptimized () {
             return optimized;
         }
-        public void setHashcode (String h) {
+        public void SetHashcode (String h) {
             this.hashcode = h;
         }
 
-        public String getHashcode () {
+        public String GetHashcode () {
             return hashcode;
         }
 
-        public void setTotalBytes (int b) {
+        public void SetTotalBytes (int b) {
             this.total_bytes = b;
         }
 
-        public int getTotalBytes () {
+        public int GetTotalBytes () {
             return total_bytes;
         }
 
-        public void setSystem (String s) {
+        public void SetSystem (String s) {
             this.system = s;
         }
 
-        public void setMaxWeight (Double weight) {
+        public void SetMaxWeight (Double weight) {
             this.maxWeight = weight;
         }
 
-        public Double getMaxWeight () {
+        public Double GetMaxWeight () {
             return maxWeight;
         }
 
-        public void setMaxScore (Double score) {
+        public void SetMaxScore (Double score) {
             this.maxScore = score;
         }
 
-        public Double getMaxScore () {
+        public Double GetMaxScore () {
             return maxScore;
         }
 
@@ -153,7 +153,7 @@ namespace AssemblyGraph {
         /// returns the list of vertices currently in the graph
         /// </summary>
         /// <returns></returns>
-        public List<Vertex> getVertices() {
+        public List<Vertex> GetVertices() {
             return adjVertices.Keys.ToList();
         }
 
@@ -163,11 +163,11 @@ namespace AssemblyGraph {
         /// </summary>
         /// <param name="label"></param>
         /// <returns></returns>
-        public Vertex getVertex (String label) {
-            List<Vertex> vertices = getVertices();
+        public Vertex GetVertex (String label) {
+            List<Vertex> vertices = GetVertices();
 
             foreach (Vertex v in vertices) {
-                if (v.getLabel() == label) {
+                if (v.GetLabel() == label) {
                     return v;
                 }
             }    
@@ -253,12 +253,12 @@ namespace AssemblyGraph {
         /// returns a list of all the cycles found in the graph
         /// </summary>
         /// <returns></returns>
-        private HashSet<List<Vertex>> detectCycle() {
+        private HashSet<List<Vertex>> DetectCycle() {
             Stack<Vertex> visited = new Stack<Vertex>();
             Stack<Vertex> explore = new Stack<Vertex>();
             HashSet<List<Vertex>> cycles = new HashSet<List<Vertex>>();
 
-            foreach (Vertex v in getVertices()) {
+            foreach (Vertex v in GetVertices()) {
                 if (!visited.Contains(v)) {
                     DFS(v, ref visited, ref explore, ref cycles);
                 }
@@ -273,9 +273,9 @@ namespace AssemblyGraph {
         /// <param name="folder_path"></param>
         /// <param name="show_stats"></param>
         /// <param name="process"></param>
-        public void createSVG (String folder_path, Boolean show_stats, Process process) {
+        public void CreateSVG (String folder_path, Boolean show_stats, Process process) {
             // creating graphviz file
-            String file_path = folder_path + "\\" + getHashcode();
+            String file_path = folder_path + "\\" + GetHashcode();
             using(StreamWriter writetext = new StreamWriter(file_path + ".dot")) {
 
                 writetext.WriteLine("digraph FlowGraph {");
@@ -284,16 +284,16 @@ namespace AssemblyGraph {
                 foreach (var pair in adjVertices) {
                     Vertex v = pair.Key;
 
-                    writetext.WriteLine("\t{0} [label =<", v.getLabel());
-                    writetext.WriteLine("\t\t<table border=\"0\" cellspacing=\"10\" bgcolor=\"/purples9/{0}\">", choose_color(v.getWeight(), maxWeight, false));
-                    writetext.WriteLine("\t\t<tr><td align=\"center\" ><b><font POINT-SIZE=\"17\">{0}</font></b></td></tr>", v.getLabel());
+                    writetext.WriteLine("\t{0} [label =<", v.GetLabel());
+                    writetext.WriteLine("\t\t<table border=\"0\" cellspacing=\"10\" bgcolor=\"/purples9/{0}\">", choose_color(v.GetWeight(), maxWeight, false));
+                    writetext.WriteLine("\t\t<tr><td align=\"center\" ><b><font POINT-SIZE=\"17\">{0}</font></b></td></tr>", v.GetLabel());
                     if (show_stats) {
-                        writetext.WriteLine("\t\t<tr><td align=\"center\"><font  > Weight: {0} Perfscore: {1}</font></td></tr>", v.getWeight(), v.getScore());
+                        writetext.WriteLine("\t\t<tr><td align=\"center\"><font  > Weight: {0} Perfscore: {1}</font></td></tr>", v.GetWeight(), v.GetScore());
                         writetext.WriteLine("\t\t<tr><td align=\"center\" >  </td></tr>");
                     }
 
-                    // get assembly code in group
-                    foreach(String code in v.getContentCode()) {
+                    // Get assembly code in group
+                    foreach(String code in v.GetContentCode()) {
                         List<String> code_arr = new List<string>();
                         // text wrapping
                         if (code.Length > 50) {
@@ -319,22 +319,22 @@ namespace AssemblyGraph {
                         }
                     }
 
-                    writetext.WriteLine("\t\t</table>> style=\"solid\" style=filled, fillcolor={0}];", choose_color(v.getScore(), maxScore, true));
+                    writetext.WriteLine("\t\t</table>> style=\"solid\" style=filled, fillcolor={0}];", choose_color(v.GetScore(), maxScore, true));
                 }
 
                 writetext.WriteLine("\n");
 
-                // getting cycles
-                HashSet<List<Vertex>> cycles = detectCycle();
+                // Getting cycles
+                HashSet<List<Vertex>> cycles = DetectCycle();
                 List<String> v_cycles = new List<String>();
 
                 foreach (List<Vertex> v_list in cycles) {
                     v_list.Reverse();
                     for (int i=0; i < v_list.Count - 1; i++) {
-                        String s = v_list[i].getLabel() + " -> " + v_list[i+1].getLabel();
+                        String s = v_list[i].GetLabel() + " -> " + v_list[i+1].GetLabel();
 
                         if (!v_cycles.Contains(s)) {
-                            writetext.Write("\t{0} -> {1} [color=red];", v_list[i].getLabel(), v_list[i+1].getLabel());
+                            writetext.Write("\t{0} -> {1} [color=red];", v_list[i].GetLabel(), v_list[i+1].GetLabel());
                             v_cycles.Add(s);
                         }
                     }
@@ -346,15 +346,15 @@ namespace AssemblyGraph {
 
                     foreach (var vi in pair.Value) {
                         // remove reapeated edge
-                        if (!v_cycles.Contains(v.getLabel() + " -> " + vi.getLabel())) {
+                        if (!v_cycles.Contains(v.GetLabel() + " -> " + vi.GetLabel())) {
                             if (vi.Equals(v)) {
-                                writetext.WriteLine("\t{0} -> {1} [color=red, dir=back];", v.getLabel(), vi.getLabel());
+                                writetext.WriteLine("\t{0} -> {1} [color=red, dir=back];", v.GetLabel(), vi.GetLabel());
                             } else {
-                                if (String.Compare(v.getLabel(), vi.getLabel()) > 0 ) {
-                                    writetext.WriteLine("\t{0} -> {1} [color=green];", v.getLabel(), vi.getLabel());    
+                                if (String.Compare(v.GetLabel(), vi.GetLabel()) > 0 ) {
+                                    writetext.WriteLine("\t{0} -> {1} [color=green];", v.GetLabel(), vi.GetLabel());    
                                 }
                                 else {
-                                    writetext.WriteLine("\t{0} -> {1} [color=blue];", v.getLabel(), vi.getLabel());
+                                    writetext.WriteLine("\t{0} -> {1} [color=blue];", v.GetLabel(), vi.GetLabel());
                                 }
                             }
                         }
@@ -362,16 +362,16 @@ namespace AssemblyGraph {
                 }
                 
                 // creating invisible connections to keep tables in order
-                List<Vertex> vertices = getVertices();
+                List<Vertex> vertices = GetVertices();
                 int t_vertices = vertices.Count;
                 
-                String edge = "\tsubgraph cluster_1 { color=transparent rank=same " + vertices[0].getLabel() +" -> ";
+                String edge = "\tsubgraph cluster_1 { color=transparent rank=same " + vertices[0].GetLabel() +" -> ";
                 for (int i =1; i < t_vertices - 1; i++) {
-                    edge = edge + (vertices[i].getLabel() + " -> ");
+                    edge = edge + (vertices[i].GetLabel() + " -> ");
                 }
 
                 writetext.WriteLine("\n\tedge[style=invis];");
-                writetext.WriteLine(edge + vertices[t_vertices - 1].getLabel() + "};");      
+                writetext.WriteLine(edge + vertices[t_vertices - 1].GetLabel() + "};");      
                 writetext.WriteLine( "}");   
 
                 Console.WriteLine("Hash: {0}",hashcode);

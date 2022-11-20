@@ -2,19 +2,19 @@ namespace AssemblyGraphGenerator;
 using System.Diagnostics;
 using AssemblyGraph;
 
-class Program {
+public class Program {
     /// <summary>
     /// Adds a list of edges to the graph 
     /// </summary>
-    public static Graph addEdges(Graph graph, Dictionary<String, List<String>> edges) {
+    static Graph AddEdges(Graph graph, Dictionary<String, List<String>> edges) {
         foreach (var pair in edges) {
             String label = pair.Key;
 
             try {
-                Vertex v1 = graph.getVertex(label);
+                Vertex v1 = graph.GetVertex(label);
                 foreach (var v in pair.Value) {
                     try {
-                        graph.AddEdge(v1, graph.getVertex(v));
+                        graph.AddEdge(v1, graph.GetVertex(v));
                     } catch(InvalidDataException) {
                         Console.WriteLine("ERROR: The vertext with label {0} does not exist", v);
                     }
@@ -26,10 +26,25 @@ class Program {
         return graph;
     }
 
+    static void EndGraph(ref Graph temp_graph, ref String current_node, 
+                                    ref Double temp_weight, ref Double temp_score, ref HashSet<String> temp_conn,
+                                    ref List<String> temp_cont, ref List<Graph> graph_list,
+                                    ref Dictionary<String, List<String>> edges, ref Boolean in_group, ref int j) {
+
+        temp_graph.AddVertex(new Vertex(current_node, temp_weight, temp_score, temp_cont));
+        graph_list.Add(AddEdges(temp_graph, edges));
+
+        edges      = new Dictionary<String, List<String>>();
+        temp_graph = new Graph();
+        temp_conn  = new HashSet<String>(); 
+        temp_cont  = new List<String>(); 
+        in_group   = false; j = 0; 
+    }
+
     /// <summary>
     /// Handles the cases in the file which starts with a semicolon
     /// </summary>
-    public static void caseWithSemicolon(ref Graph temp_graph, String line, ref String current_node, 
+    static void CaseWithSemicolon(ref Graph temp_graph, String line, ref String current_node, 
                                     ref Double temp_weight, ref Double temp_score, ref HashSet<String> temp_conn,
                                     ref List<String> temp_cont, ref List<Graph> graph_list,
                                     ref Dictionary<String, List<String>> edges, ref Boolean in_group, ref int j) {
@@ -37,41 +52,33 @@ class Program {
         if (line.Contains("MethodHash=")) { 
             String [] arr = line.Split("MethodHash=", 2);
 
-            temp_graph.setHashcode(arr[1].Split(')')[0]); // get hashcode
-            temp_graph.setTotalBytes(Convert.ToInt32(arr[0].Split("code")[1].Trim().Split(',')[0])); // get total bytes
-            temp_graph.setMethodName(arr[1].Split("for method ")[1].Trim()); // get method name
+            temp_graph.SetHashcode(arr[1].Split(')')[0]); // Get hashcode
+            temp_graph.SetTotalBytes(Convert.ToInt32(arr[0].Split("code")[1].Trim().Split(',')[0])); // Get total bytes
+            temp_graph.SetMethodName(arr[1].Split("for method ")[1].Trim()); // Get method name
         }
-        else if (line.Contains("ARM64") || line.Contains("X64")) { // get system type
-            temp_graph.setSystem(line.Split("for")[1].Trim());
+        else if (line.Contains("ARM64") || line.Contains("X64")) { // Get system type
+            temp_graph.SetSystem(line.Split("for")[1].Trim());
         }
-        else if (line.CompareTo("; optimized code") == 0) { // get if optimized
-            temp_graph.setOptimized(true);
+        else if (line.CompareTo("; optimized code") == 0) { // Get if optimized
+            temp_graph.SetOptimized(true);
         }
-        else if (line.Contains("bbWeight")) { // get the weight and score
+        else if (line.Contains("bbWeight")) { // Get the weight and score
 
             temp_weight = Convert.ToDouble(line.Split("bbWeight=")[1].Split(" ")[0]);
             temp_score  = Convert.ToDouble(line.Split("PerfScore ")[1].Split(" ")[0]);
 
-            if (temp_weight > temp_graph.getMaxWeight()) {temp_graph.setMaxWeight(temp_weight);}
-            if (temp_score  > temp_graph.getMaxScore()) {temp_graph.setMaxScore(temp_score);}
+            if (temp_weight > temp_graph.GetMaxWeight()) {temp_graph.SetMaxWeight(temp_weight);}
+            if (temp_score  > temp_graph.GetMaxScore()) {temp_graph.SetMaxScore(temp_score);}
         }
-        else if ((line.Contains("; ==") || line.Contains("Assembly listing for method")) && in_group == true) { // if end of method add graph to list
-
-            temp_graph.AddVertex(new Vertex(current_node, temp_weight, temp_score, temp_cont));
-            graph_list.Add(addEdges(temp_graph, edges));
-
-            edges      = new Dictionary<String, List<String>>();
-            temp_graph = new Graph();
-            temp_conn  = new HashSet<String>(); 
-            temp_cont  = new List<String>(); 
-            in_group   = false; j = 0; 
+        else if (line.Contains("Assembly listing for method") && in_group) { // if end of method add graph to list
+            EndGraph(ref temp_graph, ref current_node, ref temp_weight, ref temp_score, ref temp_conn, ref temp_cont, ref graph_list, ref edges, ref in_group, ref j);
         }
     }
 
     /// <summary>
     /// handles the cases in file which includes a group
     /// </summary>
-    public static void caseWithGroups(String first_word, String line, ref Boolean connectToNextNode, ref String current_node, 
+    static void CaseWithGroups(String first_word, String line, ref Boolean connectToNextNode, ref String current_node, 
                                     ref Graph temp_graph, ref Double temp_weight, ref Double temp_score, ref HashSet<String> temp_conn,
                                     ref List<String> temp_cont, ref Dictionary<String, List<String>> edges, ref int j) {
         
@@ -104,7 +111,7 @@ class Program {
     /// <summary>
     /// creates graph(s) given an assembly file with method(s)
     /// </summary>
-    public static List<Graph> createGraphs(String[] lines, Boolean keep_hash_code) {
+    static List<Graph> CreateGraphs(String[] lines, Boolean keep_hash_code) {
         int j = 0; 
         String current_node = ""; // holds the current group/node
         HashSet<String> temp_conn = new HashSet<String>(); // holds all the nodes or edges that are connected to the current node
@@ -116,23 +123,24 @@ class Program {
         Boolean connectToNextNode = true;
         Boolean          in_group = false; // to know if currently inside a group
         Dictionary<String, List<String>> edges = new Dictionary<String, List<String>>(); // dict of connected nodes and their edges
+        Boolean unwind = false;
 
         // iterate over the lines of the file
         for (int i = 0; i < lines.Length; i++) {
             String line = lines[i].Trim(); // remove leading spaces
 
-            if (line.CompareTo("") == 0) {continue;}
+            if (line.CompareTo("") == 0 ) { unwind = true; continue;}
 
             if (line[0].CompareTo(';') == 0) {
-                // get method info
-                caseWithSemicolon(ref temp_graph, line, ref current_node, ref temp_weight, ref temp_score, ref temp_conn,
+                // Get method info
+                CaseWithSemicolon(ref temp_graph, line, ref current_node, ref temp_weight, ref temp_score, ref temp_conn,
                                 ref temp_cont, ref graph_list, ref edges, ref in_group, ref j); 
                 continue;
             }
             
             String first_word = line.Split(null, 2)[0];
             
-            // get the first word excluding the "hash code" if it exists
+            // Get the first word excluding the "hash code" if it exists
             if (!char.IsLower(first_word[0]) && !first_word.Contains("G_M")) {
                 String new_line = line.Split(null, 2)[1].Trim();
                 first_word = new_line.Split(null, 2)[0];
@@ -149,12 +157,19 @@ class Program {
             // check for group
             if (line.Contains("G_M")){ 
                 in_group = true;
-                caseWithGroups(first_word, line, ref connectToNextNode, ref current_node, ref temp_graph, ref temp_weight, 
+                unwind=false;
+                CaseWithGroups(first_word, line, ref connectToNextNode, ref current_node, ref temp_graph, ref temp_weight, 
                                 ref temp_score, ref temp_conn, ref temp_cont, ref edges, ref j);
             }
             else { // add everything else to content dict
-                if (in_group) { temp_cont.Add(line); }
+                if (!unwind) {
+                    if (in_group) { temp_cont.Add(line); } 
+                }
             }
+        }
+
+        if (in_group == true) {
+            EndGraph(ref temp_graph, ref current_node, ref temp_weight, ref temp_score, ref temp_conn, ref temp_cont, ref graph_list, ref edges, ref in_group, ref j);
         }
 
         return graph_list;
@@ -163,13 +178,13 @@ class Program {
     /// <summary>
     /// create SVG file(s) from graph(s)
     /// </summary>
-    static public void createSVG(List<Graph> graph_list, String output_folder_path, Boolean stats) {
+    static void CreateSVG(List<Graph> graph_list, String output_folder_path, Boolean stats) {
         Process process = new Process();
         int i = 0;;
         foreach (Graph g in graph_list) {
 
             String graph_name = "graph_" + i;
-            if (g.getHashcode() != "") {graph_name = g.getHashcode();}
+            if (g.GetHashcode() != "") {graph_name = g.GetHashcode();}
 
             process.StartInfo.FileName = "dot.exe";
             process.StartInfo.RedirectStandardInput = true;
@@ -179,14 +194,39 @@ class Program {
             String svgFile =  Path.Combine(output_folder_path, graph_name) + ".svg";
             process.StartInfo.Arguments = $"-Tsvg \"{inputfile}\" -o \"{svgFile}\"";
 
-            g.createSVG(output_folder_path, stats, process);
+            g.CreateSVG(output_folder_path, stats, process);
 
             process.Start();
             process.WaitForExit();
 
             if (File.Exists(inputfile)) { File.Delete(inputfile);}
+            CreateHTMLFile(graph_name, output_folder_path);
         }
     }
+
+    /// <summary>
+    /// creates HTML document from SVG
+    /// </summary>
+    /// <param name="filename"></param>
+    /// <param name="folderPath"></param>
+    static void CreateHTMLFile(String filename, String folderPath) {
+        String leaderline_file = "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js\"></script>";
+        String script_file = "<script src=\"script.js\"></script>";
+        String svgFile = Path.Combine(folderPath, filename) + ".svg";
+
+        String text = File.ReadAllText(svgFile);
+        text = text.Replace("<!DOCTYPE svg PUBLIC", "<!DOCTYPE html >");
+        text = text.Replace("<svg", "<html>\n<body>\n<svg");
+        text = text.Replace("</svg>", "</svg>\n"+leaderline_file+"\n"+script_file+"\n</body>\n</html>");
+
+        File.WriteAllText(Path.Combine(folderPath, filename) + ".html", text);
+        // if (File.Exists(svgFile)) { File.Delete(svgFile);}
+    }
+
+    static public String Test(string a) {
+        return a;
+    }
+
 
     static public void Main(String[] args) {
         if (args.Length != 4) {
@@ -227,6 +267,6 @@ class Program {
         }
 
         String[] lines = File.ReadAllLines(args[0]); 
-        createSVG(createGraphs(lines, keep_hash_code), output_folder_path, stats);
+        CreateSVG(CreateGraphs(lines, keep_hash_code), output_folder_path, stats);
     }
 }

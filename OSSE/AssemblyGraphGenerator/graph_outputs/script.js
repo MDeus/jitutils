@@ -14,36 +14,30 @@ for (var i = 0; i < edge_list.length; i++) {
     var s_num = parseInt(edge_title[0].split('G')[1]).toString()
     var e_num = parseInt(edge_title[1].split('G')[1]).toString()
 
+    if(s_num == e_num) {continue;}
+
     // get start and end element of edge
     var startElem = document.getElementById('node'+s_num)
     var endElem = document.getElementById('node'+e_num)
 
     // get line color
     var color = edge_list[i].getElementsByTagName('polygon')[0].getAttribute('fill')
-    var options = {color: color, size: 3, path:'fluid'}
+    var options = {color: color, size: 2, path:'straight'}
 
     if (parseInt(e_num) != parseInt(s_num) + 1 && parseInt(e_num) != parseInt(s_num) - 1) { 
         var startSocket, endSocket;
-        if (color == 'red') {startSocket= 'right'; endSocket= 'right';}
-        else if (color == 'green') {startSocket= 'left'; endSocket= 'left';}
+        if (color == 'green') {startSocket= 'left'; endSocket= 'left';}
         else {startSocket= 'right'; endSocket= 'right';}
         
-        options = {color: color, size: 3, path:'arc', startSocket:startSocket, endSocket:endSocket}
+        options = {color: color, size: 2, path:'fluid', startSocket:startSocket, endSocket:endSocket}
     }
 
-    
-
     // create leader line
-    var line = new LeaderLine(startElem, endElem, options)
+    var line = new LeaderLine((startElem), endElem, options)
     
-    // if (color == 'red') {line.setOptions({startSocket: 'right', endSocket: 'right'})}
-    // else if (color == 'green') {line.setOptions({startSocket: 'left', endSocket: 'left'})}
-    // else   {line.setOptions({startSocket: 'right', endSocket: 'right'})}
-
     addValueToList(startElem.id, line)
     addValueToList(endElem.id, line)
     edge_list[i].remove()
-    
 }
 
 for (var i = 0; i < node_list.length; i++) {
