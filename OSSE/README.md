@@ -21,5 +21,5 @@ This is a tool for visualizing assembly code that takes an input file  containin
 ## How To Run ##
  `dotnet run --input-file=<input_file> --output-folder=<output_folder>`
 
-## Understanding SVG Output(s) ##
+## Understanding HTML/SVG Output(s) ##
 The darker block colors signify the weight and perfscore. The darker the block the highter the weight of running that block of code. The darker/redder the borders the higher the perf score. The arrows signify the different jumps in the code. Red arrows - signify loops, Green arrows - backwards jump to a previous block, blue - forward jumps
