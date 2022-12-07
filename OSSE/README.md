@@ -8,15 +8,15 @@ This is a tool for visualizing assembly code that takes an input file  containin
 - dot
 
 ## Arguments ##
---input-file               Required. Input file to be processed.
+`--input-file`               Required. Input file to be processed.
 
---output-folder            Required. The folder for the SVG/HTML graph output(s)
+`--output-folder`            Required. The folder for the SVG/HTML graph output(s)
 
---show-hash-code           (Default: false) Displays the hash code for each instruction if true
+`--show-hash-code`           (Default: false) Displays the hash code for each instruction if true
 
---show-weight-perfscore    (Default: false) Displays weight and perfscore of each group in the instruction if true
+`--show-weight-perfscore`    (Default: false) Displays weight and perfscore of each group in the instruction if true
 
---html                     (Default: false) outputs HTML file if true, SVG if false
+`--html`                     (Default: false) outputs HTML file if true, SVG if false
 
 ## How To Run ##
  `dotnet run --input-file=<input_file> --output-folder=<output_folder>`
