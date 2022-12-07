@@ -1,6 +1,8 @@
 namespace AssemblyGraphGenerator;
 using System.Diagnostics;
 using AssemblyGraph;
+using System;
+using CommandLine;
 
 public class Program {
     /// <summary>
@@ -220,7 +222,7 @@ public class Program {
     /// <param name="graph_list"> list of graphs </param>
     /// <param name="output_folder_path"> path to output folder for SVG files</param>
     /// <param name="show_weight_score"> boolean on whether to show weight and perfScore on each node in SVG graph output </param>
-    static List<String> CreateSVG(List<Graph> graph_list, String output_folder_path, Boolean show_weight_score) {
+    static List<String> CreateSVGOrHTML(List<Graph> graph_list, String output_folder_path, Boolean show_weight_score, Boolean html) {
         Process process = new Process();
         int i = 0;;
         List<String> svg_list = new List<String>();
@@ -243,7 +245,7 @@ public class Program {
             process.WaitForExit();
 
             if (File.Exists(inputfile)) { File.Delete(inputfile);}
-            // CreateHTMLFile(graph_name, output_folder_path);
+            if (html){CreateHTMLFile(graph_name, output_folder_path);}
 
             svg_list.Add(svgFile);
         }
@@ -269,6 +271,7 @@ public class Program {
         text = text.Replace("</svg>", "</svg>\n"+leaderline_file+"\n"+script_file+"\n</body>\n</html>");
 
         File.WriteAllText(Path.Combine(folderPath, filename) + ".html", text);
+        if (File.Exists(svgFile)) { File.Delete(svgFile);}
     }
 
 // -----------------------------------------------------------------------------------------------------------------------------
@@ -325,7 +328,7 @@ public class Program {
         List<Graph> graphs = CreateGraphs(lines, false);
         String out_path = Path.GetDirectoryName(in_path);
 
-        List<String> svg_list =  CreateSVG(graphs, out_path, false);
+        List<String> svg_list =  CreateSVGOrHTML(graphs, out_path, false, true);
         foreach(String svg in svg_list) {
             svgContent.Add(File.ReadAllText(svg));
             if (File.Exists(svg)) { File.Delete(svg);}
@@ -336,45 +339,58 @@ public class Program {
 
 // ----------------------------------------------------------------------------------------------------------
 
+    class Options
+    {
+        [Option("input-file", Required = true, HelpText = "Input file to be processed.")]
+        public string InputFile { get; set; }
+
+        [Option("output-folder", Required = true,  HelpText = "The folder for the SVG/HTML graph outputs")]
+        public string OutputFolder { get; set; }
+
+        // Omitting long name, defaults to name of property, ie "--verbose"
+        [Option("show-hash-code", Required = false, Default = false, HelpText = "Boolean to represent whether to show the hash code for each instruction")]
+        public bool ShowHashCode { get; set; }
+
+        [Option("show-weight-perfscore", Required = false,  Default = false, HelpText = "Boolean on whether to show the weight and perfscore of each group in the instruction")]
+        public bool ShowWeightPerfscore { get; set; }
+
+        [Option("html", Required = false,  Default = false, HelpText = "outputs HTML file if true, SVG if false")]
+        public bool html { get; set; }
+    }
+
     static public void Main(String[] args) {
-        if (args.Length != 4) {
-            throw new ArgumentException ("ERROR: Missing arguments");
-        }
+        bool show_hash_code = false;
+        bool show_weight_score = false;
+        bool html = false;
+        String input_file = "";
+        String output_folder = "";
+
+        Parser.Default.ParseArguments<Options>(args)
+            .WithParsed<Options>(o =>
+            {   
+                if (o.ShowHashCode) { show_hash_code = true;}
+                if (o.ShowWeightPerfscore) {show_weight_score = true;}
+                if (o.html) {html=true;}
+
+                input_file = o.InputFile;
+                output_folder = o.OutputFolder;
+            }
+        );
 
         // check input file path 
-        if (!File.Exists(args[0])) {
-            throw new ArgumentException ("ERROR: Incorrect input file path " + args[0]);
+        if (!File.Exists(input_file)) {
+            throw new ArgumentException ("ERROR: Incorrect input file path " + input_file);
         }
 
         // check output file path
         String output_folder_path = "";
         try {
-            output_folder_path = Path.GetFullPath(args[2]);
+            output_folder_path = Path.GetFullPath(output_folder);
         } catch(Exception) {
-            Console.WriteLine("ERROR: Incorrect output folder path " + args[2]);
+            Console.WriteLine("ERROR: Incorrect output folder path " + output_folder);
         }
 
-        // check hash code parameter is boolean
-        Boolean keep_hash_code = false;
-        if (args.Length > 1) {
-            try {
-                keep_hash_code = Convert.ToBoolean(args[1]);
-            } catch (FormatException) {
-                Console.WriteLine ("ERROR: Incorrect format for boolean");
-            }
-        }
-
-        // check hash code parameter is boolean
-        Boolean stats = false;
-        if (args.Length > 1) {
-            try {
-                stats = Convert.ToBoolean(args[3]);
-            } catch (FormatException) {
-                Console.WriteLine ("ERROR: Incorrect format for boolean");
-            }
-        }
-
-        String[] lines = File.ReadAllLines(args[0]); 
-        if (lines.Length != 0) {CreateSVG(CreateGraphs(lines, keep_hash_code), output_folder_path, stats);}
+        String[] lines = File.ReadAllLines(input_file); 
+        if (lines.Length != 0) {CreateSVGOrHTML(CreateGraphs(lines, show_hash_code), output_folder_path, show_weight_score, html);}
     }
 }
