@@ -1,0 +1,63 @@
+; Assembly listing for method Test Metod
+
+
+G_M_IG01:
+	cbz G_M_IG10
+G_M_IG02:
+	cbz G_M_IG02
+G_M_IG03:
+	cbz G_M_IG16
+G_M_IG04:
+	cbz G_M_IG18
+G_M_IG05:
+	cbz G_M_IG04
+G_M_IG06:
+	cbz G_M_IG23
+G_M_IG07:
+	cbz G_M_IG03
+G_M_IG08:
+	cbz G_M_IG07
+G_M_IG09:
+	cbz G_M_IG16
+G_M_IG10:
+	cbz G_M_IG08
+G_M_IG11:
+	cbz G_M_IG06
+G_M_IG12:
+	cbz G_M_IG13
+G_M_IG13:
+	cbz G_M_IG03
+G_M_IG14:
+	cbz G_M_IG21
+G_M_IG15:
+	cbz G_M_IG12
+G_M_IG16:
+	cbz G_M_IG03
+G_M_IG17:
+	cbz G_M_IG07
+G_M_IG18:
+	cbz G_M_IG21
+G_M_IG19:
+	cbz G_M_IG21
+G_M_IG20:
+	cbz G_M_IG08
+G_M_IG21:
+	cbz G_M_IG10
+G_M_IG22:
+	cbz G_M_IG18
+G_M_IG23:
+	cbz G_M_IG26
+G_M_IG24:
+	cbz G_M_IG17
+G_M_IG25:
+	cbz G_M_IG09
+G_M_IG26:
+	cbz G_M_IG04
+G_M_IG27:
+	cbz G_M_IG26
+G_M_IG28:
+	cbz G_M_IG15
+G_M_IG29:
+	cbz G_M_IG11
+G_M_IG30:
+	cbz G_M_IG15

@@ -1,11 +1,8 @@
 
 // https://stackoverflow.com/questions/41514967/yes-no-is-there-a-way-to-improve-mouse-dragging-with-pure-svg-tools/41518545#41518545
-{/* <script src="https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js"></script>
-<script src="script.js"></script> */}
 
 var node_list = document.querySelectorAll(".node")
 var edge_list = document.querySelectorAll(".edge")
-
 var map = {};
 
 // create leaderlines
@@ -29,7 +26,7 @@ for (var i = 0; i < edge_list.length; i++) {
         if (color == 'green') {startSocket= 'left'; endSocket= 'left';}
         else {startSocket= 'right'; endSocket= 'right';}
         
-        options = {color: color, size: 2, path:'fluid', startSocket:startSocket, endSocket:endSocket}
+        options = {color: color, size: 2, path:'fluid', hoverStyle:{dash:{Animation:true}} ,startSocket:startSocket, endSocket:endSocket}
     }
 
     // create leader line
@@ -40,16 +37,33 @@ for (var i = 0; i < edge_list.length; i++) {
     edge_list[i].remove()
 }
 
-for (var i = 0; i < node_list.length; i++) {
-    var id = node_list[i].id
-    var o = new Draggable(node_list[i], map[id])
-}
-
+// draggable = new PlainDraggable(element);
 function addValueToList(key, value) {
     //if the list is already created for the "key", then uses it
     //else creates new list for the "key" to store multiple values in it.
     map[key] = map[key] || [];
     map[key].push(value);
+}
+
+// for (var i = 0; i < node_list.length; i++) {
+//     var id = node_list[i].id
+//     var node = node_list[i]
+//     // var o = new Draggable(node_list[i], map[id])
+//     var lines = map[id]
+//     console.log(id)
+//     console.log(lines)
+
+//     draggable = new PlainDraggable(node, {
+//         onMove: function () {
+//             lines.forEach(function(line) { line.position(); });
+//             // for (var i = 0; i < lines.length; i++) {lines[i].position()}
+//         }
+//     });
+// }
+
+for (var i = 0; i < node_list.length; i++) {
+    var id = node_list[i].id
+    var o = new Draggable(node_list[i], map[id])
 }
 
 function Draggable(elem, lines) {
