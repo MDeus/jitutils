@@ -261,6 +261,7 @@ public class Program {
     /// <param name="folderPath"> output folder for HTML file </param>
     static void CreateHTMLFile(String filename, String folderPath) {
         String leaderline_file = "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js\"></script>";
+        // String draggable_file = "<script src=\"https://cdn.jsdelivr.net/npm/plain-draggable@2.5.12/plain-draggable.min.js\"></script>";
         // String script_file = "<script src=\"script.js\"></script>";
         String svgFile = Path.Combine(folderPath, filename) + ".svg";
 

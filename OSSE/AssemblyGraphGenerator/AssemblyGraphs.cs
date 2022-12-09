@@ -124,7 +124,6 @@ class Graph {
         this.method_name = name;
     }
 
-
     public void print() {
         foreach(Vertex v in GetVertices()) {
             Console.Write("\nVertex: "+v.GetLabel() +" - ");
@@ -350,7 +349,8 @@ class Graph {
     /// Adds all the code within the vertex/node/group to the file
     /// </summary>
     /// <param name="v"> current vertex </param>
-    /// <param name="file_content"> output file content </param>
+    /// <param name="show_weight_score">whether to display perfScore and Weight on each node  </param>
+    /// <param name="wt"> streamwriter to write file contents to </param>
     private void AddVertexContentToFile(Vertex v, bool show_weight_score, ref StreamWriter wt) {
         foreach(String code in v.GetContentCode()) {
             List<String> code_arr = new List<string>();
@@ -378,7 +378,7 @@ class Graph {
     /// with the color red representing cycles
     /// </summary>
     /// <param name="v_cycles"> all cycle edges </param>
-    /// <param name="file_content"> output file content </param>
+    /// <param name="wt"> streamwriter to write file contents to </param>
     private void AddCyclesToFile(ref List<String> v_cycles, ref StreamWriter wt) {
         HashSet<List<Vertex>> cycles = DetectCycle();
 
@@ -400,7 +400,7 @@ class Graph {
     /// red   - cycles, green - backward edges, blue  - forward edges
     /// </summary>
     /// <param name="v_cycles"> all cycle edges </param>
-    /// <param name="file_content"> output file content </param>
+    /// <param name="wt"> streamwriter to write file contents to </param>
     private void AddEdgeConnectionsToFile(ref List<String> v_cycles, ref StreamWriter wt) {
         foreach (var pair in adjVertices) {
             Vertex v = pair.Key;
@@ -445,7 +445,8 @@ class Graph {
     /// <summary>
     /// generate dot file
     /// </summary>
-    /// <param name="show_weight_score"> whether to display perfScore and Weight on each node  </param>
+    /// <param name="folder_path">folder for output dot file </param>
+    /// <param name="show_weight_score">whether to display perfScore and Weight on each node  </param>
 
     public void GenerateDotFile (String folder_path, Boolean show_weight_score) {
         // creating graphviz file
