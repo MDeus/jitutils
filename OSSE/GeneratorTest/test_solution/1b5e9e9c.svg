@@ -39,7 +39,7 @@
 <text text-anchor="start" x="260" y="-1727.3" font-family="Courier New" font-size="14.00">ldr &#160;&#160;&#160;&#160;w3, [x0,#8]</text>
 <text text-anchor="start" x="260" y="-1698.3" font-family="Courier New" font-size="14.00">cmp &#160;&#160;&#160;&#160;w1, w3</text>
 <text text-anchor="start" x="260" y="-1670.3" font-family="Courier New" font-weight="bold" font-size="14.00">bhs &#160;&#160;&#160;&#160;IG10</text>
-<text text-anchor="start" x="260" y="-1640.3" font-family="Courier New" font-size="14.00">sxtw &#160;&#160;&#160;x1, x1</text>
+<text text-anchor="start" x="260" y="-1640.3" font-family="Courier New" font-size="14.00">sxtw &#160;&#160;&#160;x1, &#160;x1</text>
 <text text-anchor="start" x="260" y="-1611.3" font-family="Courier New" font-size="14.00">lsl &#160;&#160;&#160;&#160;x1, x1, #3</text>
 <text text-anchor="start" x="260" y="-1582.3" font-family="Courier New" font-size="14.00">add &#160;&#160;&#160;&#160;x1, x1, #16</text>
 <text text-anchor="start" x="260" y="-1553.3" font-family="Courier New" font-size="14.00">add &#160;&#160;&#160;&#160;x3, x0, x1</text>
@@ -88,7 +88,7 @@
 <!-- IG10 -->
 <g id="node10" class="node">
 <title>IG10</title>
-<polygon fill="#ffffcc" stroke="black" points="492,-193 196,-193 196,-84 492,-84 492,-193"/>
+<polygon fill="white" stroke="black" points="492,-193 196,-193 196,-84 492,-84 492,-193"/>
 <polygon fill="#fcfbfd" stroke="none" points="204,-88 204,-189 484,-189 484,-88 204,-88"/>
 <text text-anchor="start" x="322.5" y="-163.9" font-family="Courier New" font-weight="bold" font-size="17.00">IG10</text>
 <text text-anchor="start" x="216" y="-132.3" font-family="Courier New" font-size="14.00">bl &#160;&#160;&#160;&#160;&#160;CORINFO_HELP_RNGCHKFAIL</text>

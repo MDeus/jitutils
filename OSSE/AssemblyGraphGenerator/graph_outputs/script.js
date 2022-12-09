@@ -53,7 +53,7 @@ function addValueToList(key, value) {
 //     console.log(id)
 //     console.log(lines)
 
-//     draggable = new PlainDraggable(node, {
+//     var draggable = new PlainDraggable(node, {
 //         onMove: function () {
 //             lines.forEach(function(line) { line.position(); });
 //             // for (var i = 0; i < lines.length; i++) {lines[i].position()}

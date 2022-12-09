@@ -19,15 +19,9 @@ public class Test {
         return num;
     }
 
-    static void generateTestFile(int num_groups) {
-
-    }
-
-    static void StressTestAllVerticesDetected(int num_groups, ref int passed, ref int failed, ref List<String> failed_test) {
-        String file_name = "test_file/test_stress_"+num_groups+".txt";
+    static String GenerateTestFile (int num_groups, String file_name) {
         String expected_out = "";
         if (!File.Exists(file_name)) {
-            Random rnd = new Random();
             StreamWriter writetext = new StreamWriter(file_name);
             writetext.WriteLine("; Assembly listing for method Test Metod");
             writetext.WriteLine("\n");
@@ -35,8 +29,6 @@ public class Test {
             for (int i = 0; i < num_groups; i++) {
                 String num = GetStringFromNum(i + 1);
                 writetext.WriteLine("G_M_IG"+num+":");
-                writetext.WriteLine("\tcbz G_M_IG"+GetStringFromNum(rnd.Next(1, num_groups)));
-
                 expected_out = expected_out + " " + "IG"+num;
             }
 
@@ -47,15 +39,30 @@ public class Test {
             }
         }
 
+        return expected_out;
+    }
+
+    static void update_counts (bool condition, String test_name, String file_name, ref int passed, ref int failed, ref List<String> failed_test) {
+        if (condition) {passed += 1;}
+        else {failed += 1; failed_test.Add(test_name + ": " + file_name);}
+    }
+
+    static void StressTestAllVerticesDetected(int num_groups, ref int passed, ref int failed, ref List<String> failed_test) {
+        String file_name = "test_file/test_stress_"+num_groups+".txt";
+        String expected_out = GenerateTestFile(num_groups,file_name);
         String vertexCount = Program.TestAllVerticesDetected(file_name);
-        if (vertexCount.Trim() == expected_out.Trim()) {passed += 1;} else {failed += 1; failed_test.Add("StressTestAllVerticesDetected: " + file_name);}
+
+        bool condition = vertexCount.Trim() == expected_out.Trim();
+        update_counts(condition, "StressTestAllVerticesDetected", file_name, ref passed, ref failed, ref failed_test);
     }
 
     static void TestSVG(String file, String[] sol_file, ref int passed, ref int failed, ref List<String> failed_test) {
         String [] svg_out = Program.TestSVGCreated(file);
         for (int i=0; i < sol_file.Length; i++) {
             String svg_sol = File.ReadAllText(Path.GetFullPath(sol_file[i]));
-            if (svg_sol.Trim() == svg_out[i].Trim()) {passed += 1;} else {failed += 1; failed_test.Add("TestSVGCreated: " + file);}
+
+            bool condition = svg_sol.Trim() == svg_out[i].Trim();
+            update_counts(condition, "TestSVGCreated", file, ref passed, ref failed, ref failed_test);
         }
     }
     
@@ -64,30 +71,36 @@ public class Test {
         List<String> failed_test = new List<String>();
 
         // Test Graph has all Vertices
-        // StressTestAllVerticesDetected(10, ref passed, ref failed, ref failed_test);
         StressTestAllVerticesDetected(10, ref passed, ref failed, ref failed_test);
         StressTestAllVerticesDetected(30, ref passed, ref failed, ref failed_test);
         StressTestAllVerticesDetected(80, ref passed, ref failed, ref failed_test);
         StressTestAllVerticesDetected(500, ref passed, ref failed, ref failed_test);
         StressTestAllVerticesDetected(1000, ref passed, ref failed, ref failed_test);
+        StressTestAllVerticesDetected(2000, ref passed, ref failed, ref failed_test);
+        StressTestAllVerticesDetected(3000, ref passed, ref failed, ref failed_test);
+        StressTestAllVerticesDetected(4000, ref passed, ref failed, ref failed_test);
+        StressTestAllVerticesDetected(5000, ref passed, ref failed, ref failed_test);
         StressTestAllVerticesDetected(10000, ref passed, ref failed, ref failed_test);
+        StressTestAllVerticesDetected(20000, ref passed, ref failed, ref failed_test);
 
         // Cycle tests
         String [] cycle1 = Program.TestCycleDetection("test_file/test1.txt");
-        if (cycle1.Length == 0) {passed += 1;} else {failed += 1; failed_test.Add("TestCycleDetection: test1.txt");}
+        update_counts(cycle1.Length == 0, "TestCycleDetection", "test_file/test1.txt", ref passed, ref failed, ref failed_test);
 
         String [] cycle2 = Program.TestCycleDetection("test_file/test2.txt");
-        String [] cycle2_out = new String [] {"IG01 IG03 IG02 IG01","IG01 IG05 IG03 IG02 IG01","IG06 IG06", "IG02 IG04 IG03 IG02"};
-        if (Enumerable.SequenceEqual(cycle2, cycle2_out)) {passed += 1;} else {failed += 1; failed_test.Add("TestCycleDetection: test2.txt");}
+        String [] cycle2_sol = new String [] {"IG01 IG03 IG02 IG01","IG01 IG05 IG03 IG02 IG01","IG06 IG06", "IG02 IG04 IG03 IG02"};
+        update_counts(Enumerable.SequenceEqual(cycle2, cycle2_sol), "TestCycleDetection", "est_file/test2.txt", ref passed, ref failed, ref failed_test);
 
         // Test SVG File 
         TestSVG("test_file/test1.txt", new String [] {"test_solution/test1.svg"}, ref passed, ref failed, ref failed_test);
         TestSVG("test_file/test2.txt", new String [] {"test_solution/test2.svg"}, ref passed, ref failed, ref failed_test);
-        TestSVG("test_file/test3.txt", new String [] {"test_solution/test3.svg"}, ref passed, ref failed, ref failed_test);
-        TestSVG("test_file/test_stress_30.txt", new String [] {"test_solution/test_stress_30.svg"}, ref passed, ref failed, ref failed_test);
+        TestSVG("test_file/test_stress_500.txt", new String [] {"test_solution/test_stress_500.svg"}, ref passed, ref failed, ref failed_test);
+        TestSVG("test_file/test_stress_1000.txt", new String [] {"test_solution/test_stress_1000.svg"}, ref passed, ref failed, ref failed_test);
+        TestSVG("test_file/test_stress_2000.txt", new String [] {"test_solution/test_stress_2000.svg"}, ref passed, ref failed, ref failed_test);
+        TestSVG("test_file/test_colors.txt", new String [] {"test_solution/test_colors.svg"}, ref passed, ref failed, ref failed_test);
 
-        Console.WriteLine("\n\n\n");
-        // Program.TestCycleDetection("test_file/test_stress_30.txt");
+        String [] multiple_sol_files = new String [] {"test_solution/7fd93a6f.svg", "test_solution/c648fd53.svg", "test_solution/1b5e9e9c.svg", "test_solution/d1234a96.svg"};
+        TestSVG("test_file/test_multiple_x64.txt", multiple_sol_files, ref passed, ref failed, ref failed_test);
 
         // print Test Results
         Console.Write("\nTESTS RAN: {0}", passed + failed);

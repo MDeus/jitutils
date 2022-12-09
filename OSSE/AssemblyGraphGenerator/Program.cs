@@ -239,7 +239,7 @@ public class Program {
             String svgFile =  Path.Combine(output_folder_path, graph_name) + ".svg";
             process.StartInfo.Arguments = $"-Tsvg \"{inputfile}\" -o \"{svgFile}\"";
 
-            g.CreateDotFile(inputfile, show_weight_score);
+            g.GenerateDotFile(inputfile, show_weight_score);
 
             process.Start();
             process.WaitForExit();
@@ -427,7 +427,7 @@ public class Program {
         List<Graph> graphs = CreateGraphs(lines, false);
         String out_path = Path.GetDirectoryName(in_path);
 
-        List<String> svg_list =  CreateSVGOrHTML(graphs, out_path, false, true);
+        List<String> svg_list =  CreateSVGOrHTML(graphs, out_path, false, false);
         foreach(String svg in svg_list) {
             svgContent.Add(File.ReadAllText(svg));
             if (File.Exists(svg)) { File.Delete(svg);}
@@ -446,7 +446,6 @@ public class Program {
         [Option("output-folder", Required = true,  HelpText = "The folder for the SVG/HTML graph outputs")]
         public string OutputFolder { get; set; }
 
-        // Omitting long name, defaults to name of property, ie "--verbose"
         [Option("show-hash-code", Required = false, Default = false, HelpText = "Boolean to represent whether to show the hash code for each instruction")]
         public bool ShowHashCode { get; set; }
 

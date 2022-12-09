@@ -228,7 +228,7 @@ class Graph {
     /// <param name="score"></param>
     /// <returns> a number representing the heatmap intensity or the color of the border of the group </returns>
     private string choose_heat_color(Double score) {
-        if(maxScore == 0) {return "white";}
+        if(maxScore == 0 || score == 0) {return "white";}
         Double ratio = Math.Round(score / maxScore, 1 );
 
         if (ratio < 0.2) {; return "1";}
@@ -244,6 +244,7 @@ class Graph {
 
     /// <summary>
     /// using the weight of the group, it calculates a ratio using the max weight of the overall method
+    /// color levels only go up to 5 cause higher than 5 becomes difficult to read
     /// </summary>
     /// <param name="weight"></param>
     /// <returns> a number representing the color of the group </returns>
@@ -350,21 +351,23 @@ class Graph {
     /// </summary>
     /// <param name="v"> current vertex </param>
     /// <param name="file_content"> output file content </param>
-    private void AddVertexContentToFile(Vertex v, ref List<String> file_content) {
+    private void AddVertexContentToFile(Vertex v, bool show_weight_score, ref StreamWriter wt) {
         foreach(String code in v.GetContentCode()) {
             List<String> code_arr = new List<string>();
+            String tab = "          ";
+            if (show_weight_score) {tab = "                     ";}
 
             TexWrap(code, ref code_arr);
 
             if (code.Contains(" IG") && !code.Contains("]")) {
-                file_content.Add("\t\t<tr><td align=\"left\" ><b>"+code_arr[0]+"</b></td></tr>");
+                wt.WriteLine("\t\t<tr><td align=\"left\" ><b>"+code_arr[0]+"</b></td></tr>");
                 for (int i=1; i < code_arr.Count; i++) {
-                    file_content.Add("\t\t<tr><td align=\"left\" ><b>        "+code_arr[i]+"</b></td></tr>");
+                    wt.WriteLine("\t\t<tr><td align=\"left\" ><b>"+tab+code_arr[i]+"</b></td></tr>");
                 }
             } else {
-                file_content.Add("\t\t<tr><td align=\"left\">"+code_arr[0]+"</td></tr>");
+                wt.WriteLine("\t\t<tr><td align=\"left\">"+code_arr[0]+"</td></tr>");
                 for (int i=1; i < code_arr.Count; i++) {
-                    file_content.Add("\t\t<tr><td align=\"left\">          "+ code_arr[i]+"</td></tr>");
+                    wt.WriteLine("\t\t<tr><td align=\"left\">"+tab+ code_arr[i]+"</td></tr>");
                 }
             }
         }
@@ -376,7 +379,7 @@ class Graph {
     /// </summary>
     /// <param name="v_cycles"> all cycle edges </param>
     /// <param name="file_content"> output file content </param>
-    private void AddCyclesToFile(ref List<String> v_cycles, ref List<String> file_content) {
+    private void AddCyclesToFile(ref List<String> v_cycles, ref StreamWriter wt) {
         HashSet<List<Vertex>> cycles = DetectCycle();
 
         foreach (List<Vertex> v_list in cycles) {
@@ -385,7 +388,7 @@ class Graph {
                 String s = v_list[i].GetLabel() + " -> " + v_list[i+1].GetLabel();
 
                 if (!v_cycles.Contains(s)) {
-                    file_content.Add("\t"+v_list[i].GetLabel()+" -> "+v_list[i+1].GetLabel()+" [color=red];");
+                    wt.WriteLine("\t"+v_list[i].GetLabel()+" -> "+v_list[i+1].GetLabel()+" [color=red];");
                     v_cycles.Add(s);
                 }
             }
@@ -398,7 +401,7 @@ class Graph {
     /// </summary>
     /// <param name="v_cycles"> all cycle edges </param>
     /// <param name="file_content"> output file content </param>
-    private void AddEdgeConnectionsToFile(ref List<String> v_cycles, ref List<String> file_content) {
+    private void AddEdgeConnectionsToFile(ref List<String> v_cycles, ref StreamWriter wt) {
         foreach (var pair in adjVertices) {
             Vertex v = pair.Key;
 
@@ -406,13 +409,15 @@ class Graph {
                 // remove repeated edge
                 if (!v_cycles.Contains(v.GetLabel() + " -> " + vi.GetLabel())) {
                     if (vi.Equals(v)) {
-                        file_content.Add("\t"+v.GetLabel()+" -> "+vi.GetLabel()+" [color=red, dir=back];");
+                        wt.WriteLine("\t"+v.GetLabel()+" -> "+vi.GetLabel()+" [color=red, dir=back];");
                     } else {
-                        if (String.Compare(v.GetLabel(), vi.GetLabel()) > 0 ) {
-                            file_content.Add("\t"+v.GetLabel()+" -> "+vi.GetLabel()+" [color=green];");    
+                        int v_label = Int32.Parse(v.GetLabel().Split("G")[1]);
+                        int vi_label = Int32.Parse(vi.GetLabel().Split("G")[1]);
+                        if (v_label > vi_label) {
+                            wt.WriteLine("\t"+v.GetLabel()+" -> "+vi.GetLabel()+" [color=green];");    
                         }
                         else {
-                            file_content.Add("\t"+v.GetLabel()+" -> "+vi.GetLabel()+" [color=blue];");
+                            wt.WriteLine("\t"+v.GetLabel()+" -> "+vi.GetLabel()+" [color=blue];");
                         }
                     }
                 }
@@ -424,7 +429,7 @@ class Graph {
     /// creates invisible edges from one vertex to next to keep graph align
     /// </summary>
     /// <param name="file_content"> output file content </param>
-    private void AddInvisibleEdges(ref List<String> file_content) {
+    private void AddInvisibleEdges(ref StreamWriter wt) {
         List<Vertex> vertices = GetVertices();
         int t_vertices = vertices.Count;
         
@@ -433,59 +438,45 @@ class Graph {
             edge = edge + (vertices[i].GetLabel() + " -> ");
         }
 
-        file_content.Add("\n\tedge[style=invis];");
-        file_content.Add(edge + vertices[t_vertices - 1].GetLabel() + "};");  
+        wt.WriteLine("\n\tedge[style=invis];");
+        wt.WriteLine(edge + vertices[t_vertices - 1].GetLabel() + "};");  
     }
 
     /// <summary>
-    /// generate contents of dot file
+    /// generate dot file
     /// </summary>
     /// <param name="show_weight_score"> whether to display perfScore and Weight on each node  </param>
-    /// <returns> generated file content </returns>
-    public List<String> GenerateDotFileContent (Boolean show_weight_score) {
-        // creating graphviz file
-        List<String> file_content = new List<String>();
 
-        file_content.Add("digraph FlowGraph {");
-        file_content.Add("\tnode [shape = \"Box\" fontname=\"Courier New\" rankdir = LR esep=1 colorscheme=ylorrd9];");
-        file_content.Add("\tlabel= \""+method_name+"\n"+system+"\nOptimized Code: "+optimized+"\n Total Bytes of Code "+total_bytes+"\n\"");
+    public void GenerateDotFile (String folder_path, Boolean show_weight_score) {
+        // creating graphviz file
+        StreamWriter wt = new StreamWriter(folder_path);
+
+        wt.WriteLine("digraph FlowGraph {");
+        wt.WriteLine("\tnode [shape = \"Box\" fontname=\"Courier New\" rankdir = LR esep=1 colorscheme=ylorrd9];");
+        wt.WriteLine("\tlabel= \""+method_name+"\n"+system+"\nOptimized Code: "+optimized+"\n Total Bytes of Code "+total_bytes+"\n\"");
         foreach (var pair in adjVertices) {
             Vertex v = pair.Key;
 
-            file_content.Add("\t"+v.GetLabel()+" [label =<");
-            file_content.Add("\t\t<table border=\"0\" cellspacing=\"10\" bgcolor=\"/purples9/"+choose_group_color(v.GetWeight())+"\">");
-            file_content.Add("\t\t<tr><td align=\"center\" ><b><font POINT-SIZE=\"17\">"+v.GetLabel()+"</font></b></td></tr>");
+            wt.WriteLine("\t"+v.GetLabel()+" [label =<");
+            wt.WriteLine("\t\t<table border=\"0\" cellspacing=\"10\" bgcolor=\"/purples9/"+choose_group_color(v.GetWeight())+"\">");
+            wt.WriteLine("\t\t<tr><td align=\"center\" ><b><font POINT-SIZE=\"17\">"+v.GetLabel()+"</font></b></td></tr>");
             if (show_weight_score) {
-                file_content.Add("\t\t<tr><td align=\"center\"><font  > Weight: "+v.GetWeight()+" Perfscore: "+v.GetScore()+"</font></td></tr>");
-                file_content.Add("\t\t<tr><td align=\"center\" >  </td></tr>");
+                wt.WriteLine("\t\t<tr><td align=\"center\"><font  > Weight: "+v.GetWeight()+" Perfscore: "+v.GetScore()+"</font></td></tr>");
+                wt.WriteLine("\t\t<tr><td align=\"center\" >  </td></tr>");
             }
 
-            AddVertexContentToFile(v, ref file_content); // add code in group to file content
-            file_content.Add("\t\t</table>> style=\"solid\" style=filled, fillcolor="+choose_heat_color(v.GetScore())+"];");
+            AddVertexContentToFile(v, show_weight_score, ref wt); // add code in group to file content
+            wt.WriteLine("\t\t</table>> style=\"solid\" style=filled, fillcolor="+choose_heat_color(v.GetScore())+"];");
         }
 
-        file_content.Add("\n");
+        wt.WriteLine("\n");
         List<String> v_cycles = new List<String>();
 
-        AddCyclesToFile(ref v_cycles, ref file_content); // get cycles and add them to the file content
-        AddEdgeConnectionsToFile(ref v_cycles, ref file_content); // add all the edges to the file content
-        AddInvisibleEdges(ref file_content);  // created and add invisible connections to keep tables in order
+        AddCyclesToFile(ref v_cycles, ref wt); // get cycles and add them to the file content
+        AddEdgeConnectionsToFile(ref v_cycles, ref wt); // add all the edges to the file content
+        AddInvisibleEdges(ref wt);  // created and add invisible connections to keep tables in order
 
-        file_content.Add( "}");   
-        return file_content;
-    }
-
-    /// <summary>
-    /// creates dot file
-    /// </summary>
-    /// <param name="folder_path"> path to output folder </param>
-    /// <param name="show_weight_score">whether to display perfScore and Weight on each node</param>
-    public void CreateDotFile (String folder_path, Boolean show_weight_score) {
-        List<String> SVG_content = GenerateDotFileContent(show_weight_score); // get dot file content
-
-        // creating graphviz file
-        StreamWriter writetext = new StreamWriter(folder_path);
-        foreach (String s in SVG_content) {writetext.WriteLine(s);}
-        writetext.Close();
+        wt.WriteLine( "}");   
+        wt.Close();
     }
 }

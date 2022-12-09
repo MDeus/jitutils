@@ -1,0 +1,22 @@
+; Assembly listing for method Test Metod
+
+G_M_IG01:
+    ;; bbWeight=0    PerfScore 0
+G_M_IG02:
+    ;; bbWeight=1    PerfScore 1
+G_M_IG03:
+    ;; bbWeight=2    PerfScore 2
+G_M_IG04:
+    ;; bbWeight=3    PerfScore 3
+G_M_IG05:
+    ;; bbWeight=4    PerfScore 4
+G_M_IG06:
+    ;; bbWeight=5    PerfScore 5
+G_M_IG07:
+    ;; bbWeight=6    PerfScore 6
+G_M_IG08:
+    ;; bbWeight=7    PerfScore 7
+G_M_IG09:
+    ;; bbWeight=8    PerfScore 8
+G_M_IG10:
+    ;; bbWeight=9    PerfScore 9
