@@ -17,6 +17,7 @@ G_M_IG07:
 G_M_IG08:
     ;; bbWeight=7    PerfScore 7
 G_M_IG09:
+    cbz G_M_IG06
     ;; bbWeight=8    PerfScore 8
 G_M_IG10:
     ;; bbWeight=9    PerfScore 9

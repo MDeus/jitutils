@@ -222,32 +222,42 @@ public class Program {
     /// <param name="graph_list"> list of graphs </param>
     /// <param name="output_folder_path"> path to output folder for SVG files</param>
     /// <param name="show_weight_score"> boolean on whether to show weight and perfScore on each node in SVG graph output </param>
+
     static List<String> CreateSVGOrHTML(List<Graph> graph_list, String output_folder_path, Boolean show_weight_score, Boolean html) {
         Process process = new Process();
         int i = 0;;
         List<String> svg_list = new List<String>();
+        System.IO.Directory.CreateDirectory(output_folder_path);
         foreach (Graph g in graph_list) {
 
             String graph_name = "graph_" + i;
             if (g.GetHashcode() != "") {graph_name = g.GetHashcode();}
 
             process.StartInfo.FileName = "dot.exe";
-            process.StartInfo.RedirectStandardInput = true;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardError = true;
             String inputfile = Path.Combine(output_folder_path, graph_name) + ".dot";
             String svgFile =  Path.Combine(output_folder_path, graph_name) + ".svg";
             process.StartInfo.Arguments = $"-Tsvg \"{inputfile}\" -o \"{svgFile}\"";
+        
+            try
+            {
+                g.GenerateDotFile(inputfile, show_weight_score);
+                process.Start();
+                process.WaitForExit();
+                
+                if (File.Exists(inputfile)) { File.Delete(inputfile);}
+                if (!File.Exists(svgFile)) {Console.WriteLine("ERROR: Could not generate graph file: " + graph_name);}
+                if (html){CreateHTMLFile(graph_name, output_folder_path);}
 
-            g.GenerateDotFile(inputfile, show_weight_score);
-
-            process.Start();
-            process.WaitForExit();
-
-            if (File.Exists(inputfile)) { File.Delete(inputfile);}
-            if (html){CreateHTMLFile(graph_name, output_folder_path);}
-
-            svg_list.Add(svgFile);
+                if(html) svg_list.Add(Path.Combine(output_folder_path, graph_name) + ".html"); else svg_list.Add(svgFile);
+            }
+            catch (Exception)
+            {
+                
+                Console.WriteLine("ERROR: Could not generate graph file: " + graph_name);
+            }
         }
 
         return svg_list;
@@ -261,106 +271,62 @@ public class Program {
     /// <param name="folderPath"> output folder for HTML file </param>
     static void CreateHTMLFile(String filename, String folderPath) {
         String leaderline_file = "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js\"></script>";
-        // String draggable_file = "<script src=\"https://cdn.jsdelivr.net/npm/plain-draggable@2.5.12/plain-draggable.min.js\"></script>";
+        String draggable_file = "<script src=\"https://cdn.jsdelivr.net/npm/plain-draggable@2.5.12/plain-draggable.min.js\"></script>";
         // String script_file = "<script src=\"script.js\"></script>";
+        // String 
         String svgFile = Path.Combine(folderPath, filename) + ".svg";
 
         // javascript draggable code
         String srcipt_file_content = 
         @"<script>
-        var node_list = document.querySelectorAll("".node"")
-        var edge_list = document.querySelectorAll("".edge"")
-        var map = {};
+        var nodes_ls = []
+        var LinkElement = []
 
-        // create leaderlines
-        for (var i = 0; i < edge_list.length; i++) {
-            var edge_title = edge_list[i].getElementsByTagName('title')[0].textContent.split(""->"")
-            var s_num = parseInt(edge_title[0].split('G')[1]).toString()
-            var e_num = parseInt(edge_title[1].split('G')[1]).toString()
+        document.querySelectorAll("".node"").forEach(function(node){
+        nodes_ls.push(node.id)
+        });
 
-            if(s_num == e_num) {continue;}
+        document.querySelectorAll("".edge"").forEach(function(edge) {
+        var edge_title = edge.getElementsByTagName('title')[0].textContent.split(""->"")
+        var s_num = parseInt(edge_title[0].split('G')[1]).toString()
+        var e_num = parseInt(edge_title[1].split('G')[1]).toString()
+        var color = edge.getElementsByTagName('polygon')[0].getAttribute('fill')
+        var options = {color: color, size: 2, path:'straight'}
 
-            // get start and end element of edge
-            var startElem = document.getElementById('node'+s_num)
-            var endElem = document.getElementById('node'+e_num)
-
-            // get line color
-            var color = edge_list[i].getElementsByTagName('polygon')[0].getAttribute('fill')
-            var options = {color: color, size: 2, path:'straight'}
-
+        if (s_num != e_num){
             if (parseInt(e_num) != parseInt(s_num) + 1 && parseInt(e_num) != parseInt(s_num) - 1) { 
                 var startSocket, endSocket;
                 if (color == 'green') {startSocket= 'left'; endSocket= 'left';}
                 else {startSocket= 'right'; endSocket= 'right';}
                 
-                options = {color: color, size: 2, path:'fluid', hoverStyle:{dash:{Animation:true}} ,startSocket:startSocket, endSocket:endSocket}
+                options = {color: color, size: 2, path:'fluid', startSocket:startSocket, endSocket:endSocket}
             }
 
-            // create leader line
-            var line = new LeaderLine((startElem), endElem, options)
-            
-            addValueToList(startElem.id, line)
-            addValueToList(endElem.id, line)
-            edge_list[i].remove()
+            LinkElement.push({leftNode : 'node'+s_num, rightNode: 'node'+e_num, options: options})
+
+            edge.remove()
         }
-        
-        // draggable = new PlainDraggable(element);
-        function addValueToList(key, value) {
-            //if the list is already created for the ""key"", then uses it
-            //else creates new list for the ""key"" to store multiple values in it.
-            map[key] = map[key] || [];
-            map[key].push(value);
-        }
+        });
 
-        for (var i = 0; i < node_list.length; i++) {
-            var id = node_list[i].id
-            var o = new Draggable(node_list[i], map[id])
-        }
+        var nodes = nodes_ls.reduce(function(nodes, id) {
+            var element = document.getElementById(id);
+            nodes[id] = {
+            element: element,
+            draggable: new PlainDraggable(element, {
+                onMove: function() {
+                    nodes[id].lines.forEach(function(line) { line.position(); });
+                }
+            }), lines: [] };
+            return nodes;
+        }, {}), LinkElement;
 
-        // https://stackoverflow.com/questions/41514967/yes-no-is-there-a-way-to-improve-mouse-dragging-with-pure-svg-tools/41518545#41518545
-        function Draggable(elem, lines) {
-            this.target = elem
-            this.clickPoint = this.target.ownerSVGElement.createSVGPoint()
-            this.lastMove = this.target.ownerSVGElement.createSVGPoint()
-            this.currentMove = this.target.ownerSVGElement.createSVGPoint()
-            this.target.addEventListener(""mousedown"", this)
-            
-            this.handleEvent = function(evt) {
-                evt.preventDefault()
-                this.clickPoint = globalToLocalCoords(elem, evt.clientX, evt.clientY)
-                this.target.classList.add(""dragged"")
-                this.target.setAttribute(""pointer-events"", ""none"")
-                this.target.ownerSVGElement.addEventListener(""mousemove"", this.move)
-                this.target.ownerSVGElement.addEventListener(""mouseup"", this.endMove)
-            }
-
-            this.move = function(evt) {
-                var p = globalToLocalCoords(elem, evt.clientX, evt.clientY)
-                this.currentMove.x = this.lastMove.x + (p.x - this.clickPoint.x)
-                this.currentMove.y = this.lastMove.y + (p.y - this.clickPoint.y)
-                this.target.setAttribute(""transform"", ""translate("" + this.currentMove.x + "","" + this.currentMove.y + "")"")
-                for (var i = 0; i < lines.length; i++) {lines[i].position();}
-            }.bind(this)
-
-            this.endMove = function(evt) {
-                evt.preventDefault()
-                this.lastMove.x = this.currentMove.x
-                this.lastMove.y = this.currentMove.y
-                this.target.classList.remove(""dragged"")
-                this.target.setAttribute(""pointer-events"", ""all"")
-                this.target.ownerSVGElement.removeEventListener(""mousemove"", this.move)
-                this.target.ownerSVGElement.removeEventListener(""mouseup"", this.endMove)
-                
-            }.bind(this)
-
-            function globalToLocalCoords(elem, x, y) {
-                var p = elem.ownerSVGElement.createSVGPoint()
-                var m = elem.parentNode.getScreenCTM()
-                p.x = x
-                p.y = y
-                return p.matrixTransform(m.inverse())
-            }
-        }
+        LinkElement.forEach(function(link) {
+        var leftNode = nodes[link.leftNode],
+            rightNode = nodes[link.rightNode],
+            line = new LeaderLine(leftNode.element, rightNode.element, link.options);
+        leftNode.lines.push(line);
+        rightNode.lines.push(line);
+        });
         
     </script>";
 
@@ -368,7 +334,7 @@ public class Program {
         text = text.Replace("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"", "<!DOCTYPE html >");
         text = text.Replace("\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">", "");
         text = text.Replace("<svg", "<html>\n<body>\n<svg");
-        text = text.Replace("</svg>", "</svg>\n"+leaderline_file+"\n"+srcipt_file_content+"\n</body>\n</html>");
+        text = text.Replace("</svg>", "</svg>\n"+draggable_file +"\n" +leaderline_file+"\n"+srcipt_file_content+"\n</body>\n</html>");
 
         File.WriteAllText(Path.Combine(folderPath, filename) + ".html", text);
         if (File.Exists(svgFile)) { File.Delete(svgFile);}
@@ -385,7 +351,7 @@ public class Program {
     static public String [] TestCycleDetection(String file ) {
         String[] lines = File.ReadAllLines(Path.GetFullPath(file));
         List<Graph> graphs = CreateGraphs(lines, false);
-        HashSet<List<Vertex>> cycles = graphs[0].DetectCycle();
+        List<List<Vertex>> cycles = graphs[0].getAllCycles();
         List<String> cycle_string = new List<String>();
 
         foreach (List<Vertex> v_ls in cycles) {
@@ -420,15 +386,15 @@ public class Program {
     /// </summary>
     /// <param name="file"> input file </param>
     /// <returns> string array of generated file content </returns>
-    static public String[] TestSVGCreated(String file) {
+    static public String[] TestSVGorHTMLCreated(String file, Boolean html) {
         List<string> svgContent = new List<String>(); 
         String in_path = Path.GetFullPath(file);
 
         String[] lines = File.ReadAllLines(in_path);       
         List<Graph> graphs = CreateGraphs(lines, false);
-        String out_path = Path.GetDirectoryName(in_path);
+        // String out_path = Path.GetDirectoryName(in_path);
 
-        List<String> svg_list =  CreateSVGOrHTML(graphs, out_path, false, false);
+        List<String> svg_list =  CreateSVGOrHTML(graphs, Path.GetDirectoryName(in_path), false, html);
         foreach(String svg in svg_list) {
             svgContent.Add(File.ReadAllText(svg));
             if (File.Exists(svg)) { File.Delete(svg);}
@@ -442,10 +408,10 @@ public class Program {
     class Options
     {
         [Option("input-file", Required = true, HelpText = "Input file to be processed.")]
-        public string InputFile { get; set; }
+        public string? InputFile { get; set; }
 
         [Option("output-folder", Required = true,  HelpText = "The folder for the SVG/HTML graph outputs")]
-        public string OutputFolder { get; set; }
+        public string? OutputFolder { get; set; }
 
         [Option("show-hash-code", Required = false, Default = false, HelpText = "Boolean to represent whether to show the hash code for each instruction")]
         public bool ShowHashCode { get; set; }
@@ -466,11 +432,11 @@ public class Program {
 
         Parser.Default.ParseArguments<Options>(args)
             .WithParsed<Options>(o =>
-            {   
+            {   if (o.InputFile == null || o.OutputFolder == null) System.Environment.Exit(1);
                 if (o.ShowHashCode) { show_hash_code = true;}
                 if (o.ShowWeightPerfscore) {show_weight_score = true;}
                 if (o.html) {html=true;}
-
+                
                 input_file = o.InputFile;
                 output_folder = o.OutputFolder;
             }
@@ -478,7 +444,8 @@ public class Program {
 
         // check input file path 
         if (!File.Exists(input_file)) {
-            throw new ArgumentException ("ERROR: Incorrect input file path " + input_file);
+            Console.WriteLine ("ERROR: Incorrect input file " + input_file );
+            System.Environment.Exit(1);
         }
 
         // check output file path
@@ -487,9 +454,11 @@ public class Program {
             output_folder_path = Path.GetFullPath(output_folder);
         } catch(Exception) {
             Console.WriteLine("ERROR: Incorrect output folder path " + output_folder);
+            System.Environment.Exit(1);
         }
 
         String[] lines = File.ReadAllLines(input_file); 
-        if (lines.Length != 0) {CreateSVGOrHTML(CreateGraphs(lines, show_hash_code), output_folder_path, show_weight_score, html);}
+        if (lines.Length > 0) if (lines.Length != 0) {CreateSVGOrHTML(CreateGraphs(lines, show_hash_code), output_folder_path, show_weight_score, html);}
+        else {Console.WriteLine("ERROR: Empty input file" + input_file);}
     }
 }

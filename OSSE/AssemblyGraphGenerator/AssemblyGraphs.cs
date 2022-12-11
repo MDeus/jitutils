@@ -261,70 +261,58 @@ class Graph {
     }
 
     /// <summary>
-    /// DFS implementaton to detect and return all cycles found along a path
+    /// creates cycle by packtracking through current path
     /// </summary>
-    /// <param name="v"> current vertex </param>
-    /// <param name="visited"> stack of all the visited vertices </param>
-    /// <param name="explore"> stack of all the fully explored vertices</param>
-    /// <param name="cycles"> cycles found </param>
-    /// <returns> true if cycle found, false otherwise </returns>
-    private bool DFS (Vertex v, ref Stack<Vertex> visited, ref Stack<Vertex> explore, ref HashSet<List<Vertex>> cycles) {
-        // Console.Write(" " +v.GetLabel()+ " ");
-        if (explore.Contains(v)) { // found a cycle
-            // Console.WriteLine("\nCYCLE: "+ v.GetLabel());
-            List<Vertex> cycle = new List<Vertex>();
-            cycle.Add(v);
-            while (!explore.Peek().Equals(v)) {
-                Vertex v_c = explore.Pop();
-                cycle.Add(v_c);
-            }
-            
-            for (int i=cycle.Count -1; i > 0; i--) {
-                explore.Push(cycle[i]);
-            }
-
-            cycle.Add(v);
-            // visited.Push(v);
-            cycles.Add(cycle);
-            return true;
+    /// <param name="paths"></param>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
+    private List<Vertex> buildCycle(Dictionary<Vertex, Vertex> paths, Vertex start, Vertex end) {
+        List<Vertex> cycle = new List<Vertex>();
+        Vertex current = end;
+        cycle.Add( start);
+        bool has_cycle = true;
+        while (current != null && !current.Equals(start)) {
+            cycle.Add( current);
+            try {current = paths[current];}
+            catch (KeyNotFoundException ) {has_cycle = false; current = start;}
         }
 
-        explore.Push(v);
-        foreach (Vertex v1 in adjVertices[v]) {
-            // if(v.GetLabel() == "IG06") {Console.WriteLine("IN IG6: "+ v1.GetLabel());}
-            if (!visited.Contains(v1)) {
-                Boolean cycle = DFS(v1, ref visited, ref explore, ref cycles);
-                if (!cycle) {
-                    while (!explore.Peek().Equals(v1)) {
-                        // Console.WriteLine("POP: "+ explore.Peek().GetLabel());
-                        explore.Pop();
-                    }
-                    // Console.WriteLine("POP: "+ explore.Peek().GetLabel());
-                    explore.Pop();
-                } 
-            }
-            
-        }
-
-        visited.Push(v);
-        return false; // no cycle found
+        cycle.Add( start);
+        if (!has_cycle) {cycle.Clear();}
+        return cycle;
     }
-
+    
     /// <summary>
-    /// detects the cycles found in the graph
+    /// returns all cycles in the files
     /// </summary>
-    /// <returns> all the cycles found </returns>
-    public HashSet<List<Vertex>> DetectCycle() {
-        Stack<Vertex> visited = new Stack<Vertex>();
-        Stack<Vertex> explore = new Stack<Vertex>();
-        HashSet<List<Vertex>> cycles = new HashSet<List<Vertex>>();
-
-        foreach (Vertex v in GetVertices()) {
-            if (!visited.Contains(v)) {
-                DFS(v, ref visited, ref explore, ref cycles);
+    /// <returns></returns>
+    public List<List<Vertex>> getAllCycles() {
+        List<List<Vertex>> cycles = new List<List<Vertex>>();
+        Stack<Vertex> stack = new  Stack<Vertex>();
+        HashSet<Vertex> vitited = new HashSet<Vertex>();
+        
+        foreach (Vertex next in GetVertices()) {
+            if (vitited.Contains(next)) continue;
+            
+            Dictionary<Vertex, Vertex> paths = new Dictionary<Vertex, Vertex> ();
+            stack.Push(next);
+            while (stack.Count > 0) {
+                Vertex current = stack.Pop();
+                vitited.Add(current);
+                foreach (Vertex neighbor in adjVertices[current]) {
+                    if (vitited.Contains(neighbor)) { // the cycle was found
+                        // build cycle, don't add vertex to the stack and don't add new entry to the paths (it can prevent other cycles containing neighbour vertex from being detected)
+                        List<Vertex> temp_cycl = buildCycle(paths, neighbor, current);
+                        if (temp_cycl.Count != 0) cycles.Add(temp_cycl);
+                    } else {
+                        stack.Push(neighbor);
+                        paths.Add(neighbor, current);
+                        vitited.Add(neighbor);
+                    }
+                }
             }
         }
-
         return cycles;
     }
 
@@ -380,7 +368,7 @@ class Graph {
     /// <param name="v_cycles"> all cycle edges </param>
     /// <param name="wt"> streamwriter to write file contents to </param>
     private void AddCyclesToFile(ref List<String> v_cycles, ref StreamWriter wt) {
-        HashSet<List<Vertex>> cycles = DetectCycle();
+        List<List<Vertex>> cycles = getAllCycles();
 
         foreach (List<Vertex> v_list in cycles) {
             v_list.Reverse();
@@ -453,7 +441,7 @@ class Graph {
         StreamWriter wt = new StreamWriter(folder_path);
 
         wt.WriteLine("digraph FlowGraph {");
-        wt.WriteLine("\tnode [shape = \"Box\" fontname=\"Courier New\" rankdir = LR esep=1 colorscheme=ylorrd9];");
+        wt.WriteLine("\tnode [shape = \"box\" fontname=\"Courier New\" rankdir = LR esep=1 colorscheme=ylorrd9];");
         wt.WriteLine("\tlabel= \""+method_name+"\n"+system+"\nOptimized Code: "+optimized+"\n Total Bytes of Code "+total_bytes+"\n\"");
         foreach (var pair in adjVertices) {
             Vertex v = pair.Key;

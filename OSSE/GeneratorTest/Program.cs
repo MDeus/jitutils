@@ -56,13 +56,13 @@ public class Test {
         update_counts(condition, "StressTestAllVerticesDetected", file_name, ref passed, ref failed, ref failed_test);
     }
 
-    static void TestSVG(String file, String[] sol_file, ref int passed, ref int failed, ref List<String> failed_test) {
-        String [] svg_out = Program.TestSVGCreated(file);
+    static void TestSVGHTML(String file, String[] sol_file, ref int passed, ref int failed, ref List<String> failed_test, Boolean html) {
+        String [] svg_out = Program.TestSVGorHTMLCreated(file, html);
         for (int i=0; i < sol_file.Length; i++) {
             String svg_sol = File.ReadAllText(Path.GetFullPath(sol_file[i]));
 
             bool condition = svg_sol.Trim() == svg_out[i].Trim();
-            update_counts(condition, "TestSVGCreated", file, ref passed, ref failed, ref failed_test);
+            update_counts(condition, "TestSVGorHTMLCreated", file, ref passed, ref failed, ref failed_test);
         }
     }
     
@@ -82,25 +82,37 @@ public class Test {
         StressTestAllVerticesDetected(5000, ref passed, ref failed, ref failed_test);
         StressTestAllVerticesDetected(10000, ref passed, ref failed, ref failed_test);
         StressTestAllVerticesDetected(20000, ref passed, ref failed, ref failed_test);
+        StressTestAllVerticesDetected(9000, ref passed, ref failed, ref failed_test);
 
         // Cycle tests
         String [] cycle1 = Program.TestCycleDetection("test_file/test1.txt");
-        update_counts(cycle1.Length == 0, "TestCycleDetection", "test_file/test1.txt", ref passed, ref failed, ref failed_test);
+        update_counts(Program.TestCycleDetection("test_file/test1.txt").Length == 0, "TestCycleDetection", "test_file/test1.txt", ref passed, ref failed, ref failed_test);
+        update_counts(Program.TestCycleDetection("test_file/test_stress_1000.txt").Length == 0, "TestCycleDetection", "test_file/test_stress_1000.txt", ref passed, ref failed, ref failed_test);
+        update_counts(Program.TestCycleDetection("test_file/test_stress_2000.txt").Length == 0, "TestCycleDetection", "test_file/test_stress_2000.txt", ref passed, ref failed, ref failed_test);
+        update_counts(Program.TestCycleDetection("test_file/test_stress_4000.txt").Length == 0, "TestCycleDetection", "test_file/test_stress_4000.txt", ref passed, ref failed, ref failed_test);
+        update_counts(Program.TestCycleDetection("test_file/test_stress_10000.txt").Length == 0, "TestCycleDetection", "test_file/test_stress_10000.txt", ref passed, ref failed, ref failed_test);
 
         String [] cycle2 = Program.TestCycleDetection("test_file/test2.txt");
-        String [] cycle2_sol = new String [] {"IG01 IG03 IG02 IG01","IG01 IG05 IG03 IG02 IG01","IG06 IG06", "IG02 IG04 IG03 IG02"};
-        update_counts(Enumerable.SequenceEqual(cycle2, cycle2_sol), "TestCycleDetection", "est_file/test2.txt", ref passed, ref failed, ref failed_test);
+        String [] cycle2_sol = new String [] {"IG01 IG03 IG02 IG01","IG02 IG04 IG03 IG02", "IG01 IG05 IG03 IG02 IG01", "IG06 IG06"};
+        update_counts(Enumerable.SequenceEqual(cycle2, cycle2_sol), "TestCycleDetection", "Test_file/test2.txt", ref passed, ref failed, ref failed_test);
 
         // Test SVG File 
-        TestSVG("test_file/test1.txt", new String [] {"test_solution/test1.svg"}, ref passed, ref failed, ref failed_test);
-        TestSVG("test_file/test2.txt", new String [] {"test_solution/test2.svg"}, ref passed, ref failed, ref failed_test);
-        TestSVG("test_file/test_stress_500.txt", new String [] {"test_solution/test_stress_500.svg"}, ref passed, ref failed, ref failed_test);
-        TestSVG("test_file/test_stress_1000.txt", new String [] {"test_solution/test_stress_1000.svg"}, ref passed, ref failed, ref failed_test);
-        TestSVG("test_file/test_stress_2000.txt", new String [] {"test_solution/test_stress_2000.svg"}, ref passed, ref failed, ref failed_test);
-        TestSVG("test_file/test_colors.txt", new String [] {"test_solution/test_colors.svg"}, ref passed, ref failed, ref failed_test);
+        TestSVGHTML("test_file/test1.txt", new String [] {"test_solution/test1.svg"}, ref passed, ref failed, ref failed_test, false);
+        TestSVGHTML("test_file/test2.txt", new String [] {"test_solution/test2.svg"}, ref passed, ref failed, ref failed_test, false);
+        TestSVGHTML("test_file/test_stress_500.txt", new String [] {"test_solution/test_stress_500.svg"}, ref passed, ref failed, ref failed_test, false);
+        TestSVGHTML("test_file/test_stress_1000.txt", new String [] {"test_solution/test_stress_1000.svg"}, ref passed, ref failed, ref failed_test, false);
+        TestSVGHTML("test_file/test_stress_2000.txt", new String [] {"test_solution/test_stress_2000.svg"}, ref passed, ref failed, ref failed_test, false);
+        TestSVGHTML("test_file/test_colors.txt", new String [] {"test_solution/test_colors.svg"}, ref passed, ref failed, ref failed_test, false);
 
         String [] multiple_sol_files = new String [] {"test_solution/7fd93a6f.svg", "test_solution/c648fd53.svg", "test_solution/1b5e9e9c.svg", "test_solution/d1234a96.svg"};
-        TestSVG("test_file/test_multiple_x64.txt", multiple_sol_files, ref passed, ref failed, ref failed_test);
+        TestSVGHTML("test_file/test_multiple_x64.txt", multiple_sol_files, ref passed, ref failed, ref failed_test, false);
+
+        // Test GTML File 
+        TestSVGHTML("test_file/test_stress_2000.txt", new String [] {"test_solution/test_stress_2000.html"}, ref passed, ref failed, ref failed_test, true);
+        TestSVGHTML("test_file/test_colors.txt", new String [] {"test_solution/test_colors.html"}, ref passed, ref failed, ref failed_test, true);
+
+        String [] multiple_sol_files_html = new String [] {"test_solution/7fd93a6f.html", "test_solution/c648fd53.html", "test_solution/1b5e9e9c.html", "test_solution/d1234a96.html"};
+        TestSVGHTML("test_file/test_multiple_x64.txt", multiple_sol_files_html, ref passed, ref failed, ref failed_test, true);
 
         // print Test Results
         Console.Write("\nTESTS RAN: {0}", passed + failed);
