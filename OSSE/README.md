@@ -1,7 +1,7 @@
 
 
 # About #
-This is a tool for visualizing assembly code that takes an input file  containing assembly instructions and outputs an SVG.
+This is a tool for visualizing assembly code that takes an input file  containing assembly instructions and outputs an SVG or html.
 
 ## Installations ##
 - dotnet
